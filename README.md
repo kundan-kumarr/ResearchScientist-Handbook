@@ -5,7 +5,9 @@
 This guide will guide me to enhance my artificial intelligence skill set. There are two approaches to learning. I will parallelly follow Bottom-Up(learning mathematical concepts before applying them) and Top-Down(practical applications and then learning the theory).
 
 **Statistical-Analysis ::** https://kundan7kumar.github.io/statistics-analysis/
+
 **Data-Science ::** https://kundan7kumar.github.io/data-science/intro.html
+
 **Data-Science Blog ::** https://kundan7kumar.github.io/datascience-blog/
 
 I think, this guide will be helpful who want to pursue in becoming Research Scientist.
