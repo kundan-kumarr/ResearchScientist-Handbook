@@ -3,6 +3,7 @@
 
 ## Description
 This guide will guide me to enhance my artificial intelligence skill set. There are two approaches to learning. I will parallelly follow Bottom-Up(learning mathematical concepts before applying them) and Top-Down(practical applications and then learning the theory).
+Algorithm
 
 **Statistical-Analysis ::** [Statistics-Notes](https://kundan-kumarr.github.io/statistics-analysis/)
 
