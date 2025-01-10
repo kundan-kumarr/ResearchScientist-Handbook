@@ -7,9 +7,9 @@ Algorithm
 
 **Statistical-Analysis ::** [Statistics-Notes](https://kundan-kumarr.github.io/statistics-analysis/)
 
-**Data-Science ::** https://kundan7kumar.github.io/data-science/intro.html
+**Data-Science ::** https://kundan-kumarr.github.io/data-science/intro.html
 
-**Data-Science Blog ::** https://kundan7kumar.github.io/datascience-blog/
+**Data-Science Blog ::** https://kundan-kumarr.github.io/datascience-blog/
 
 I think, this guide will be helpful who want to pursue in becoming Research Scientist.
 Created 
