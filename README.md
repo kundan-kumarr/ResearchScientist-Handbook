@@ -2,7 +2,9 @@
 ![Full Guide](https://img.shields.io/badge/AI-AI--guide-green) ![Version 1.0.0](https://img.shields.io/badge/Version-1.0.0-orange)
 
 ## Description
-This guide will guide me to enhance my artificial intelligence skill set. There are two approaches to learning. I will parallelly follow Bottom-Up(learning mathematical concepts before applying them) and Top-Down(practical applications and then learning the theory).
+This guide will help me enhance my artificial intelligence skill set. I will follow two approaches to learning simultaneously: a Bottom-Up approach, where I focus on understanding mathematical concepts before applying them, and a Top-Down approach, which involves practical applications first, followed by theory. This preparation guide is specifically designed for my interview preparation.
+#200daysofinterview-preparation. [7th March - 23rd Sept 2025]
+
 Algorithm
 
 **Statistical-Analysis ::** [Statistics-Notes](https://kundan-kumarr.github.io/statistics-analysis/)
