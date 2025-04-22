@@ -19,11 +19,6 @@ Created
 -------------------------------------------------------------------------------- 
 ## Contents:
 - [Data Structure and Algorithms](#Data-Structure-Algorithms)
-- [Mathematical Foundation](#Mathematical-Foundations)
-   - [Linear Algebra](#Linear-Algebra) 
-   - [Probability](#Probability) 
-   - [Calculus](#Calculus)
-   - [Optimization Theory](#Optimization-Theory)
 - [Machine Learning](#Machine-Learning)
 - [Deep Learning](#Deep-Learning)
 - [Reinforcement Learning](#Reinforcement-Learning)
