@@ -363,64 +363,6 @@ Paper                    | Comment
 
 
 
-Here is a 5-phase (8-month) roadmap to transition to AI/ML"- Sorry there are no shortcuts
-
-Stepping into ML can be difficult, but a clear roadmap can make all the difference. The only resource you need: Vizuara’s YouTube playlists.
-
-Phase 1️⃣: Mathematical Foundations (20-25 hours)
-Playlist 1: Foundations for ML: https://lnkd.in/gKz-eybU
--Why Begin Here: Grasp the basics- Linear algebra, Probability, Statistics, Calculus, Optimization, Programming fundamentals
--Commitment: 2-3 hours weekly for 8 weeks.
-
-Phase 2️⃣: Machine Learning (60-65 hours)
-📌Playlist 1: ML Teach by Doing: https://lnkd.in/gn2dEcE2
--Why It’s Important: Practical, project-based learning to understand ML workflows.
--Commitment: 4 hours weekly for 10 weeks.
-
-📌Playlist 2: Decision Trees from Scratch: https://lnkd.in/g3cmj2BR
--Why It’s Useful: Master decision tree algorithms are the backbone of many ML models.
--Commitment: 4 hours weekly for 5 weeks.
-
-Phase 3️⃣: Deep Learning (35-40 hours)
-📌Playlist 1: Neural Networks from Scratch: https://lnkd.in/gj8kHe2T
--Why It Matters: Understand the mechanics of neural networks through implementation.
--Commitment: 5 hours weekly for 8 weeks.
-
-Phase 4️⃣: Advanced topics: Graph Neural Networks (40-45 hours)
-📌Playlist 1: Graph Neural Networks - Theory, Applications and Research: https://lnkd.in/g3RCPS8e
--Why Learn This: Graph-based ML is becoming increasingly relevant in fields like social networks and biology.
--Commitment: 3 hours weekly for 8 weeks.
-
-📌Playlist 2: ML Project-Based Course: Explainable AI: https://lnkd.in/gNEx3ghr
-Why XAI?: Build ML projects with a focus on interpretability
--Commitment: 3 hours weekly for 5 weeks.
--Outcome: Publish your first research paper using XAI techniques.
-
-Phase 5️⃣: Generative AI, Transformers, and LLMs (100-110 hours)
-📌Playlist 1: GenAI for Beginners (8 hours): https://lnkd.in/gUgXxVzh
-📌Playlist 2: LLMs from scratch (40-45 hours): https://lnkd.in/gjcyfCcE
-📌Playlist 3: Hands-on LLMs (40-45 hours): https://lnkd.in/gJQ7ryE4
-📌Playlist 4: Transformers (15 hours): https://lnkd.in/g_3Qdu6d
--Why These Topics?: Learning about LLMs, transformers, and generative AI will make you future-ready.
--Commitment: 5 hours weekly for 20 weeks.
-
-🔸Optional [140 hours]
-📌Introduction to Machine Learning in Julia [40 hours]: https://lnkd.in/g8A3DtQW
-📌Zero to Hero in Data Science [40 hours]: https://lnkd.in/gNEgx2Cz
-📌Hands-on PINN [20 hours]: https://lnkd.in/gta5hgHZ
-📌ML in Hindi [40 hours]: https://lnkd.in/giD88GzZ
-
-***
-✅Total Duration: 275 hours + optional 140 hours
-✅Timeline: 6-8 months, balancing learning with practical application.
-✅Outcome: Build foundational ML knowledge, gain practical skills, and stay ahead with advanced topics.
-
-***
-If you are willing to spend time, this roadmap will help you get there. 
-
-Follow Vizuara’s YouTube channel for structured and beginner-friendly playlists: https://lnkd.in/g455AJVw
-
-Your ML journey begins now—start building your expertise today.
 
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
