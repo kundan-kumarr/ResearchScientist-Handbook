@@ -1,0 +1,13 @@
+numpy
+scipy
+scikit-learn
+pandas
+matplotlib
+torch
+torchvision
+torchaudio
+pytest
+black
+isort
+ruff
+jupyter

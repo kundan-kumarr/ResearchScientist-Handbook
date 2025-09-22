@@ -1,6 +1,17 @@
 ## Research Scientist Guide
 ![Full Guide](https://img.shields.io/badge/AI-AI--guide-green) ![Version 1.0.0](https://img.shields.io/badge/Version-1.0.0-orange)
 
+# Research-Scientist Preparation Guide
+
+A hands-on, research-style prep repo: math/ML/DL refreshers, from-scratch implementations, PyTorch mini-labs, causality/Bayesian/RL samplers, and interview practice (coding + research questions). Designed for 60–90 minute daily blocks.
+
+## Quickstart
+```bash
+pip install -r requirements.txt
+pre-commit install           # optional but recommended
+pytest -q                    # run tests
+
+
 ## Description
 This guide will help me enhance my artificial intelligence skill set. I will follow two approaches to learning simultaneously: a Bottom-Up approach, where I focus on understanding mathematical concepts before applying them, and a Top-Down approach, which involves practical applications first, followed by theory. This preparation guide is specifically designed for my interview preparation.
 #200daysofinterview-preparation. [7th March - 23rd Sept 2025]
