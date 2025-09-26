@@ -131,3 +131,6 @@ dmypy.json
 # Ignore GitHub and VS Code configuration folders
 .github/
 .vscode/
+.Rproj.user
+
+/.quarto/

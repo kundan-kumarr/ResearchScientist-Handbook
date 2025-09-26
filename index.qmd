@@ -1,0 +1,34 @@
+---
+engine: knitr
+---
+
+## Preface {.unnumbered}
+
+This is a collection of lecture notes on **statistical analysis** and the use of the statistical programming language **R**.  
+Many of these lectures are based on course materials taught at **Iowa State University** and have been adapted and expanded by **Kundan Kumar**.
+
+Each lecture begins with learning objectives and required readings, with additional references provided throughout the text.  
+The notes introduce key methods and provide examples, but they are not intended to replace a textbook.
+
+The audience is expected to be familiar with R programming and the following statistical concepts and methods:  
+- probability distributions  
+- sampling inference and hypothesis testing  
+- correlation analysis  
+- regression analysis, including:  
+  - simple and multiple linear regression  
+  - mixed-effects models  
+  - generalized linear models  
+  - generalized additive models  
+
+## Author {.unnumbered}
+
+**Kundan Kumar**  
+<https://kundan-kumarr.github.io/>
+
+## Citation {.unnumbered}
+
+Kumar, K. (`r substr(Sys.Date(), 1, 4)`). *Statistical Analysis: Lecture Notes with R*. Edition `r substr(Sys.Date(), 1, 7)`.
+
+## License {.unnumbered}
+
+This work is licensed under the [MIT License](https://opensource.org/licenses/MIT).

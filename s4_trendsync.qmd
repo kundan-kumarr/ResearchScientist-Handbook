@@ -1,0 +1,146 @@
+---
+output: html_document
+editor_options:
+    chunk_output_type: console
+---
+
+```{r, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+options(digits = 3)
+theme_set(theme_light())
+```
+
+# Synchrony of parametric trends {#sec-syncparam}
+
+The problem of detecting joint trend dynamics in time series is essential in a variety of applications, ranging from the analysis of macroeconomic indicators [@Vogelsang:Franses:2005;@Eun:Lee:2010] to assessing patterns in ice phenology measurements from multiple locations [@Latifovic:Pouliot:2007;@Duguay:etal:2013] to evaluating yields of financial instruments at various maturity levels [@Park:etal:2009] and cell phone download activity at different area codes [@Degras:etal:2012].
+
+The extensive research on comparing trend patterns follows two main directions: 
+
+1. Testing for joint mean functions.
+1. Analysis of joint stochastic trends, which is closely linked to the cointegration notion by @Engle:Granger:1987 (@sec-cointegration).
+
+Here we explore the first direction, that is, assess whether several observed time series follow the same hypothesized parametric trend. 
+
+There exist many tests for comparing mean functions, but most of the developed methods assume independent errors. 
+Substantially less is known about testing for joint deterministic trends in a time series framework.
+
+One of the methods developed for time series is by @Degras:etal:2012 and @Zhang:2013 who extended the integrated square error (ISE) based approach of @VF:GM:2004 to a case of multiple time series with weakly dependent (non)stationary errors. 
+For a comprehensive literature review of available methodology for comparing mean functions embedded into independent errors in a time series framework, see @Degras:etal:2012 and @Park:etal:2014. 
+Most of these methods, however, either focus on aligning only two curves or require us to select multiple hyperparameters, such as the bandwidth, level of smoothness, and window size for a long-run variance function. 
+As mentioned by @Park:etal:2014, the choice of such *multiple nuisance parameters* is challenging for a comparison of curves (even under the independent and identically distributed setup) and often leads to inadequate performance, especially in samples of moderate size.
+
+As an alternative, consider an extension of the WAVK test (@sec-WAVK) to a case of multiple time series [@Lyubchich:Gel:2016:synchronism]. 
+Let us observe $N$ time series
+$$
+Y_{it} = \mu_i(t/T) + \epsilon_{it},
+$$
+where $i = 1, \dots, N$ ($N$ is the number of time series), $t=1, \dots, T$ ($T$ is the length of the time series), $\mu_i(u)$ ($0<u\leqslant 1$) are unknown smooth trend functions, and the noise $\epsilon_{it}$ can be represented as a finite-order AR($p$) process or infinite-order AR($\infty$) process with i.i.d. innovations ${e}_{it}$.
+
+We are interested in testing whether these $N$ observed time series have the same trend of some pre-specified smooth parametric form $f(\theta, u)$:
+
+$H_0$: $\mu_i(u)= c_i + f(\theta, u)$  
+$H_1$: there exists $i$, such that $\mu_i(u)\neq c_i + f(\theta, u)$,
+
+where the reference curve $f(\theta, u)$ with a vector of parameters $\theta$ belongs to a known family of smooth parametric functions, and $1\leqslant i \leqslant N$. 
+For identifiability, assume that $\sum_{i=1}^N c_i=0$. 
+Notice that the hypotheses include (but are not limited to) the special cases of  
+$f(\theta,u)\equiv 0$ (testing for no trend);  
+$f(\theta,u)=\theta_0+\theta_1 u$ (testing for a common linear trend);  
+$f(\theta,u)=\theta_0+\theta_1 u+\theta_2u^2$ (testing for a common quadratic trend).
+
+This hypothesis testing approach allows us to answer the following questions:
+
+- Do trends in temperature (or wind speeds, or precipitation) reproduced by a climate model correspond to the historical observations? 
+I.e., is the model generally correct? 
+- Do different instruments (sensors) capture changes similarly, or deviate, for example, due to aging of some of the instruments?
+- Do trends estimated at different locations (Canada and USA, lower and mid-troposphere, etc.) follow some hypothesized global trend?
+
+Test the null hypothesis by following these steps [@Lyubchich:Gel:2016:synchronism]:
+
+1. Estimate the joint hypothetical trend $f({\theta}, u)$ using the aggregated sample $\left\{\overline{Y}_{\cdot t}\right\}_{t=1}^T$ (i.e., a time series obtained by averaging across all $N$ time series).
+1. For each time series, subtract the estimated trend, then apply the autoregressive filter to obtain residuals $\hat{e}_{it}$, which under the $H_0$ behave asymptotically like the independent and identically distributed ${e}_{it}$:
+$$
+\begin{split}
+\hat{e}_{it}&= \hat{\epsilon}_{it}-\sum_{j=1}^{p_i(T)}{\hat{\phi}_{ij}\hat{\epsilon}_{i,t-j}} \\
+&=
+\left\{ Y_{it} - f(\hat{\theta},u_{t}) \right\} -
+\left\{ \sum_{j=1}^{p_i(T)}{\hat{\phi}_{ij}{Y}_{i,t-j}} - \sum_{j=1}^{p_i(T)}{\hat{\phi}_{ij}f(\hat{\theta},u_{t-j})} \right\}.
+\end{split}
+$$
+1. Construct a sequence of $N$ statistics ${\rm WAVK}_{1}(k_{1}), \dots, {\rm WAVK}_{N}(k_{N})$.
+Then, the synchrony test statistic is
+$$
+S_T = \sum_{i=1}^N k_{i}^{-1/2}{\rm WAVK}_{i}(k_{i}),
+$$
+where $k_{i}$ is the local window size for the WAVK statistic.
+1. Estimate the variance of $\hat{e}_{it}$, e.g., using the robust difference-based estimator by @Rice:1984:
+$$
+s_i^2= \frac{\sum_{t=2}^T(\hat{e}_{it}-\hat{e}_{i,t-1})^2}{2(T-1)}.
+$$
+1. Simulate $BN$ times $T$-dimensional vectors $e^*_{iT}$ from the multivariate normal distribution $MVN\left(0, s_i^2\boldsymbol{I}\right)$, where $B$ is the number of bootstrap replications, $\boldsymbol{I}$ is a $T\times T$ identity matrix.
+1. Compute $B$ bootstrapped statistics on $e^*_{iT}$:
+$$S^*_T=\sum_{i=1}^N k^{-1/2}_{i} {\rm WAVK}^*_{i}(k_{i}).$$
+1. The bootstrap $p$-value for testing the $H_0$ is the proportion of $|S^*_T|$ that exceed $|S_T|$.
+
+See the application of both the WAVK and synchrony tests in @Lyubchich:2016:trends.
+
+If the null hypothesis is rejected, the method does not tell, however, what was the reason, and which particular time series caused the rejection of the $H_0$.
+One can remove the time series (or several time series at once) with the largest WAVK statistic(s) and apply the test again, although repeated testing increases the probability of Type I error. 
+For an application of this method in trend clustering, see [this vignette](https://cran.r-project.org/web/packages/funtimes/vignettes/tsclusters.html).
+
+::: {.callout-note icon=false}
+
+## Example: CMIP5 vs. observations
+
+Replicate the test for synchrony of trends found in two time series [@Lyubchich:2016:trends]:
+
+- a multi-model average of temperatures from the 5th phase of the Coupled Model Intercomparison Project (CMIP5) and
+- observed global temperature anomalies relative to the base period of 1981--2010.
+
+```{r}
+D <- read.csv("data/CMIP5.csv") %>% 
+    filter(1948 <= Year & Year <= 2013) %>%
+    mutate(Temp_CMIP5 = Temp_CMIP5 - 273.15)
+```
+
+See @fig-CMIP5 showing the time series plots after converting the CMIP data to degrees Celsius.
+
+```{r}
+#| label: fig-CMIP5
+#| fig-cap: "Global annual mean temperature (°C) in 1948--2013: CMIP5 multi-model average and observed anomalies relative to the base period of 1981--2010."
+
+p1 <- D %>% ggplot(aes(x = Year, y = Temp_CMIP5)) +
+    geom_line()
+p2 <- D %>% ggplot(aes(x = Year, y = Temp_obs)) +
+    geom_line()
+p1 + p2 +
+    plot_annotation(tag_levels = 'A')
+```
+
+Test the synchrony of parametric *linear* trends in these time series:
+
+```{r}
+#| code-fold: false
+
+set.seed(123)
+funtimes::sync_test(D[, c("Temp_CMIP5", "Temp_obs")] ~ t)
+```
+
+The $p$-value below the usual significance level $\alpha = 0.05$ allows us to reject the null hypothesis, however, as @Lyubchich:2016:trends pointed out, the decision would differ if more confidence is required (e.g., $\alpha = 0.01$). 
+Note that the $p$-value of 0.012 reported by @Lyubchich:2016:trends differs from the one reported above due to the function settings and randomness due to the bootstrapping.
+We should save the random number generator state with `set.seed()` for replicability (so the test results are exactly the same every time the test is applied), and use a larger number of bootstrap replications `B` for consistency (so the test leads to the same conclusions when the function `set.seed()` is not used).
+
+Now test the synchrony of parametric *quadratic* trends in these time series:
+
+```{r}
+#| code-fold: false
+
+set.seed(123)
+funtimes::sync_test(D[, c("Temp_CMIP5", "Temp_obs")] ~ poly(t, 2))
+```
+
+Note these results differ substantially based on the window used for computing the WAVK statistic.
+The function `funtimes::sync_test()` automatically selects the optimal window based on the heuristic approach of comparing distances between bootstrap distributions [@Lyubchich:Gel:2016:synchronism;@Lyubchich:2016:trends].
+:::
