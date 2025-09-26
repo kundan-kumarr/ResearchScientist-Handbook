@@ -3,8 +3,8 @@ project:
     output-dir: docs
 
 book:
-    title: Statistical Analysis
-    subtitle: Statistical Analysis Lecture Notes with R
+    title: Research Scientist Guide
+    subtitle: Comprehensive Research Scientist Interview Notes and Guides
     author: Kundan Kumar
     # date: today
     date-format: iso

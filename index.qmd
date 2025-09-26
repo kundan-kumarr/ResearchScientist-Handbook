@@ -4,30 +4,39 @@ engine: knitr
 
 ## Preface {.unnumbered}
 
-This is a collection of lecture notes on **statistical analysis** and the use of the statistical programming language **R**.  
-Many of these lectures are based on course materials taught at **Iowa State University** and have been adapted and expanded by **Kundan Kumar**.
+This is a curated collection of **Research Scientist** interview notes and guidelines. It is designed to serve as a practical reference for candidates preparing for research-oriented roles in academia, industry, and applied labs.
 
-Each lecture begins with learning objectives and required readings, with additional references provided throughout the text.  
-The notes introduce key methods and provide examples, but they are not intended to replace a textbook.
+The materials consolidate insights from research experiences and professional practice to cover both technical depth and practical preparation.
+Each section begins with key learning objectives, followed by structured notes, example problems, and additional resources.
+The notes highlight essential methods, provide applied examples, and offer interview strategies. They are not intended to replace textbooks or formal training, but rather to complement them with targeted guidance.
 
-The audience is expected to be familiar with R programming and the following statistical concepts and methods:  
-- probability distributions  
-- sampling inference and hypothesis testing  
-- correlation analysis  
-- regression analysis, including:  
-  - simple and multiple linear regression  
+The intended audience is expected to have foundational knowledge in computer science, machine learning, and statistics, including: 
+
+- Foundations in Statistics & Mathematics 
   - mixed-effects models  
   - generalized linear models  
   - generalized additive models  
+- Algorithms & Optimization
+  - algorithms and data structures (sorting, searching, graph, dynamic programming, etc.) 
+  - optimization techniques (convex, non-convex, gradient-based methods)  
+- Machine Learning & AI 
+  - classical and modern machine learning methods 
+  - reinforcement learning and deep learning foundations  
+  - natural language processing (NLP) and large language models (LLMs)
+  - AI/LLM design patterns (retrieval-augmented generation, agentic workflows, tool-use, prompt engineering, safety & alignment strategies)
+- Research Methods 
+  - research methodology and experimental design 
+  - critical analysis and interpretation of results 
+
 
 ## Author {.unnumbered}
 
-**Kundan Kumar**  
-<https://kundan-kumarr.github.io/>
+**Kundan Kumar** -  <https://kundan-kumarr.github.io/>
 
 ## Citation {.unnumbered}
 
-Kumar, K. (`r substr(Sys.Date(), 1, 4)`). *Statistical Analysis: Lecture Notes with R*. Edition `r substr(Sys.Date(), 1, 7)`.
+Kumar, Kumar. (`r substr(Sys.Date(), 1, 4)`). *Research Scientist Interview Notes and Guidelines*. Edition `r substr(Sys.Date(), 1, 7)`.
+
 
 ## License {.unnumbered}
 
