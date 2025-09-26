@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.33">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>12&nbsp; Model Evaluation and Forecasting – Time Series Analysis</title>
+<title>12&nbsp; Model Evaluation and Forecasting – Statistical Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,7 +38,6 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -51,7 +47,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./l13_spectral.html" rel="next">
 <link href="./l11_panel.html" rel="prev">
-<link href="./TSAfav.png" rel="icon" type="image/png">
+<link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -61,8 +57,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -88,12 +83,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -119,15 +109,11 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
 </head>
-
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -138,34 +124,47 @@ window.Quarto = {
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Time Series Analysis</a> 
+      <a href="./">Statistical Analysis</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/vlyubchich/tsar/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/kundan-kumarr/StatSphere/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Time-Series-Analysis.pdf">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Statistical-Analysis.pdf">
               <i class="bi bi-file-pdf pe-1"></i>
             Download PDF
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Time-Series-Analysis.epub">
+            <a class="dropdown-item sidebar-tools-main-item" href="./Statistical-Analysis.epub">
               <i class="bi bi-journal pe-1"></i>
             Download ePub
             </a>
           </li>
       </ul>
-    </div>
+</div>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+</div>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -181,7 +180,7 @@ window.Quarto = {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
@@ -267,12 +266,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./software.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Software</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -285,43 +278,63 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s1_wls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Weighted least squares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s2_gls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Generalized least squares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s4_trendsync.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Synchrony of parametric trends</span></span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./s6_extremes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Analysis of precipitation extremes and climate projections</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Analysis of precipitation extremes and climate projections</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s_practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Practice exercises</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#time-series-forecasts" id="toc-time-series-forecasts" class="nav-link active" data-scroll-target="#time-series-forecasts"><span class="header-section-number">12.1</span> Time series forecasts</a>
+<li>
+<a href="#time-series-forecasts" id="toc-time-series-forecasts" class="nav-link active" data-scroll-target="#time-series-forecasts"><span class="header-section-number">12.1</span> Time series forecasts</a>
   <ul class="collapse">
-  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">12.1.1</span> Assumptions</a></li>
+<li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">12.1.1</span> Assumptions</a></li>
   <li><a href="#how-to-obtain-forecasts-from-different-types-of-models-white-noise-like-recursive-like-arima-and-exponential-smoothing-with-x-variables-and-arma-structure-examples-in-r" id="toc-how-to-obtain-forecasts-from-different-types-of-models-white-noise-like-recursive-like-arima-and-exponential-smoothing-with-x-variables-and-arma-structure-examples-in-r" class="nav-link" data-scroll-target="#how-to-obtain-forecasts-from-different-types-of-models-white-noise-like-recursive-like-arima-and-exponential-smoothing-with-x-variables-and-arma-structure-examples-in-r"><span class="header-section-number">12.1.2</span> How to obtain forecasts from different types of models (white noise-like; recursive like ARIMA and Exponential smoothing; with x-variables and ARMA structure; Examples in R)</a></li>
   <li><a href="#types-of-forecasts-especially-when-multiple-regression" id="toc-types-of-forecasts-especially-when-multiple-regression" class="nav-link" data-scroll-target="#types-of-forecasts-especially-when-multiple-regression"><span class="header-section-number">12.1.3</span> Types of forecasts, especially when multiple regression</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#cross-validation-schemes" id="toc-cross-validation-schemes" class="nav-link" data-scroll-target="#cross-validation-schemes"><span class="header-section-number">12.2</span> Cross-validation schemes</a></li>
   <li><a href="#metrics-for-model-comparison" id="toc-metrics-for-model-comparison" class="nav-link" data-scroll-target="#metrics-for-model-comparison"><span class="header-section-number">12.3</span> Metrics for model comparison</a></li>
   <li><a href="#worked-out-example-of-comparing-several-models" id="toc-worked-out-example-of-comparing-several-models" class="nav-link" data-scroll-target="#worked-out-example-of-comparing-several-models"><span class="header-section-number">12.4</span> Worked out example of comparing several models</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">12.5</span> Conclusion</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/vlyubchich/tsar/edit/master/l12_forecast.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vlyubchich/tsar/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/l12_forecast.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title"><span id="sec-evalforecast" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Evaluation and Forecasting</span></span></h1>
 </div>
 
@@ -336,10 +349,7 @@ window.Quarto = {
   
 
 
-</header>
-
-
-<p>This lecture …</p>
+</header><p>This lecture …</p>
 <p><strong>Objectives</strong></p>
 <ol type="1">
 <li>Recognize the typical assumptions implied when making forecasts.</li>
@@ -350,21 +360,21 @@ window.Quarto = {
 </ol>
 <p><strong>Reading materials</strong></p>
 <ul>
-<li>Chapter 9 in <span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="references.html#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span></li>
-<li>Chapter 7 in <span class="citation" data-cites="Hastie:etal:2009">Hastie et al. (<a href="references.html#ref-Hastie:etal:2009" role="doc-biblioref">2009</a>)</span></li>
+<li>Chapter 9 in <span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="references.html#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span>
+</li>
+<li>Chapter 7 in <span class="citation" data-cites="Hastie:etal:2009">Hastie et al. (<a href="references.html#ref-Hastie:etal:2009" role="doc-biblioref">2009</a>)</span>
+</li>
 </ul>
-<section id="time-series-forecasts" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="time-series-forecasts"><span class="header-section-number">12.1</span> Time series forecasts</h2>
-<section id="assumptions" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">12.1.1</span> Assumptions</h3>
-</section>
-<section id="how-to-obtain-forecasts-from-different-types-of-models-white-noise-like-recursive-like-arima-and-exponential-smoothing-with-x-variables-and-arma-structure-examples-in-r" class="level3" data-number="12.1.2">
-<h3 data-number="12.1.2" class="anchored" data-anchor-id="how-to-obtain-forecasts-from-different-types-of-models-white-noise-like-recursive-like-arima-and-exponential-smoothing-with-x-variables-and-arma-structure-examples-in-r"><span class="header-section-number">12.1.2</span> How to obtain forecasts from different types of models (white noise-like; recursive like ARIMA and Exponential smoothing; with x-variables and ARMA structure; Examples in R)</h3>
+<section id="time-series-forecasts" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="time-series-forecasts">
+<span class="header-section-number">12.1</span> Time series forecasts</h2>
+<section id="assumptions" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="assumptions">
+<span class="header-section-number">12.1.1</span> Assumptions</h3>
+</section><section id="how-to-obtain-forecasts-from-different-types-of-models-white-noise-like-recursive-like-arima-and-exponential-smoothing-with-x-variables-and-arma-structure-examples-in-r" class="level3" data-number="12.1.2"><h3 data-number="12.1.2" class="anchored" data-anchor-id="how-to-obtain-forecasts-from-different-types-of-models-white-noise-like-recursive-like-arima-and-exponential-smoothing-with-x-variables-and-arma-structure-examples-in-r">
+<span class="header-section-number">12.1.2</span> How to obtain forecasts from different types of models (white noise-like; recursive like ARIMA and Exponential smoothing; with x-variables and ARMA structure; Examples in R)</h3>
 <p>Univariate models - extrapolation of trends; ARIMA are 1-step-ahead forecasts (AIC)</p>
 <p>Types of forecasts (point prediction or intervals; can be different intervals for the same point prediction)</p>
-</section>
-<section id="types-of-forecasts-especially-when-multiple-regression" class="level3" data-number="12.1.3">
-<h3 data-number="12.1.3" class="anchored" data-anchor-id="types-of-forecasts-especially-when-multiple-regression"><span class="header-section-number">12.1.3</span> Types of forecasts, especially when multiple regression</h3>
+</section><section id="types-of-forecasts-especially-when-multiple-regression" class="level3" data-number="12.1.3"><h3 data-number="12.1.3" class="anchored" data-anchor-id="types-of-forecasts-especially-when-multiple-regression">
+<span class="header-section-number">12.1.3</span> Types of forecasts, especially when multiple regression</h3>
 <p>Types (<em>ex-post</em> from <em>ex-ante</em> forecasts)</p>
 <p>Let <span class="math inline">\(\hat{Y}_T(h)\)</span> be a forecast <span class="math inline">\(h\)</span> steps ahead made at the time <span class="math inline">\(T\)</span>. If <span class="math inline">\(\hat{Y}_T(h)\)</span> only uses information up to time <span class="math inline">\(T\)</span>, the resulting forecasts are called out-of-sample forecasts. Economists call them <em>ex-ante</em> forecasts. We have discussed several ways to select the optimal method or model for forecasting, e.g., using PMAE, PMSE, or coverage – all calculated on a testing set. <span class="citation" data-cites="Chatfield:2000">Chatfield (<a href="references.html#ref-Chatfield:2000" role="doc-biblioref">2000</a>)</span> lists several ways to unfairly ‘improve’ forecasts:</p>
 <ol type="1">
@@ -377,17 +387,14 @@ window.Quarto = {
 <p>If <span class="math inline">\(X_{t,k}\)</span>’s are leading indicators with lags starting at <span class="math inline">\(l\)</span>, we, generally, would not need their future values to obtain the forecasts <span class="math inline">\(\hat{Y}_T(h)\)</span>, where <span class="math inline">\(h\leqslant l\)</span>. For example, the model for losses tested in <a href="l09_tsreg2.html#sec-Granger" class="quarto-xref"><span>Section 9.7</span></a> shows that precipitation with lag 1 is a good predictor for current losses, i.e., precipitation is a leading indicator. The 1-week ahead forecast of <span class="math inline">\(Y_{t+1}\)</span> can be obtained using the current precipitation <span class="math inline">\(X_t\)</span> (all data are available). If <span class="math inline">\(h&gt;l\)</span>, we will be forced to forecast the independent variables, <span class="math inline">\(X_{t,k}\)</span>’s – see the next option.</p>
 <p><strong>Forecast of predictors</strong></p>
 <p>If we opt for forecasting <span class="math inline">\(X_{t,k}\)</span>’s, the errors (uncertainty) of such forecasts will be larger, because future <span class="math inline">\(X_{t,k}\)</span>’s themselves will be the estimates. Nevertheless, it might be the only choice when leading indicators are not available. Building a full and comprehensive model with all diagnostics for each regressor is usually unfeasible and even problematic if we plan to consider multivariate models for regressors (the complexity of models will quickly escalate). As an alternative, it is common to use automatic or semi-automatic univariate procedures that can help to forecast each of the <span class="math inline">\(X_{t,k}\)</span>’s. For example, consider exponential smoothing, Holt–Winters smoothing, and auto-selected SARIMA/ARIMA/ARMA/AR/MA models – all those can be automated for a large number of forecasts to make.</p>
-</section>
-</section>
-<section id="cross-validation-schemes" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="cross-validation-schemes"><span class="header-section-number">12.2</span> Cross-validation schemes</h2>
+</section></section><section id="cross-validation-schemes" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="cross-validation-schemes">
+<span class="header-section-number">12.2</span> Cross-validation schemes</h2>
 <p>Goals and intended implementation of the model hence the selection of the scheme.</p>
 <p>Training - Testing (split %% and n)</p>
 <p>Training - Testing - Evaluation</p>
 <p>Window approach caret:: forecast::</p>
-</section>
-<section id="metrics-for-model-comparison" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="metrics-for-model-comparison"><span class="header-section-number">12.3</span> Metrics for model comparison</h2>
+</section><section id="metrics-for-model-comparison" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="metrics-for-model-comparison">
+<span class="header-section-number">12.3</span> Metrics for model comparison</h2>
 <p>How do we compare forecasting models to decide which one is better? We will look at various ways of choosing between models as the course progresses, but the most obvious answer is to see which one is better at predicting.</p>
 <p>Suppose we have used the data <span class="math inline">\(Y_1, \dots, Y_n\)</span> to build <span class="math inline">\(M\)</span> forecasting models <span class="math inline">\(\hat{Y}^{(m)}_t\)</span> (<span class="math inline">\(m = 1,\dots,M\)</span>) and we now obtain future observations <span class="math inline">\(Y_{n+1}, \dots, Y_{n+k}\)</span> that were not used to fit the models (also called <em>out-of-sample</em> data, after-sample, or the testing set; <span class="math inline">\(k\)</span> is the size of this set). The difference <span class="math inline">\(Y_t - \hat{Y}^{(m)}_t\)</span> is the forecast (or prediction) error at the time <span class="math inline">\(t\)</span> for the <span class="math inline">\(m\)</span>th model. For each model, compute the prediction mean square error (PMSE) <span id="eq-pmse"><span class="math display">\[
 PMSE_m = k^{-1}\sum_{t=n+1}^{n+k}\left(Y_t - \hat{Y}^{(m)}_t\right)^2
@@ -440,17 +447,14 @@ Note
 </div>
 </div>
 <p>We may compare a great number of models using the training set, and choose the best one (with the smallest errors), however, it would be unfair to use the out-of-sample errors from the testing set for demonstrating the model performance because this part of the sample was used to select the model. Thus, it is advisable to have one more chunk of the same time series that was not used for model specification, estimation, or selection. Errors of the selected model on this <em>validation set</em> will be closer to the true (genuine) out-of-sample errors and can be used to improve coverage of true out-of-sample forecasts when the model is finally deployed.</p>
-</section>
-<section id="worked-out-example-of-comparing-several-models" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="worked-out-example-of-comparing-several-models"><span class="header-section-number">12.4</span> Worked out example of comparing several models</h2>
+</section><section id="worked-out-example-of-comparing-several-models" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="worked-out-example-of-comparing-several-models">
+<span class="header-section-number">12.4</span> Worked out example of comparing several models</h2>
 <ol type="1">
 <li><p>Basic (naive) models: average / climatology / HWinters</p></li>
 <li><p>Commonly or previously used model (GLM)</p></li>
 <li><p>State-of-the-science or proposed model</p></li>
-</ol>
-</section>
-<section id="conclusion" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">12.5</span> Conclusion</h2>
+</ol></section><section id="conclusion" class="level2" data-number="12.5"><h2 data-number="12.5" class="anchored" data-anchor-id="conclusion">
+<span class="header-section-number">12.5</span> Conclusion</h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -464,10 +468,7 @@ Chatfield C (2000) Time-series forecasting. CRC Press, Boca Raton, FL, USA
 Hastie TJ, Tibshirani RJ, Friedman JH (2009) <a href="https://doi.org/10.1007/978-0-387-84858-7">The elements of statistical learning: Data mining, inference, and prediction</a>, 2nd edn. Springer, New York, NY, USA
 </div>
 </div>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -865,9 +866,7 @@ Hastie TJ, Tibshirani RJ, Friedman JH (2009) <a href="https://doi.org/10.1007/97
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./l11_panel.html" class="pagination-link" aria-label="Panel Data Analysis">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Panel Data Analysis</span></span>
       </a>          
@@ -882,5 +881,4 @@ Hastie TJ, Tibshirani RJ, Friedman JH (2009) <a href="https://doi.org/10.1007/97
 
 
 
-
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/vlyubchich/tsar/edit/master/l12_forecast.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vlyubchich/tsar/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/l12_forecast.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
