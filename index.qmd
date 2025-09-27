@@ -13,11 +13,11 @@ The notes highlight essential methods, provide applied examples, and offer inter
 The intended audience is expected to have foundational knowledge in computer science, machine learning, and statistics, including: 
 
 - Foundations in Statistics & Mathematics 
-  - mixed-effects models  
-  - generalized linear models  
-  - generalized additive models  
+  - probability and statistics  
+  - hypothesis testing and inference  
+  - regression and correlation analysis 
 - Algorithms & Optimization
-  - algorithms and data structures (sorting, searching, graph, dynamic programming, etc.) 
+  - algorithms and data structures (sorting, searching, graph, dynamic programming, etc.)
   - optimization techniques (convex, non-convex, gradient-based methods)  
 - Machine Learning & AI 
   - classical and modern machine learning methods 

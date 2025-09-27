@@ -4,7 +4,7 @@
     "href": "index.html#preface",
     "title": "Research Scientist Guide",
     "section": "",
-    "text": "Foundations in Statistics & Mathematics\n\nmixed-effects models\n\ngeneralized linear models\n\ngeneralized additive models\n\n\n\nAlgorithms & Optimization\n\nalgorithms and data structures (sorting, searching, graph, dynamic programming, etc.)\noptimization techniques (convex, non-convex, gradient-based methods)\n\n\n\nMachine Learning & AI\n\nclassical and modern machine learning methods\nreinforcement learning and deep learning foundations\n\nnatural language processing (NLP) and large language models (LLMs)\nAI/LLM design patterns (retrieval-augmented generation, agentic workflows, tool-use, prompt engineering, safety & alignment strategies)\n\n\nResearch Methods\n\nresearch methodology and experimental design\ncritical analysis and interpretation of results",
+    "text": "Foundations in Statistics & Mathematics\n\nprobability and statistics\n\nhypothesis testing and inference\n\nregression and correlation analysis\n\n\nAlgorithms & Optimization\n\nalgorithms and data structures (sorting, searching, graph, dynamic programming, etc.)\noptimization techniques (convex, non-convex, gradient-based methods)\n\n\n\nMachine Learning & AI\n\nclassical and modern machine learning methods\nreinforcement learning and deep learning foundations\n\nnatural language processing (NLP) and large language models (LLMs)\nAI/LLM design patterns (retrieval-augmented generation, agentic workflows, tool-use, prompt engineering, safety & alignment strategies)\n\n\nResearch Methods\n\nresearch methodology and experimental design\ncritical analysis and interpretation of results",
     "crumbs": [
       "Preface"
     ]
