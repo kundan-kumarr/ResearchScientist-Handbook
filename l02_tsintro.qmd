@@ -12,24 +12,26 @@ options(digits = 3)
 theme_set(theme_light())
 ```
 
-# Introduction to Time Series Analysis
+# Data Structures and Algorithms 
 
-The goal of this lecture is to introduce time series and their common components. 
-You should become confident in identifying and characterizing trends, seasonal and other variability based on visual analysis of time series plots and plots of autocorrelation functions.
+This lecture aims to introduce Python data structures and core algorithmic techniques that form the foundation of efficient problem solving in interviews and confident in identifying the proper data structure for a problem, analyzing trade-offs, and implementing algorithms with optimal complexity.
 
 **Objectives**
 
-1. Define time series, common components (decomposition), and patterns to look out for (outliers, change points, heteroskedasticity).
-1. Distinguish simple models for univariate time series (building blocks for more complex models).
-1. Define autocorrelation and partial autocorrelation and interpret such estimates.
-1. Explain the assumption of stationarity for calculating autocorrelation.
+1. Define core data structures (lists, stacks, queues, hash tables, linked lists, trees, graphs) and identify when to use each.
+1. Analyze patterns and pitfalls in data structures (e.g., collisions in hashing, stack overflow in recursion, complexity of list operations in Python).
+1. Distinguish between common algorithmic paradigms (divide-and-conquer, greedy, dynamic programming, graph traversal).
+1. Implement and evaluate algorithms for searching, sorting, traversal, and optimization problems.
+1. Explain complexity analysis (time and space) and relate it to scalability and resource constraints.
+
 
 **Reading materials**
 
-* Chapters 1.1--1.4 in @Brockwell:Davis:2002
+* “Introduction to Algorithms” – Cormen, Leiserson, Rivest, Stein (CLRS), Ch. 1–5, 10–16 (fundamentals + data structures).
+* “Data Structures and Algorithms in Python” – Goodrich, Tamassia, Goldwasser.
+* Python documentation: `collections`, `heapq`, `bisect`, `itertools`.
 
-
-## Time series and its components
+## Strings and Arrays
 
 'A *time series* is a set of observations $Y_t$, each one being recorded at a specific time $t$' [@Brockwell:Davis:2002]. 
 The index $t$ will typically refer to some standard unit of time, e.g., seconds, hours, days, weeks, months, or years.
@@ -75,7 +77,20 @@ In this course, we will be interested in modeling time series to learn more abou
 Typically, we will use the historical data (or some appropriate subset of it) to build our forecasting models.
 
 
-## Decomposition of time series
+## Dictionaries
+
+A dictionary in Python is a hash table–based data structure that stores key–value pairs.
+
+- Keys must be immutable and unique 
+- Values can be of any type.  
+- Average-time complexity for insertion, lookup, and deletion is **O(1)**, but worst-case (with many collisions) can degrade to **O(n)**.  
+
+```{python}
+scores = {"Alice": 90, "Bob": 85}
+scores["Charlie"] = 95        # insert
+scores["Alice"] = 92          # update
+scores
+```
 
 A time series can generally be expressed as a sum or product of four distinct components:
 $$
@@ -116,8 +131,93 @@ births <- ts(births, frequency = 12, start = c(1946, 1))
 ggplot2::autoplot(decompose(births))
 ```
 
+### Create, Insert, Update
 
-## General approach to time series modeling
+```{python}
+scores = {"Alice": 90, "Bob": 85}
+scores["Charlie"] = 95        # insert
+scores["Alice"] = 92          # update
+scores
+```
+
+### Access & Membership
+
+```{python}
+scores.get("Bob")             # 85
+scores.get("Diana", 0)        # default=0
+"Alice" in scores             # True
+```
+
+### Delete & Pop with Default
+
+```{python}
+del scores["Bob"]
+removed = scores.pop("Charlie", None)   # safer than del when unsure
+scores, removed
+```
+
+### Dictionary Views (Dynamic)
+
+```{python}
+scores = {"A":1, "B":2}
+ks = scores.keys()
+scores["C"] = 3               # views reflect changes
+list(ks)                      # ['A','B','C'] (order preserved since 3.7+)
+```
+
+### `update`, merge (`|` / `|=` in Python 3.9+)
+
+```{python}
+base = {"a":1, "b":2}
+delta = {"b":20, "c":3}
+merged = base | delta         # {'a':1, 'b':20, 'c':3}
+base |= {"d":4}               # in-place merge
+base, merged
+```
+
+## Safe Accumulation: `get` / `setdefault`
+
+```{python}
+# Counting with get
+freq = {}
+for ch in "mississippi":
+    freq[ch] = freq.get(ch, 0) + 1
+freq
+
+# Grouping with setdefault
+groups = {}
+pairs = [("cat","mammal"), ("eel","fish"), ("dog","mammal")]
+for animal, kind in pairs:
+    groups.setdefault(kind, []).append(animal)
+groups
+```
+
+## `defaultdict` and `Counter` (collections)
+
+```{python}
+from collections import defaultdict, Counter
+
+dd = defaultdict(int)
+for ch in "banana":
+    dd[ch] += 1
+
+ctr = Counter("abracadabra")
+dd, ctr.most_common(2)
+```
+
+
+### Time & Space Complexity
+
+| Operation                         | Average Time | Worst Time | Notes                                |
+|----------------------------------|--------------|------------|--------------------------------------|
+| Insert / Update `d[k]=v`         | O(1)         | O(n)       | Resize or heavy collision can degrade |
+| Lookup `d[k]` / `d.get(k)`       | O(1)         | O(n)       | Use `get` to avoid `KeyError`         |
+| Delete `del d[k]` / `d.pop(k)`   | O(1)         | O(n)       | `pop(k, default)` is safer            |
+| Membership `k in d`              | O(1)         | O(n)       | Hash + equality                       |
+| Iterate keys/values/items        | O(n)         | O(n)       | Views are dynamic, reflect changes    |
+
+
+## Stacks, Queues, Two Pointer
 
 1. Plot the series and examine the main features of the graph, checking whether there is
     * a trend,
@@ -224,7 +324,7 @@ forecast::autoplot(as.ts(Ecdat::SP500[,1])) +
 :::
 
 
-## Some simple time series models
+## Linked Lists
 
 Recall that a random process is a sequence of random variables, so its model would be the joint distribution of these random variables
 $$
@@ -258,7 +358,7 @@ where $t=1,2,\dots$, and $X_t$ is i.i.d. noise.
 An i.i.d.(0,$\sigma^2$) series is also WN(0,$\sigma^2$), but not conversely.
 
 
-## Autocorrelation function
+## Recursion and Divide & Conquer Algorithms
 
 It is time to give more formal definitions of stationarity. 
 Loosely speaking, a time series $X_t$ ($t=0,\pm 1, \dots$) is stationary if it has statistical properties similar to those of the time-shifted series $X_{t+h}$ for each integer $h$.
@@ -444,7 +544,7 @@ The correlation can be due to a direct connection or through the intermediate st
 Partial ACF looks at the correlation between $X_t$ and $X_{t+h}$ once the effect of intermediate steps is removed.
 
 
-## Partial autocorrelation function
+## Binary Trees
 
 @Shumway:Stoffer:2011 and @Shumway:Stoffer:2014 provide the following explanation of the concept.
 
@@ -512,8 +612,15 @@ p1 + p2 +
 ```
 :::
 
+## Graphs
+## Dynamic Programming
+## Dynamic Programming
+## Space and Time Complexity
+## Interview Coding Patterns
+### Two Pointers
+### Fast & Slow pointers
+### Sliding Window
 
-## Conclusion
 
 We have defined components of the time series including trend, periodic component, and unexplained variability (errors, residuals). 
 Our goal will be to model trends and periodicity, extract them from the time series, then extract as much information as possible from the remainder, so the ultimate residuals become white noise.

@@ -12,7 +12,7 @@ options(digits = 3)
 theme_set(theme_light())
 ```
 
-# Autoregressive Integrated Moving Average (ARIMA) Models
+# Deep Learning Models
 
 The goal of this lecture is to implement Box--Jenkins methodology for nonstationary time series, by applying differences and fitting an ARMA model to the stationary differenced series. 
 You should be able to recognize when the differencing is needed based on the time series and ACF plots.

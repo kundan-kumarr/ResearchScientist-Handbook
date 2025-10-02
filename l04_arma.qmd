@@ -12,7 +12,7 @@ options(digits = 3)
 theme_set(theme_light())
 ```
 
-# Autoregressive Moving Average (ARMA) Models
+# Machine Learning Models
 
 The goal of this lecture is to introduce a broad class of models for stationary time series -- autoregressive moving average (ARMA) models. 
 You should recognize the difference between the AR and MA components and learn how to implement these models in practice.

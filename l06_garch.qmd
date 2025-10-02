@@ -12,7 +12,7 @@ options(digits = 3)
 theme_set(theme_light())
 ```
 
-# Generalized Autoregressive Conditional Heteroskedasticity (GARCH) Models {#sec-GARCH}
+# Time-Series Analysis and Models {#sec-GARCH}
 
 The goal of this lecture is to introduce a class of models with conditional heteroskedasticity for stationary time series. 
 You will be able to recognize the presence of such heteroskedasticity from graphs or statistical tests and model it.
