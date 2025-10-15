@@ -348,6 +348,6 @@ flowchart LR
 | O(log n) | Logarithmic | Binary search, balanced tree operations |
 | O(n) | Linear | Array traversal, linear search |
 | O(n log n) | Linearithmic | Merge sort, heap sort, quicksort (average) |
-| O(n²) | Quadratic | Nested loops, bubble sort |
+| O(n²) | Quadratic  | Nested loops, bubble sort |
 | O(2ⁿ) | Exponential | Recursive fibonacci, subset generation |
 | O(n!) | Factorial | Permutations, traveling salesman (brute force) |

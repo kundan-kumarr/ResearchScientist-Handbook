@@ -12,7 +12,7 @@ options(digits = 3)
 theme_set(theme_light())
 ```
 
-# Review of Linear Regression {#sec-regression}
+# Statistics & Mathematics {#sec-regression}
 
 After this lecture, you should be competent (again) in assessing violations of various assumptions of linear regression models, particularly assumptions about model residuals, by being able to apply visual assessments and formal statistical tests, and interpret the results and effects of the violations.
 
