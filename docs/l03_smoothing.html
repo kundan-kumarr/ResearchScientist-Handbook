@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>3&nbsp; Data Pipeline – Research Scientist Guide</title>
+<title>3&nbsp; Algorithms Coding Patterns – Research Scientist Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,10 +89,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./l03_smoothing.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Pipeline</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./l03_smoothing.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,13 +187,13 @@ window.Quarto = {
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
@@ -224,19 +224,19 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l01_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Review of Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics &amp; Mathematics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l02_tsintro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures and Algorithms</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l03_smoothing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Pipeline</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -389,7 +389,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Pipeline</span>
+<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span>
 </h1>
 </div>
 
@@ -720,7 +720,7 @@ Example: Secchi depth manual simple moving average smoothing
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">St_star</span> <span class="op">&lt;-</span> <span class="va">St</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span><span class="op">/</span><span class="fl">12</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St_star</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] -1.49e-16</code></pre>
+<pre><code>#&gt; [1] -3.82e-17</code></pre>
 </div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3. Refined trend estimate</span></span>
 <span><span class="va">Mt_star</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Yt</span> <span class="op">-</span> <span class="va">St_star</span><span class="op">[</span><span class="va">month</span><span class="op">]</span>, </span>
@@ -846,7 +846,7 @@ Example: Secchi depth lowess-based decomposition
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">St_star</span> <span class="op">&lt;-</span> <span class="va">St</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span><span class="op">/</span><span class="fl">12</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St_star</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] -6.94e-18</code></pre>
+<pre><code>#&gt; [1] -3.47e-17</code></pre>
 </div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3. Refined trend estimate</span></span>
 <span><span class="va">Mt_star</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/loess.html">loess</a></span><span class="op">(</span><span class="op">(</span><span class="va">Yt</span> <span class="op">-</span> <span class="va">St_star</span><span class="op">[</span><span class="va">month</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="va">t</span>, span <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">$</span><span class="va">fitted</span></span>
@@ -1502,7 +1502,7 @@ f(t) = \sum_{m = 1}^M \beta_m B_m(t).
 \]</span> Here we may assume that the response <code>WWWusage</code> is normally distributed. The link function <span class="math inline">\(g(\cdot)\)</span> for normal distribution is identity (no transformation to the original data), hence we can omit it and rewrite <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> for our data as follows: <span class="math display">\[
 \mu_t = \alpha_0 + f(t).
 \]</span> We are not interested in the individual regression coefficients <span class="math inline">\(\beta_m\)</span> (regression parameters) we estimated, hence the function <span class="math inline">\(f(t)\)</span> is <em>nonparametric</em> even though many parameters have been estimated to obtain <span class="math inline">\(f(t)\)</span>, similar to lowess smoothing.</p>
-<p>The model in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> can handle deviations from normality and can accommodate nonlinearity and nonmonotonicity of individual relationships, however, the model does not address the potential issue of remaining dependencies in the errors <span class="citation" data-cites="Kohn:etal:2000">(e.g., see <a href="references.html#ref-Kohn:etal:2000" role="doc-biblioref">Kohn et al. 2000</a>)</span>. We skip the topic of selecting an appropriate distribution, testing statistical significance of estimated patterns, or using the reported confidence intervals for inference until later in the course when we are familiar with various tests for autocorrelation and trends (e.g., see <a href="l07_trendtest.html" class="quarto-xref"><span>Chapter 7</span></a> on trend tests and <a href="l09_tsreg2.html#sec-GAMLSS" class="quarto-xref"><span>Section 9.6</span></a> using additional covariates, specifying structure of the regression errors, and extending GAM to several parameters of an exponential distribution beyond just the mean).</p>
+<p>The model in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> can handle deviations from normality and can accommodate nonlinearity and nonmonotonicity of individual relationships, however, the model does not address the potential issue of remaining dependencies in the errors <span class="citation" data-cites="Kohn:etal:2000">(e.g., see <a href="references.html#ref-Kohn:etal:2000" role="doc-biblioref">Kohn et al. 2000</a>)</span>. We skip the topic of selecting an appropriate distribution, testing statistical significance of estimated patterns, or using the reported confidence intervals for inference until later in the course when we are familiar with various tests for autocorrelation and trends (e.g., see <span class="quarto-unresolved-ref">?sec-trendtest</span> on trend tests and <span class="quarto-unresolved-ref">?sec-GAMLSS</span> using additional covariates, specifying structure of the regression errors, and extending GAM to several parameters of an exponential distribution beyond just the mean).</p>
 <p><a href="#fig-BSreg" class="quarto-xref">Figure&nbsp;<span>3.19</span></a> shows the results of fitting the model in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> to the bases shown in <a href="#fig-BS1" class="quarto-xref">Figure&nbsp;<span>3.17</span></a> and <a href="#fig-BS2" class="quarto-xref">Figure&nbsp;<span>3.18</span></a>. The results are not so bad given the knots were set without considering the data.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1517,7 +1517,7 @@ Figure&nbsp;3.19: Results of regressing <code>WWWusage</code> on the linear, qua
 </div>
 </div>
 <p>The number and locations of the knots are important tuning parameters for achieving the desired smoothness. Fortunately, there exist cross-validation procedures and penalization techniques that allow us to set these parameters rather automatically. When a penalty is applied to the basis coefficients, B-splines are called P-splines.</p>
-<p>The R packages <code>mgcv</code> and <code>gamlss</code> provide several types of smoothing splines. In this lecture, we demonstrate the package <code>mgcv</code> but we will use the package <code>gamlss</code> in <a href="l09_tsreg2.html#sec-GAMLSS" class="quarto-xref"><span>Section 9.6</span></a>.</p>
+<p>The R packages <code>mgcv</code> and <code>gamlss</code> provide several types of smoothing splines. In this lecture, we demonstrate the package <code>mgcv</code> but we will use the package <code>gamlss</code> in <span class="quarto-unresolved-ref">?sec-GAMLSS</span>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2320,8 +2320,8 @@ Wood SN (2006) Generalized additive models: An introduction with r. Chapman; Hal
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./l02_tsintro.html" class="pagination-link" aria-label="Data Structures and Algorithms">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures and Algorithms</span></span>
+      <a href="./l02_tsintro.html" class="pagination-link" aria-label="Data Structures with Python">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

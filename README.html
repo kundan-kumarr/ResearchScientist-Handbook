@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>readme</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="README_files/libs/clipboard/clipboard.min.js"></script>
+<script src="README_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="README_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="README_files/libs/quarto-html/popper.min.js"></script>
+<script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="README_files/libs/quarto-html/anchor.min.js"></script>
+<link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="README_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="research-scientist-interview-guide" class="level1">
+<h1>Research Scientist Interview Guide</h1>
+<blockquote class="blockquote">
+<p>“Think mathematically, reason scientifically, and build efficiently.”<br>
+— A Comprehensive 2025 Research Scientist Preparation Curriculum</p>
+</blockquote>
+<hr>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
+<p>This guide is a <strong>structured, story-driven roadmap</strong> for preparing for <strong>Research Scientist roles</strong> in any organizations.<br>
+It is designed to help you: - Build deep theoretical intuition,<br>
+- Practice coding from first principles, and<br>
+- Develop research reasoning aligned with academic and industrial labs.</p>
+<p>The guide balances <strong>mathematical theory</strong>, <strong>statistical rigor</strong>, and <strong>hands-on coding</strong>, while tracing the <strong>evolution of algorithms</strong> — from classical ML to modern Deep Reinforcement Learning and Large Language Models.</p>
+<hr>
+</section>
+<section id="learning-philosophy" class="level2">
+<h2 class="anchored" data-anchor-id="learning-philosophy">Learning Philosophy</h2>
+<p>Every algorithm evolved to solve a <em>pain point</em> in its predecessor.<br>
+This guide follows that lineage:</p>
+<blockquote class="blockquote">
+<p><strong>Linear Models → Nonlinear Trees → Ensemble Boosting → Neural Networks → Transformers → LLMs → DRL → Physics-Informed &amp; Federated Systems</strong></p>
+</blockquote>
+<p>Each topic answers <strong>“why the next method was needed”</strong>, with theory, math, implementation, and interview reasoning.</p>
+<hr>
+</section>
+<section id="curriculum-overview" class="level2">
+<h2 class="anchored" data-anchor-id="curriculum-overview">Curriculum Overview</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 30%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Theme</th>
+<th>Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Mathematical Foundations</strong></td>
+<td>The backbone</td>
+<td>Linear algebra, probability, optimization, gradient calculus</td>
+</tr>
+<tr class="even">
+<td><strong>2. Machine Learning (Supervised + Unsupervised)</strong></td>
+<td>Fundamentals</td>
+<td>Linear/Logistic Regression, SVM, Decision Trees, Ensemble Methods (RF, XGBoost, CatBoost)</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Deep Learning (DL)</strong></td>
+<td>Neural intuition</td>
+<td>Perceptron, MLPs, CNNs, RNN/LSTM, Transformers</td>
+</tr>
+<tr class="even">
+<td><strong>4. Advanced DL Concepts</strong></td>
+<td>Deep insights</td>
+<td>Activation, normalization, regularization, loss functions, optimizers</td>
+</tr>
+<tr class="odd">
+<td><strong>5. Deep Reinforcement Learning (DRL)</strong></td>
+<td>Decision learning</td>
+<td>Q-Learning, DDPG, PPO, SAC, GRPO, Model-Based RL</td>
+</tr>
+<tr class="even">
+<td><strong>6. Large Language Models (LLMs)</strong></td>
+<td>Language and reasoning</td>
+<td>Transformer theory, attention, fine-tuning, LoRA, RLHF</td>
+</tr>
+<tr class="odd">
+<td><strong>7. Model Compression and Deployment</strong></td>
+<td>Efficiency focus</td>
+<td>Pruning, quantization, distillation, ONNX, TensorRT, inference profiling</td>
+</tr>
+<tr class="even">
+<td><strong>8. Research Design and Experimentation</strong></td>
+<td>From lab to production</td>
+<td>Ablation, reproducibility, explainability, uncertainty quantification</td>
+</tr>
+<tr class="odd">
+<td><strong>9. Trustworthy and Robust AI</strong></td>
+<td>Security and fairness</td>
+<td>Adversarial robustness, bias mitigation, differential privacy</td>
+</tr>
+<tr class="even">
+<td><strong>10. Emerging Topics</strong></td>
+<td>Future research</td>
+<td>Neural Operators, Diffusion Models, Causal Learning, Multimodality</td>
+</tr>
+<tr class="odd">
+<td><strong>Appendices</strong></td>
+<td>Quick reference</td>
+<td>Derivations, equations, code templates, reference papers</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="core-features" class="level2">
+<h2 class="anchored" data-anchor-id="core-features">Core Features</h2>
+<ul>
+<li><strong>End-to-End Flow:</strong> Each chapter starts from first principles → math → code → interview Q&amp;A.<br>
+</li>
+<li><strong>Cross-disciplinary focus:</strong> Combines ML, DL, DRL, and LLM under a unified reasoning framework.<br>
+</li>
+<li><strong>Code-Ready:</strong> All algorithms implemented in <strong>PyTorch</strong> with comments for step-by-step tracing.<br>
+</li>
+<li><strong>Explainable:</strong> Includes mathematical derivations, convergence proofs, and energy/complexity analysis.<br>
+</li>
+<li><strong>Interview-Driven:</strong> Each section contains conceptual, coding, and system-design style interview questions.</li>
+</ul>
+<hr>
+</section>
+<section id="interview-preparation-framework" class="level2">
+<h2 class="anchored" data-anchor-id="interview-preparation-framework">Interview Preparation Framework</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Focus</th>
+<th>Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Phase 1: Core Concepts</strong></td>
+<td>ML/DL fundamentals, math review</td>
+<td>Week 1-4</td>
+</tr>
+<tr class="even">
+<td><strong>Phase 2: Deep Reinforcement Learning</strong></td>
+<td>Implement PPO/DDPG from scratch</td>
+<td>Week 5-6</td>
+</tr>
+<tr class="odd">
+<td><strong>Phase 3: LLMs &amp; Transformers</strong></td>
+<td>Pretraining, finetuning, LoRA</td>
+<td>Week 7-8</td>
+</tr>
+<tr class="even">
+<td><strong>Phase 4: Research Communication</strong></td>
+<td>Write a short technical blog / mini-paper</td>
+<td>Week 9</td>
+</tr>
+<tr class="odd">
+<td><strong>Phase 5: Systems &amp; Scalability</strong></td>
+<td>Deployment, optimization, efficiency</td>
+<td>Week 10</td>
+</tr>
+<tr class="even">
+<td><strong>Phase 6: Mock Interviews</strong></td>
+<td>1 technical + 1 research + 1 system design</td>
+<td>Week 11-12</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="learning-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="learning-strategy">Learning Strategy</h2>
+<ol type="1">
+<li><strong>Start from Intuition:</strong> Understand <em>why</em> each model exists.<br>
+</li>
+<li><strong>Mathematical Insight:</strong> Derive equations manually — gradients, losses, activations.<br>
+</li>
+<li><strong>Implementation:</strong> Rebuild models from scratch in PyTorch (no <code>sklearn</code> black boxes).<br>
+</li>
+<li><strong>Visualization:</strong> Use <code>matplotlib</code> / <code>seaborn</code> / <code>plotly</code> for loss landscapes and weight evolution.<br>
+</li>
+<li><strong>Analysis:</strong> Compare bias, variance, and stability across algorithms.<br>
+</li>
+<li><strong>Communication:</strong> Summarize insights as if presenting to a research committee.</li>
+</ol>
+<hr>
+</section>
+<section id="example-topics-with-story-flow" class="level2">
+<h2 class="anchored" data-anchor-id="example-topics-with-story-flow">Example Topics with “Story Flow”</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Evolution</th>
+<th>Core Problem Solved</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear Regression → Logistic Regression</td>
+<td>Handle classification with probabilistic interpretation</td>
+</tr>
+<tr class="even">
+<td>Logistic → SVM → Trees</td>
+<td>Nonlinear separability and feature scaling</td>
+</tr>
+<tr class="odd">
+<td>Trees → Random Forest → XGBoost</td>
+<td>Variance reduction and boosting weak learners</td>
+</tr>
+<tr class="even">
+<td>MLP → CNN → RNN</td>
+<td>Learn spatial &amp; temporal features</td>
+</tr>
+<tr class="odd">
+<td>RNN → Transformer</td>
+<td>Handle long-term dependencies with parallel attention</td>
+</tr>
+<tr class="even">
+<td>Transformer → LLM</td>
+<td>Scale reasoning via pretraining + self-supervision</td>
+</tr>
+<tr class="odd">
+<td>RL → DRL → PDRL</td>
+<td>Learn control policies via deep neural feedback</td>
+</tr>
+<tr class="even">
+<td>DRL → FedRL</td>
+<td>Distributed learning and energy-aware coordination</td>
+</tr>
+<tr class="odd">
+<td>LLM + DRL → RLHF</td>
+<td>Human-aligned reasoning systems</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="efficiency-and-deployment-focus" class="level2">
+<h2 class="anchored" data-anchor-id="efficiency-and-deployment-focus">Efficiency and Deployment Focus</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 22%">
+<col style="width: 29%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Technique</th>
+<th>Key Idea</th>
+<th>Typical Gain</th>
+<th>Trade-Off</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pruning</strong></td>
+<td>Remove redundant weights</td>
+<td>2–10× smaller</td>
+<td>May need retraining</td>
+</tr>
+<tr class="even">
+<td><strong>Quantization</strong></td>
+<td>Reduce precision (FP32→INT8)</td>
+<td>2–4× smaller</td>
+<td>Precision loss</td>
+</tr>
+<tr class="odd">
+<td><strong>Distillation</strong></td>
+<td>Student learns from teacher logits</td>
+<td>2–10× faster</td>
+<td>Training overhead</td>
+</tr>
+<tr class="even">
+<td><strong>Low-Rank Factorization</strong></td>
+<td>Matrix decomposition</td>
+<td>3–5× faster</td>
+<td>Moderate retraining needed</td>
+</tr>
+<tr class="odd">
+<td><strong>NAS / LoRA</strong></td>
+<td>Architecture or parameter-efficient tuning</td>
+<td>Energy-aware scaling</td>
+<td>Complex implementation</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="interview-themes" class="level2">
+<h2 class="anchored" data-anchor-id="interview-themes">Interview Themes</h2>
+<ol type="1">
+<li><strong>Mathematical &amp; Statistical Foundations</strong>
+<ul>
+<li>Gradient derivation, loss design, convergence proofs<br>
+</li>
+<li>Bias-variance, regularization, cross-validation<br>
+</li>
+</ul></li>
+<li><strong>Algorithm Design</strong>
+<ul>
+<li>Model selection under data constraints<br>
+</li>
+<li>Trade-offs between interpretability and expressivity<br>
+</li>
+</ul></li>
+<li><strong>Research Reasoning</strong>
+<ul>
+<li>Designing experiments for robustness<br>
+</li>
+<li>Deriving insights from ablations<br>
+</li>
+</ul></li>
+<li><strong>System Efficiency</strong>
+<ul>
+<li>Compression, quantization, deployment<br>
+</li>
+<li>Distributed training and monitoring<br>
+</li>
+</ul></li>
+<li><strong>Ethics and Trustworthiness</strong>
+<ul>
+<li>Explainability, bias, fairness, robustness</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="tools-frameworks" class="level2">
+<h2 class="anchored" data-anchor-id="tools-frameworks">Tools &amp; Frameworks</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Library</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Core ML/DL</td>
+<td>PyTorch, TensorFlow</td>
+</tr>
+<tr class="even">
+<td>DRL</td>
+<td>Stable-Baselines3, RLlib</td>
+</tr>
+<tr class="odd">
+<td>LLM</td>
+<td>HuggingFace Transformers, PEFT, LoRA</td>
+</tr>
+<tr class="even">
+<td>Deployment</td>
+<td>ONNX, TensorRT, TorchServe, TFLite</td>
+</tr>
+<tr class="odd">
+<td>Experimentation</td>
+<td>Weights &amp; Biases, MLflow</td>
+</tr>
+<tr class="even">
+<td>Optimization</td>
+<td>Optuna, Ray Tune</td>
+</tr>
+<tr class="odd">
+<td>Explainability</td>
+<td>SHAP, LIME, Captum</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

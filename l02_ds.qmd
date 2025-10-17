@@ -1,0 +1,353 @@
+---
+title: "Data Structures with Python"
+format: html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+theme_set(theme_light())
+```
+
+## Problem Solving Framework
+This lecture introduces Python data structures and core algorithmic techniques that form the foundation of efficient problem solving.
+By the end, you should confidently identify the proper data structure for a problem, analyze trade-offs, and implement algorithms with optimal time and space complexity.
+```{mermaid}
+flowchart LR
+    A[Problem] --> B[Choose Data Structure]
+    A --> C[Select Algorithm]
+    B --> D[Analyze Complexity]
+    C --> D
+    D --> E[Optimized Solution]
+    
+    style A fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style E fill:#2ecc71,stroke:#27ae60,stroke-width:2px,color:#fff
+    style B fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+    style C fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    style D fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+```
+
+### Objectives
+
+- Define core data structures — lists, stacks, queues, hash tables, linked lists, trees, and graphs — and know when to use each.
+- Analyze trade-offs in operations (time and space complexity).
+- Distinguish between major algorithmic paradigms: divide-and-conquer, greedy, dynamic programming, and graph traversal.
+- Implement and evaluate algorithms for searching, sorting, traversal, and optimization problems.
+- Perform complexity analysis and connect it to scalability.
+
+
+### Recommended Reading
+
+- **Introduction to Algorithms** — Cormen, Leiserson, Rivest, Stein (CLRS), Chapters 1–5, 10–16.
+- **Data Structures and Algorithms in Python** — Goodrich, Tamassia, Goldwasser.
+- **Python documentation**: `collections`, `heapq`, `bisect`, `itertools`.
+
+### Data Structures Guide
+
+```{mermaid}
+graph LR
+    DS[Data Structures] --> A[Array/List]
+    DS --> B[Stack]
+    DS --> C[Queue]
+    DS --> D[Hash Map]
+    DS --> E[Set]
+    DS --> F[Linked List]
+    DS --> G[Heap]
+    DS --> H[Tree/BST]
+    DS --> I[Graph]
+    
+    A --> A1[Random access O1<br/>Insert mid On]
+    B --> B1[LIFO<br/>Parsing, undo]
+    C --> C1[FIFO<br/>BFS, streaming]
+    D --> D1[O1 lookup<br/>Key-value pairs]
+    E --> E1[O1 membership<br/>Unique items]
+    F --> F1[Frequent inserts<br/>No random access]
+    G --> G1[Top-k problems<br/>O log n operations]
+    H --> H1[Ordered data<br/>O log n search]
+    I --> I1[Relationships<br/>BFS/DFS traversal]
+```
+
+## Dictionaries (Hash Tables)
+
+A dictionary in Python is a hash-table data structure that stores key–value pairs.
+
+- Keys must be immutable and unique.
+- Values can be any type.
+- Average-time complexity for insert, lookup, and delete is O(1); worst-case (heavy collisions) is O(n).
+
+```python
+scores = {"Alice": 90, "Bob": 85}
+scores["Charlie"] = 95        # insert
+scores["Alice"] = 92          # update
+scores
+```
+
+### Access & Membership
+
+```python
+scores.get("Bob")             # 85
+scores.get("Diana", 0)        # default=0
+"Alice" in scores             # True
+```
+
+### Delete & Pop
+
+```python
+del scores["Bob"]
+removed = scores.pop("Charlie", None)   # safer deletion
+scores, removed
+```
+
+### Merge and Update (Python 3.9+)
+
+```python
+base = {"a": 1, "b": 2}
+delta = {"b": 20, "c": 3}
+merged = base | delta          # {'a':1, 'b':20, 'c':3}
+base |= {"d": 4}               # in-place merge
+base, merged
+```
+
+### Using get and setdefault
+
+```python
+# Counting with get
+freq = {}
+for ch in "mississippi":
+    freq[ch] = freq.get(ch, 0) + 1
+freq
+
+# Grouping with setdefault
+groups = {}
+pairs = [("cat","mammal"), ("eel","fish"), ("dog","mammal")]
+for animal, kind in pairs:
+    groups.setdefault(kind, []).append(animal)
+groups
+```
+
+### Using defaultdict and Counter
+
+```python
+from collections import defaultdict, Counter
+
+dd = defaultdict(int)
+for ch in "banana":
+    dd[ch] += 1
+
+ctr = Counter("abracadabra")
+dd, ctr.most_common(2)
+```
+
+### Time & Space Complexity
+
+| Operation       | Average | Worst | Notes                      |
+|-----------------|---------|-------|----------------------------|
+| Insert / Update | O(1)    | O(n)  | Resize or collisions       |
+| Lookup          | O(1)    | O(n)  | Use get() to avoid errors  |
+| Delete / Pop    | O(1)    | O(n)  | pop(k, default) is safer   |
+| Membership      | O(1)    | O(n)  | Hash + equality check      |
+| Iterate keys/values | O(n) | O(n) | Views are dynamic          |
+
+
+## Stacks and Queues
+
+### Stack (LIFO)
+
+```python
+stack = []
+stack.append(1)
+stack.append(2)
+stack.pop()    # 2
+```
+
+### Queue (FIFO)
+
+```python
+from collections import deque
+queue = deque()
+queue.append(1)
+queue.append(2)
+queue.popleft()   # 1
+```
+
+### Two-Pointer Technique
+
+Used for problems like pair sums, palindromes, and merging sorted arrays.
+
+```python
+nums = [1, 2, 3, 4, 6]
+target = 6
+l, r = 0, len(nums) - 1
+
+while l < r:
+    s = nums[l] + nums[r]
+    if s == target:
+        print((nums[l], nums[r]))
+        break
+    elif s < target:
+        l += 1
+    else:
+        r -= 1
+```
+
+## Recursion and Divide-and-Conquer
+
+**Recursion**: Solving a problem by calling itself on smaller subproblems.
+
+**Divide-and-Conquer**: Divide → Solve → Combine.
+
+### Example: Binary Search
+
+```python
+def binary_search(arr, target):
+    left, right = 0, len(arr)-1
+    while left <= right:
+        mid = (left + right)//2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+```
+
+## Linked Lists and Trees
+
+### Singly Linked List (Concept)
+
+Each node stores data and a pointer to the next node.
+
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        curr = self.head
+        while curr.next:
+            curr = curr.next
+        curr.next = new_node
+```
+
+### Binary Tree (Traversal)
+
+```python
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = self.right = None
+
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.val, end=" ")
+        inorder(root.right)
+```
+
+## Dynamic Programming (DP)
+
+Technique to solve problems by breaking them into overlapping subproblems and storing intermediate results.
+
+### Example: Fibonacci
+
+```python
+def fib(n, memo={}):
+    if n in memo: return memo[n]
+    if n <= 2: return 1
+    memo[n] = fib(n-1, memo) + fib(n-2, memo)
+    return memo[n]
+```
+
+- **Time Complexity**: O(n)
+- **Space Complexity**: O(n)
+
+## Common Interview Patterns
+
+- Two pointers / Fast–slow pointers
+- Sliding window
+- Hash map counting
+- Sorting + scanning
+- Stack-based (e.g., next greater element)
+- BFS / DFS for graphs
+- Dynamic programming
+- Greedy optimization
+
+## Key Takeaway
+
+Mastering data structures and algorithms means understanding how data is organized and how operations scale.
+
+Once these patterns become intuitive, solving complex problems efficiently becomes natural.
+
+---
+
+### Algorithmic Paradigms — Overview
+
+```{mermaid}
+flowchart LR
+    A[Algorithmic Paradigms] --> B[Divide & Conquer]
+    A --> C[Greedy]
+    A --> D[Dynamic Programming]
+    A --> E[Graph Search]
+    A --> F[Backtracking]
+
+    B --> B1[Examples: Merge Sort, Quick Sort, Binary Search]
+    B --> B2[Idea: Split → Solve → Combine]
+
+    C --> C1[Examples: Interval Scheduling, Huffman Coding]
+    C --> C2[Idea: Locally optimal ⇒ Globally good with proof]
+
+    D --> D1[Examples: Knapsack, LIS, Edit Distance]
+    D --> D2[Idea: Overlapping subproblems + Optimal substructure]
+    D --> D3[Techniques: Memoization / Tabulation]
+
+    E --> E1[BFS]
+    E --> E2[DFS]
+    E --> E3[Shortest Path: Dijkstra/A*]
+    E --> E4[Topo Sort, SCC, MST]
+
+    F --> F1[Examples: N-Queens, Subset Sum exact]
+    F --> F2[Idea: Build partials + prune branches]
+```
+
+### Problem → Pattern Quick-Picker
+
+```{mermaid}
+flowchart LR
+    P[Problem Type] --> P1[Subarray / substring sums]
+    P --> P2[Sorted arrays / pair sum]
+    P --> P3[Distinct / frequency]
+    P --> P4[Scheduling / earliest finish]
+    P --> P5[Path / connectivity]
+    P --> P6[Optimal value with overlapping subproblems]
+
+    P1 --> SW[Sliding Window]
+    P2 --> TP[Two Pointers / Binary Search]
+    P3 --> HM[Hash Map / Set]
+    P4 --> GR[Greedy]
+    P5 --> GS[Graph Search BFS/DFS/Dijkstra]
+    P6 --> DP[Dynamic Programming]
+```
+
+## Big-O Complexity Cheat Sheet
+
+| Complexity | Name | Example |
+|------------|------|---------|
+| O(1) | Constant | Hash table lookup, array access |
+| O(log n) | Logarithmic | Binary search, balanced tree operations |
+| O(n) | Linear | Array traversal, linear search |
+| O(n log n) | Linearithmic | Merge sort, heap sort, quicksort (average) |
+| O(n²) | Quadratic  | Nested loops, bubble sort |
+| O(2ⁿ) | Exponential | Recursive fibonacci, subset generation |
+| O(n!) | Factorial | Permutations, traveling salesman (brute force) |

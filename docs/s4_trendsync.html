@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Appendix C — Synchrony of parametric trends – Statistical Analysis</title>
+<title>Appendix C — Synchrony of parametric trends – Research Scientist Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,10 +89,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -163,20 +163,20 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Statistical Analysis</a> 
+      <a href="./">Research Scientist Guide</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/kundan-kumarr/StatSphere/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Statistical-Analysis.pdf">
+            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Guide.pdf">
               <i class="bi bi-file-pdf pe-1"></i>
             Download PDF
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Statistical-Analysis.epub">
+            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Guide.epub">
               <i class="bi bi-journal pe-1"></i>
             Download ePub
             </a>
@@ -187,13 +187,13 @@ window.Quarto = {
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
@@ -224,37 +224,37 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l01_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Review of Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics &amp; Mathematics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l02_tsintro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Time Series Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures and Algorithms</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l03_smoothing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Smoothing, Detrending, and Deseasonalizing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Pipeline</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l04_arma.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Autoregressive Moving Average (ARMA) Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l05_arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Autoregressive Integrated Moving Average (ARIMA) Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l06_garch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Generalized Autoregressive Conditional Heteroskedasticity (GARCH) Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Time-Series Analysis and Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -272,7 +272,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l09_tsreg2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression with Correlated Errors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -378,7 +378,7 @@ window.Quarto = {
 <p>Here we explore the first direction, that is, assess whether several observed time series follow the same hypothesized parametric trend.</p>
 <p>There exist many tests for comparing mean functions, but most of the developed methods assume independent errors. Substantially less is known about testing for joint deterministic trends in a time series framework.</p>
 <p>One of the methods developed for time series is by <span class="citation" data-cites="Degras:etal:2012">Degras et al. (<a href="references.html#ref-Degras:etal:2012" role="doc-biblioref">2012</a>)</span> and <span class="citation" data-cites="Zhang:2013">Zhang (<a href="references.html#ref-Zhang:2013" role="doc-biblioref">2013</a>)</span> who extended the integrated square error (ISE) based approach of <span class="citation" data-cites="VF:GM:2004">Vilar-Fernández and González-Manteiga (<a href="references.html#ref-VF:GM:2004" role="doc-biblioref">2004</a>)</span> to a case of multiple time series with weakly dependent (non)stationary errors. For a comprehensive literature review of available methodology for comparing mean functions embedded into independent errors in a time series framework, see <span class="citation" data-cites="Degras:etal:2012">Degras et al. (<a href="references.html#ref-Degras:etal:2012" role="doc-biblioref">2012</a>)</span> and <span class="citation" data-cites="Park:etal:2014">Park et al. (<a href="references.html#ref-Park:etal:2014" role="doc-biblioref">2014</a>)</span>. Most of these methods, however, either focus on aligning only two curves or require us to select multiple hyperparameters, such as the bandwidth, level of smoothness, and window size for a long-run variance function. As mentioned by <span class="citation" data-cites="Park:etal:2014">Park et al. (<a href="references.html#ref-Park:etal:2014" role="doc-biblioref">2014</a>)</span>, the choice of such <em>multiple nuisance parameters</em> is challenging for a comparison of curves (even under the independent and identically distributed setup) and often leads to inadequate performance, especially in samples of moderate size.</p>
-<p>As an alternative, consider an extension of the WAVK test (<a href="l07_trendtest.html#sec-WAVK" class="quarto-xref"><span>Section 7.4.2</span></a>) to a case of multiple time series <span class="citation" data-cites="Lyubchich:Gel:2016:synchronism">(<a href="references.html#ref-Lyubchich:Gel:2016:synchronism" role="doc-biblioref">Lyubchich and Gel 2016</a>)</span>. Let us observe <span class="math inline">\(N\)</span> time series <span class="math display">\[
+<p>As an alternative, consider an extension of the WAVK test (<span class="quarto-unresolved-ref">?sec-WAVK</span>) to a case of multiple time series <span class="citation" data-cites="Lyubchich:Gel:2016:synchronism">(<a href="references.html#ref-Lyubchich:Gel:2016:synchronism" role="doc-biblioref">Lyubchich and Gel 2016</a>)</span>. Let us observe <span class="math inline">\(N\)</span> time series <span class="math display">\[
 Y_{it} = \mu_i(t/T) + \epsilon_{it},
 \]</span> where <span class="math inline">\(i = 1, \dots, N\)</span> (<span class="math inline">\(N\)</span> is the number of time series), <span class="math inline">\(t=1, \dots, T\)</span> (<span class="math inline">\(T\)</span> is the length of the time series), <span class="math inline">\(\mu_i(u)\)</span> (<span class="math inline">\(0&lt;u\leqslant 1\)</span>) are unknown smooth trend functions, and the noise <span class="math inline">\(\epsilon_{it}\)</span> can be represented as a finite-order AR(<span class="math inline">\(p\)</span>) process or infinite-order AR(<span class="math inline">\(\infty\)</span>) process with i.i.d. innovations <span class="math inline">\({e}_{it}\)</span>.</p>
 <p>We are interested in testing whether these <span class="math inline">\(N\)</span> observed time series have the same trend of some pre-specified smooth parametric form <span class="math inline">\(f(\theta, u)\)</span>:</p>
@@ -505,10 +505,10 @@ Figure&nbsp;C.1: Global annual mean temperature (°C) in 1948–2013: CMIP5 mult
 #&gt; alternative hypothesis: common trend is not of the form D[, c("Temp_CMIP5", "Temp_obs")] ~ poly(t, 2).
 #&gt; sample estimates:
 #&gt; $common_trend_estimates
-#&gt;              Estimate Std. Error   t value Pr(&gt;|t|)
-#&gt; (Intercept) -1.77e-15     0.0324 -5.45e-14 1.00e+00
-#&gt; poly(t, 2)1  7.27e+00     0.2632  2.76e+01 6.20e-37
-#&gt; poly(t, 2)2  2.28e+00     0.2632  8.65e+00 2.62e-12
+#&gt;             Estimate Std. Error  t value Pr(&gt;|t|)
+#&gt; (Intercept) 6.72e-16     0.0324 2.07e-14 1.00e+00
+#&gt; poly(t, 2)1 7.27e+00     0.2632 2.76e+01 6.20e-37
+#&gt; poly(t, 2)2 2.28e+00     0.2632 8.65e+00 2.62e-12
 #&gt; 
 #&gt; $ar.order_used
 #&gt;          Temp_CMIP5 Temp_obs

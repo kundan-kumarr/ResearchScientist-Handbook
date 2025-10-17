@@ -38,7 +38,7 @@ The R packages used in this book include (in alphabetic order):
 
 ```{r}
 #| echo: false
-
+options(repos = c(CRAN = "https://cloud.r-project.org"))
 packages2cite <- sort(c(
     'astsa'
     # 'car'

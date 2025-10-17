@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>2&nbsp; Data Structures with Python – Research Scientist Guide</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./l03_algorithm.html" rel="next">
+<link href="./l01_stat_math.html" rel="prev">
+<link href="./favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="site_libs/quarto-diagram/mermaid.min.js"></script><script src="site_libs/quarto-diagram/mermaid-init.js"></script><link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./l02_ds.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Research Scientist Guide</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/kundan-kumarr/StatSphere/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Guide.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Guide.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+</div>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l01_stat_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics &amp; Mathematics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l02_ds.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l03_algorithm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l04_data_pipe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">ML Data Pipelines</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l05_ml.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l06_dl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l07_time_series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Time-Series Analysis and Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l08_drl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l09_model_eval.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l10_llms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Large Language Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l11_llms_finetuning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fine-Tuning and Adaptation of LLMs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l12_compression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Compression, Deployment, and Efficiency</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l13_computervision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Computer Vision and Visual Intelligence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l14_multimodal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multimodal</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l15_casuality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l16_secureai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l17_scalability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l18_stattesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s1_wls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Weighted least squares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s2_gls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Generalized least squares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s4_trendsync.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Synchrony of parametric trends</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s6_extremes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Analysis of precipitation extremes and climate projections</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./s_practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Practice exercises</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#problem-solving-framework" id="toc-problem-solving-framework" class="nav-link active" data-scroll-target="#problem-solving-framework"><span class="header-section-number">2.1</span> Problem Solving Framework</a>
+  <ul class="collapse">
+<li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">2.1.1</span> Objectives</a></li>
+  <li><a href="#recommended-reading" id="toc-recommended-reading" class="nav-link" data-scroll-target="#recommended-reading"><span class="header-section-number">2.1.2</span> Recommended Reading</a></li>
+  <li><a href="#data-structures-guide" id="toc-data-structures-guide" class="nav-link" data-scroll-target="#data-structures-guide"><span class="header-section-number">2.1.3</span> Data Structures Guide</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#dictionaries-hash-tables" id="toc-dictionaries-hash-tables" class="nav-link" data-scroll-target="#dictionaries-hash-tables"><span class="header-section-number">2.2</span> Dictionaries (Hash Tables)</a>
+  <ul class="collapse">
+<li><a href="#access-membership" id="toc-access-membership" class="nav-link" data-scroll-target="#access-membership"><span class="header-section-number">2.2.1</span> Access &amp; Membership</a></li>
+  <li><a href="#delete-pop" id="toc-delete-pop" class="nav-link" data-scroll-target="#delete-pop"><span class="header-section-number">2.2.2</span> Delete &amp; Pop</a></li>
+  <li><a href="#merge-and-update-python-3.9" id="toc-merge-and-update-python-3.9" class="nav-link" data-scroll-target="#merge-and-update-python-3.9"><span class="header-section-number">2.2.3</span> Merge and Update (Python 3.9+)</a></li>
+  <li><a href="#using-get-and-setdefault" id="toc-using-get-and-setdefault" class="nav-link" data-scroll-target="#using-get-and-setdefault"><span class="header-section-number">2.2.4</span> Using get and setdefault</a></li>
+  <li><a href="#using-defaultdict-and-counter" id="toc-using-defaultdict-and-counter" class="nav-link" data-scroll-target="#using-defaultdict-and-counter"><span class="header-section-number">2.2.5</span> Using defaultdict and Counter</a></li>
+  <li><a href="#time-space-complexity" id="toc-time-space-complexity" class="nav-link" data-scroll-target="#time-space-complexity"><span class="header-section-number">2.2.6</span> Time &amp; Space Complexity</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#stacks-and-queues" id="toc-stacks-and-queues" class="nav-link" data-scroll-target="#stacks-and-queues"><span class="header-section-number">2.3</span> Stacks and Queues</a>
+  <ul class="collapse">
+<li><a href="#stack-lifo" id="toc-stack-lifo" class="nav-link" data-scroll-target="#stack-lifo"><span class="header-section-number">2.3.1</span> Stack (LIFO)</a></li>
+  <li><a href="#queue-fifo" id="toc-queue-fifo" class="nav-link" data-scroll-target="#queue-fifo"><span class="header-section-number">2.3.2</span> Queue (FIFO)</a></li>
+  <li><a href="#two-pointer-technique" id="toc-two-pointer-technique" class="nav-link" data-scroll-target="#two-pointer-technique"><span class="header-section-number">2.3.3</span> Two-Pointer Technique</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#recursion-and-divide-and-conquer" id="toc-recursion-and-divide-and-conquer" class="nav-link" data-scroll-target="#recursion-and-divide-and-conquer"><span class="header-section-number">2.4</span> Recursion and Divide-and-Conquer</a>
+  <ul class="collapse">
+<li><a href="#example-binary-search" id="toc-example-binary-search" class="nav-link" data-scroll-target="#example-binary-search"><span class="header-section-number">2.4.1</span> Example: Binary Search</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#linked-lists-and-trees" id="toc-linked-lists-and-trees" class="nav-link" data-scroll-target="#linked-lists-and-trees"><span class="header-section-number">2.5</span> Linked Lists and Trees</a>
+  <ul class="collapse">
+<li><a href="#singly-linked-list-concept" id="toc-singly-linked-list-concept" class="nav-link" data-scroll-target="#singly-linked-list-concept"><span class="header-section-number">2.5.1</span> Singly Linked List (Concept)</a></li>
+  <li><a href="#binary-tree-traversal" id="toc-binary-tree-traversal" class="nav-link" data-scroll-target="#binary-tree-traversal"><span class="header-section-number">2.5.2</span> Binary Tree (Traversal)</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#dynamic-programming-dp" id="toc-dynamic-programming-dp" class="nav-link" data-scroll-target="#dynamic-programming-dp"><span class="header-section-number">2.6</span> Dynamic Programming (DP)</a>
+  <ul class="collapse">
+<li><a href="#example-fibonacci" id="toc-example-fibonacci" class="nav-link" data-scroll-target="#example-fibonacci"><span class="header-section-number">2.6.1</span> Example: Fibonacci</a></li>
+  </ul>
+</li>
+  <li><a href="#common-interview-patterns" id="toc-common-interview-patterns" class="nav-link" data-scroll-target="#common-interview-patterns"><span class="header-section-number">2.7</span> Common Interview Patterns</a></li>
+  <li>
+<a href="#key-takeaway" id="toc-key-takeaway" class="nav-link" data-scroll-target="#key-takeaway"><span class="header-section-number">2.8</span> Key Takeaway</a>
+  <ul class="collapse">
+<li><a href="#algorithmic-paradigms-overview" id="toc-algorithmic-paradigms-overview" class="nav-link" data-scroll-target="#algorithmic-paradigms-overview"><span class="header-section-number">2.8.1</span> Algorithmic Paradigms — Overview</a></li>
+  <li><a href="#problem-pattern-quick-picker" id="toc-problem-pattern-quick-picker" class="nav-link" data-scroll-target="#problem-pattern-quick-picker"><span class="header-section-number">2.8.2</span> Problem → Pattern Quick-Picker</a></li>
+  </ul>
+</li>
+  <li><a href="#big-o-complexity-cheat-sheet" id="toc-big-o-complexity-cheat-sheet" class="nav-link" data-scroll-target="#big-o-complexity-cheat-sheet"><span class="header-section-number">2.9</span> Big-O Complexity Cheat Sheet</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/l02_ds.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="problem-solving-framework" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="problem-solving-framework">
+<span class="header-section-number">2.1</span> Problem Solving Framework</h2>
+<p>This lecture introduces Python data structures and core algorithmic techniques that form the foundation of efficient problem solving. By the end, you should confidently identify the proper data structure for a problem, analyze trade-offs, and implement algorithms with optimal time and space complexity.</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    A[Problem] --&gt; B[Choose Data Structure]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    A --&gt; C[Select Algorithm]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    B --&gt; D[Analyze Complexity]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    C --&gt; D</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[Optimized Solution]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    style A fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    style E fill:#2ecc71,stroke:#27ae60,stroke-width:2px,color:#fff</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    style B fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    style C fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    style D fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<p></p><figure class="figure"></figure><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[Problem] --&gt; B[Choose Data Structure]
+    A --&gt; C[Select Algorithm]
+    B --&gt; D[Analyze Complexity]
+    C --&gt; D
+    D --&gt; E[Optimized Solution]
+    
+    style A fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    style E fill:#2ecc71,stroke:#27ae60,stroke-width:2px,color:#fff
+    style B fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+    style C fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    style D fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+</pre>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+<section id="objectives" class="level3" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="objectives">
+<span class="header-section-number">2.1.1</span> Objectives</h3>
+<ul>
+<li>Define core data structures — lists, stacks, queues, hash tables, linked lists, trees, and graphs — and know when to use each.</li>
+<li>Analyze trade-offs in operations (time and space complexity).</li>
+<li>Distinguish between major algorithmic paradigms: divide-and-conquer, greedy, dynamic programming, and graph traversal.</li>
+<li>Implement and evaluate algorithms for searching, sorting, traversal, and optimization problems.</li>
+<li>Perform complexity analysis and connect it to scalability.</li>
+</ul></section><section id="recommended-reading" class="level3" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="recommended-reading">
+<span class="header-section-number">2.1.2</span> Recommended Reading</h3>
+<ul>
+<li>
+<strong>Introduction to Algorithms</strong> — Cormen, Leiserson, Rivest, Stein (CLRS), Chapters 1–5, 10–16.</li>
+<li>
+<strong>Data Structures and Algorithms in Python</strong> — Goodrich, Tamassia, Goldwasser.</li>
+<li>
+<strong>Python documentation</strong>: <code>collections</code>, <code>heapq</code>, <code>bisect</code>, <code>itertools</code>.</li>
+</ul></section><section id="data-structures-guide" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="data-structures-guide">
+<span class="header-section-number">2.1.3</span> Data Structures Guide</h3>
+<div class="cell" data-layout-align="default">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>graph LR</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    DS[Data Structures] --&gt; A[Array/List]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    DS --&gt; B[Stack]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    DS --&gt; C[Queue]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    DS --&gt; D[Hash Map]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    DS --&gt; E[Set]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    DS --&gt; F[Linked List]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    DS --&gt; G[Heap]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    DS --&gt; H[Tree/BST]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    DS --&gt; I[Graph]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    A --&gt; A1[Random access O1&lt;br/&gt;Insert mid On]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    B --&gt; B1[LIFO&lt;br/&gt;Parsing, undo]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    C --&gt; C1[FIFO&lt;br/&gt;BFS, streaming]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    D --&gt; D1[O1 lookup&lt;br/&gt;Key-value pairs]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    E --&gt; E1[O1 membership&lt;br/&gt;Unique items]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    F --&gt; F1[Frequent inserts&lt;br/&gt;No random access]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    G --&gt; G1[Top-k problems&lt;br/&gt;O log n operations]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    H --&gt; H1[Ordered data&lt;br/&gt;O log n search]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    I --&gt; I1[Relationships&lt;br/&gt;BFS/DFS traversal]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<p></p><figure class="figure"></figure><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    DS[Data Structures] --&gt; A[Array/List]
+    DS --&gt; B[Stack]
+    DS --&gt; C[Queue]
+    DS --&gt; D[Hash Map]
+    DS --&gt; E[Set]
+    DS --&gt; F[Linked List]
+    DS --&gt; G[Heap]
+    DS --&gt; H[Tree/BST]
+    DS --&gt; I[Graph]
+    
+    A --&gt; A1[Random access O1&lt;br/&gt;Insert mid On]
+    B --&gt; B1[LIFO&lt;br/&gt;Parsing, undo]
+    C --&gt; C1[FIFO&lt;br/&gt;BFS, streaming]
+    D --&gt; D1[O1 lookup&lt;br/&gt;Key-value pairs]
+    E --&gt; E1[O1 membership&lt;br/&gt;Unique items]
+    F --&gt; F1[Frequent inserts&lt;br/&gt;No random access]
+    G --&gt; G1[Top-k problems&lt;br/&gt;O log n operations]
+    H --&gt; H1[Ordered data&lt;br/&gt;O log n search]
+    I --&gt; I1[Relationships&lt;br/&gt;BFS/DFS traversal]
+</pre>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</section></section><section id="dictionaries-hash-tables" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="dictionaries-hash-tables">
+<span class="header-section-number">2.2</span> Dictionaries (Hash Tables)</h2>
+<p>A dictionary in Python is a hash-table data structure that stores key–value pairs.</p>
+<ul>
+<li>Keys must be immutable and unique.</li>
+<li>Values can be any type.</li>
+<li>Average-time complexity for insert, lookup, and delete is O(1); worst-case (heavy collisions) is O(n).</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> {<span class="st">"Alice"</span>: <span class="dv">90</span>, <span class="st">"Bob"</span>: <span class="dv">85</span>}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>scores[<span class="st">"Charlie"</span>] <span class="op">=</span> <span class="dv">95</span>        <span class="co"># insert</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>scores[<span class="st">"Alice"</span>] <span class="op">=</span> <span class="dv">92</span>          <span class="co"># update</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="access-membership" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="access-membership">
+<span class="header-section-number">2.2.1</span> Access &amp; Membership</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>scores.get(<span class="st">"Bob"</span>)             <span class="co"># 85</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>scores.get(<span class="st">"Diana"</span>, <span class="dv">0</span>)        <span class="co"># default=0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">"Alice"</span> <span class="kw">in</span> scores             <span class="co"># True</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="delete-pop" class="level3" data-number="2.2.2"><h3 data-number="2.2.2" class="anchored" data-anchor-id="delete-pop">
+<span class="header-section-number">2.2.2</span> Delete &amp; Pop</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> scores[<span class="st">"Bob"</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>removed <span class="op">=</span> scores.pop(<span class="st">"Charlie"</span>, <span class="va">None</span>)   <span class="co"># safer deletion</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>scores, removed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="merge-and-update-python-3.9" class="level3" data-number="2.2.3"><h3 data-number="2.2.3" class="anchored" data-anchor-id="merge-and-update-python-3.9">
+<span class="header-section-number">2.2.3</span> Merge and Update (Python 3.9+)</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> {<span class="st">"a"</span>: <span class="dv">1</span>, <span class="st">"b"</span>: <span class="dv">2</span>}</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> {<span class="st">"b"</span>: <span class="dv">20</span>, <span class="st">"c"</span>: <span class="dv">3</span>}</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> base <span class="op">|</span> delta          <span class="co"># {'a':1, 'b':20, 'c':3}</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>base <span class="op">|=</span> {<span class="st">"d"</span>: <span class="dv">4</span>}               <span class="co"># in-place merge</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>base, merged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="using-get-and-setdefault" class="level3" data-number="2.2.4"><h3 data-number="2.2.4" class="anchored" data-anchor-id="using-get-and-setdefault">
+<span class="header-section-number">2.2.4</span> Using get and setdefault</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Counting with get</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> {}</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ch <span class="kw">in</span> <span class="st">"mississippi"</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    freq[ch] <span class="op">=</span> freq.get(ch, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>freq</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouping with setdefault</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> {}</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>pairs <span class="op">=</span> [(<span class="st">"cat"</span>,<span class="st">"mammal"</span>), (<span class="st">"eel"</span>,<span class="st">"fish"</span>), (<span class="st">"dog"</span>,<span class="st">"mammal"</span>)]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> animal, kind <span class="kw">in</span> pairs:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    groups.setdefault(kind, []).append(animal)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="using-defaultdict-and-counter" class="level3" data-number="2.2.5"><h3 data-number="2.2.5" class="anchored" data-anchor-id="using-defaultdict-and-counter">
+<span class="header-section-number">2.2.5</span> Using defaultdict and Counter</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict, Counter</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dd <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ch <span class="kw">in</span> <span class="st">"banana"</span>:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    dd[ch] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ctr <span class="op">=</span> Counter(<span class="st">"abracadabra"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>dd, ctr.most_common(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="time-space-complexity" class="level3" data-number="2.2.6"><h3 data-number="2.2.6" class="anchored" data-anchor-id="time-space-complexity">
+<span class="header-section-number">2.2.6</span> Time &amp; Space Complexity</h3>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Operation</th>
+<th>Average</th>
+<th>Worst</th>
+<th>Notes</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Insert / Update</td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>Resize or collisions</td>
+</tr>
+<tr class="even">
+<td>Lookup</td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>Use get() to avoid errors</td>
+</tr>
+<tr class="odd">
+<td>Delete / Pop</td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>pop(k, default) is safer</td>
+</tr>
+<tr class="even">
+<td>Membership</td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>Hash + equality check</td>
+</tr>
+<tr class="odd">
+<td>Iterate keys/values</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>Views are dynamic</td>
+</tr>
+</tbody>
+</table></section></section><section id="stacks-and-queues" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="stacks-and-queues">
+<span class="header-section-number">2.3</span> Stacks and Queues</h2>
+<section id="stack-lifo" class="level3" data-number="2.3.1"><h3 data-number="2.3.1" class="anchored" data-anchor-id="stack-lifo">
+<span class="header-section-number">2.3.1</span> Stack (LIFO)</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>stack <span class="op">=</span> []</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>stack.append(<span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>stack.append(<span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>stack.pop()    <span class="co"># 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="queue-fifo" class="level3" data-number="2.3.2"><h3 data-number="2.3.2" class="anchored" data-anchor-id="queue-fifo">
+<span class="header-section-number">2.3.2</span> Queue (FIFO)</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>queue <span class="op">=</span> deque()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>queue.append(<span class="dv">1</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>queue.append(<span class="dv">2</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>queue.popleft()   <span class="co"># 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="two-pointer-technique" class="level3" data-number="2.3.3"><h3 data-number="2.3.3" class="anchored" data-anchor-id="two-pointer-technique">
+<span class="header-section-number">2.3.3</span> Two-Pointer Technique</h3>
+<p>Used for problems like pair sums, palindromes, and merging sorted arrays.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nums <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>l, r <span class="op">=</span> <span class="dv">0</span>, <span class="bu">len</span>(nums) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> l <span class="op">&lt;</span> r:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> nums[l] <span class="op">+</span> nums[r]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s <span class="op">==</span> target:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>((nums[l], nums[r]))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> s <span class="op">&lt;</span> target:</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        l <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        r <span class="op">-=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section><section id="recursion-and-divide-and-conquer" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="recursion-and-divide-and-conquer">
+<span class="header-section-number">2.4</span> Recursion and Divide-and-Conquer</h2>
+<p><strong>Recursion</strong>: Solving a problem by calling itself on smaller subproblems.</p>
+<p><strong>Divide-and-Conquer</strong>: Divide → Solve → Combine.</p>
+<section id="example-binary-search" class="level3" data-number="2.4.1"><h3 data-number="2.4.1" class="anchored" data-anchor-id="example-binary-search">
+<span class="header-section-number">2.4.1</span> Example: Binary Search</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_search(arr, target):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    left, right <span class="op">=</span> <span class="dv">0</span>, <span class="bu">len</span>(arr)<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> left <span class="op">&lt;=</span> right:</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        mid <span class="op">=</span> (left <span class="op">+</span> right)<span class="op">//</span><span class="dv">2</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> arr[mid] <span class="op">==</span> target:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> mid</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> arr[mid] <span class="op">&lt;</span> target:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            left <span class="op">=</span> mid <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>            right <span class="op">=</span> mid <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section><section id="linked-lists-and-trees" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="linked-lists-and-trees">
+<span class="header-section-number">2.5</span> Linked Lists and Trees</h2>
+<section id="singly-linked-list-concept" class="level3" data-number="2.5.1"><h3 data-number="2.5.1" class="anchored" data-anchor-id="singly-linked-list-concept">
+<span class="header-section-number">2.5.1</span> Singly Linked List (Concept)</h3>
+<p>Each node stores data and a pointer to the next node.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Node:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, data):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> data</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">next</span> <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LinkedList:</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.head <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> append(<span class="va">self</span>, data):</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        new_node <span class="op">=</span> Node(data)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.head:</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.head <span class="op">=</span> new_node</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        curr <span class="op">=</span> <span class="va">self</span>.head</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> curr.<span class="bu">next</span>:</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>            curr <span class="op">=</span> curr.<span class="bu">next</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        curr.<span class="bu">next</span> <span class="op">=</span> new_node</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="binary-tree-traversal" class="level3" data-number="2.5.2"><h3 data-number="2.5.2" class="anchored" data-anchor-id="binary-tree-traversal">
+<span class="header-section-number">2.5.2</span> Binary Tree (Traversal)</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Node:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, val):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val <span class="op">=</span> val</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.left <span class="op">=</span> <span class="va">self</span>.right <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inorder(root):</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> root:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        inorder(root.left)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(root.val, end<span class="op">=</span><span class="st">" "</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        inorder(root.right)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section><section id="dynamic-programming-dp" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="dynamic-programming-dp">
+<span class="header-section-number">2.6</span> Dynamic Programming (DP)</h2>
+<p>Technique to solve problems by breaking them into overlapping subproblems and storing intermediate results.</p>
+<section id="example-fibonacci" class="level3" data-number="2.6.1"><h3 data-number="2.6.1" class="anchored" data-anchor-id="example-fibonacci">
+<span class="header-section-number">2.6.1</span> Example: Fibonacci</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fib(n, memo<span class="op">=</span>{}):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="kw">in</span> memo: <span class="cf">return</span> memo[n]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">2</span>: <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    memo[n] <span class="op">=</span> fib(n<span class="op">-</span><span class="dv">1</span>, memo) <span class="op">+</span> fib(n<span class="op">-</span><span class="dv">2</span>, memo)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> memo[n]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>
+<strong>Time Complexity</strong>: O(n)</li>
+<li>
+<strong>Space Complexity</strong>: O(n)</li>
+</ul></section></section><section id="common-interview-patterns" class="level2" data-number="2.7"><h2 data-number="2.7" class="anchored" data-anchor-id="common-interview-patterns">
+<span class="header-section-number">2.7</span> Common Interview Patterns</h2>
+<ul>
+<li>Two pointers / Fast–slow pointers</li>
+<li>Sliding window</li>
+<li>Hash map counting</li>
+<li>Sorting + scanning</li>
+<li>Stack-based (e.g., next greater element)</li>
+<li>BFS / DFS for graphs</li>
+<li>Dynamic programming</li>
+<li>Greedy optimization</li>
+</ul></section><section id="key-takeaway" class="level2" data-number="2.8"><h2 data-number="2.8" class="anchored" data-anchor-id="key-takeaway">
+<span class="header-section-number">2.8</span> Key Takeaway</h2>
+<p>Mastering data structures and algorithms means understanding how data is organized and how operations scale.</p>
+<p>Once these patterns become intuitive, solving complex problems efficiently becomes natural.</p>
+<hr>
+<section id="algorithmic-paradigms-overview" class="level3" data-number="2.8.1"><h3 data-number="2.8.1" class="anchored" data-anchor-id="algorithmic-paradigms-overview">
+<span class="header-section-number">2.8.1</span> Algorithmic Paradigms — Overview</h3>
+<div class="cell" data-layout-align="default">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    A[Algorithmic Paradigms] --&gt; B[Divide &amp; Conquer]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    A --&gt; C[Greedy]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    A --&gt; D[Dynamic Programming]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    A --&gt; E[Graph Search]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    A --&gt; F[Backtracking]</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    B --&gt; B1[Examples: Merge Sort, Quick Sort, Binary Search]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    B --&gt; B2[Idea: Split → Solve → Combine]</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    C --&gt; C1[Examples: Interval Scheduling, Huffman Coding]</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    C --&gt; C2[Idea: Locally optimal ⇒ Globally good with proof]</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    D --&gt; D1[Examples: Knapsack, LIS, Edit Distance]</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    D --&gt; D2[Idea: Overlapping subproblems + Optimal substructure]</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    D --&gt; D3[Techniques: Memoization / Tabulation]</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    E --&gt; E1[BFS]</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    E --&gt; E2[DFS]</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    E --&gt; E3[Shortest Path: Dijkstra/A*]</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    E --&gt; E4[Topo Sort, SCC, MST]</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    F --&gt; F1[Examples: N-Queens, Subset Sum exact]</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    F --&gt; F2[Idea: Build partials + prune branches]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<p></p><figure class="figure"></figure><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[Algorithmic Paradigms] --&gt; B[Divide &amp; Conquer]
+    A --&gt; C[Greedy]
+    A --&gt; D[Dynamic Programming]
+    A --&gt; E[Graph Search]
+    A --&gt; F[Backtracking]
+
+    B --&gt; B1[Examples: Merge Sort, Quick Sort, Binary Search]
+    B --&gt; B2[Idea: Split → Solve → Combine]
+
+    C --&gt; C1[Examples: Interval Scheduling, Huffman Coding]
+    C --&gt; C2[Idea: Locally optimal ⇒ Globally good with proof]
+
+    D --&gt; D1[Examples: Knapsack, LIS, Edit Distance]
+    D --&gt; D2[Idea: Overlapping subproblems + Optimal substructure]
+    D --&gt; D3[Techniques: Memoization / Tabulation]
+
+    E --&gt; E1[BFS]
+    E --&gt; E2[DFS]
+    E --&gt; E3[Shortest Path: Dijkstra/A*]
+    E --&gt; E4[Topo Sort, SCC, MST]
+
+    F --&gt; F1[Examples: N-Queens, Subset Sum exact]
+    F --&gt; F2[Idea: Build partials + prune branches]
+</pre>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</section><section id="problem-pattern-quick-picker" class="level3" data-number="2.8.2"><h3 data-number="2.8.2" class="anchored" data-anchor-id="problem-pattern-quick-picker">
+<span class="header-section-number">2.8.2</span> Problem → Pattern Quick-Picker</h3>
+<div class="cell" data-layout-align="default">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    P[Problem Type] --&gt; P1[Subarray / substring sums]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    P --&gt; P2[Sorted arrays / pair sum]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    P --&gt; P3[Distinct / frequency]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    P --&gt; P4[Scheduling / earliest finish]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    P --&gt; P5[Path / connectivity]</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    P --&gt; P6[Optimal value with overlapping subproblems]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    P1 --&gt; SW[Sliding Window]</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    P2 --&gt; TP[Two Pointers / Binary Search]</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    P3 --&gt; HM[Hash Map / Set]</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    P4 --&gt; GR[Greedy]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    P5 --&gt; GS[Graph Search BFS/DFS/Dijkstra]</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    P6 --&gt; DP[Dynamic Programming]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<p></p><figure class="figure"></figure><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    P[Problem Type] --&gt; P1[Subarray / substring sums]
+    P --&gt; P2[Sorted arrays / pair sum]
+    P --&gt; P3[Distinct / frequency]
+    P --&gt; P4[Scheduling / earliest finish]
+    P --&gt; P5[Path / connectivity]
+    P --&gt; P6[Optimal value with overlapping subproblems]
+
+    P1 --&gt; SW[Sliding Window]
+    P2 --&gt; TP[Two Pointers / Binary Search]
+    P3 --&gt; HM[Hash Map / Set]
+    P4 --&gt; GR[Greedy]
+    P5 --&gt; GS[Graph Search BFS/DFS/Dijkstra]
+    P6 --&gt; DP[Dynamic Programming]
+</pre>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</section></section><section id="big-o-complexity-cheat-sheet" class="level2" data-number="2.9"><h2 data-number="2.9" class="anchored" data-anchor-id="big-o-complexity-cheat-sheet">
+<span class="header-section-number">2.9</span> Big-O Complexity Cheat Sheet</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 22%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th>Complexity</th>
+<th>Name</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>O(1)</td>
+<td>Constant</td>
+<td>Hash table lookup, array access</td>
+</tr>
+<tr class="even">
+<td>O(log n)</td>
+<td>Logarithmic</td>
+<td>Binary search, balanced tree operations</td>
+</tr>
+<tr class="odd">
+<td>O(n)</td>
+<td>Linear</td>
+<td>Array traversal, linear search</td>
+</tr>
+<tr class="even">
+<td>O(n log n)</td>
+<td>Linearithmic</td>
+<td>Merge sort, heap sort, quicksort (average)</td>
+</tr>
+<tr class="odd">
+<td>O(n²)</td>
+<td>Quadratic</td>
+<td>Nested loops, bubble sort</td>
+</tr>
+<tr class="even">
+<td>O(2ⁿ)</td>
+<td>Exponential</td>
+<td>Recursive fibonacci, subset generation</td>
+</tr>
+<tr class="odd">
+<td>O(n!)</td>
+<td>Factorial</td>
+<td>Permutations, traveling salesman (brute force)</td>
+</tr>
+</tbody>
+</table>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./l01_stat_math.html" class="pagination-link" aria-label="Statistics &amp; Mathematics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics &amp; Mathematics</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./l03_algorithm.html" class="pagination-link" aria-label="Algorithms Coding Patterns">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/l02_ds.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
