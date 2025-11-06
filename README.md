@@ -61,11 +61,12 @@ Each topic answers **“why the next method was needed”**, with theory, math, 
 | Phase | Focus | Deliverable |
 |--------|--------|-------------|
 | **Phase 1: Core Concepts** | ML/DL fundamentals, math review | Week 1-4 |
-| **Phase 2: Deep Reinforcement Learning** | Implement PPO/DDPG from scratch | Week 5-6 |
-| **Phase 3: LLMs & Transformers** | Pretraining, finetuning, LoRA | Week 7-8 |
-| **Phase 4: Research Communication** | Write a short technical blog / mini-paper | Week 9 |
-| **Phase 5: Systems & Scalability** | Deployment, optimization, efficiency | Week 10 |
-| **Phase 6: Mock Interviews** | 1 technical + 1 research + 1 system design | Week 11-12 |
+| **Phase 2: Deep Reinforcement Learning** | Implement PPO/DDPG from scratch | Week 5-7 |
+| **Phase 3: LLMs & Transformers** | Pretraining, finetuning, LoRA | Week 8-10 |
+| **Phase 4: Research Communication** | Write a short technical blog / mini-paper | Week 11 |
+| **Phase 5: Systems & Scalability** | Deployment, optimization, efficiency | Week 12 -13 |
+| **Phase 6: Mock Interviews** | 1 technical + 1 research + 1 system design | Week 14 |
+| **Phase 7: Mock Interviews II** | 1 technical + 1 research + 1 system design | Week 15 |
 
 ---
 
