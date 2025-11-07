@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>6&nbsp; Deep Learning Models – Research Scientist Guide</title>
+<title>6&nbsp; Neural Network – Research Scientist Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,10 +89,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./l06_dl.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./l06_dl.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,13 +187,13 @@ window.Quarto = {
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
@@ -254,7 +254,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l06_dl.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -399,7 +399,7 @@ window.Quarto = {
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-GARCH" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></span></h1>
+<h1 class="title"><span id="sec-neural-network" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></span></h1>
 </div>
 
 
@@ -413,19 +413,20 @@ window.Quarto = {
   
 
 
-</header><p>The goal of this lecture is to introduce a class of models with conditional heteroskedasticity for stationary time series. You will be able to recognize the presence of such heteroskedasticity from graphs or statistical tests and model it.</p>
+</header><p>The objective is to build and analyze a neural network from the ground up, manually implementing all core components to understand the underlying mathematics and mechanics of training, forward propagation, and backpropagation. By constructing the network step by step, we aim to gain a deeper understanding of how neural networks learn patterns and make predictions.</p>
 <p><strong>Objectives</strong></p>
 <ol type="1">
-<li>List features of ARCH recognizable from plots.</li>
-<li>Diagnose ARCH effects using a statistical test.</li>
-<li>Define ARCH(<span class="math inline">\(p\)</span>) and GARCH(<span class="math inline">\(p, q\)</span>) models and identify the orders <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span>.</li>
-<li>Estimate the models and generate forecasts.</li>
-<li>Discuss further extensions of the models.</li>
+<li>Understand the architecture and components of a neural network (neurons, layers, weights, activation functions).</li>
+<li>Implement forward propagation and compute loss functions manually.</li>
+<li>Derive and implement the backpropagation algorithm for weight updates.</li>
+<li>Train and test the model on sample data to evaluate accuracy and generalization.</li>
+<li>For validation and efficiency, compare manual implementation with high-level frameworks (e.g., TensorFlow, PyTorch).</li>
 </ol>
 <p><strong>Reading materials</strong></p>
 <ul>
-<li>Chapter 7 in <span class="citation" data-cites="Kirchgassner:Wolters:2007">Kirchgässner and Wolters (<a href="references.html#ref-Kirchgassner:Wolters:2007" role="doc-biblioref">2007</a>)</span>
-</li>
+<li>Chapter 4 in <span class="citation" data-cites="Goodfellow:Bengio:Courville:2016">(<a href="references.html#ref-Goodfellow:Bengio:Courville:2016" role="doc-biblioref"><strong>Goodfellow:Bengio:Courville:2016?</strong></a>)</span> — Deep Learning</li>
+<li>Section 2.3 in <span class="citation" data-cites="Bishop:2006">(<a href="references.html#ref-Bishop:2006" role="doc-biblioref"><strong>Bishop:2006?</strong></a>)</span> — Pattern Recognition and Machine Learning</li>
+<li>Online Tutorial: “Neural Networks from Scratch in Python” by Harrison Kinsley &amp; Daniel Kukieła (2020)</li>
 </ul>
 <section id="introduction" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">6.1</span> Introduction</h2>
@@ -661,14 +662,14 @@ Example: GARCH model for USD/CAD log returns
 #&gt; 
 #&gt; Coefficient(s):
 #&gt;          mu        omega       alpha1        beta1  
-#&gt; -4.5264e-05   2.2304e-07   5.6511e-02   9.3805e-01  
+#&gt; -4.5267e-05   2.2304e-07   5.6511e-02   9.3805e-01  
 #&gt; 
 #&gt; Std. Errors:
 #&gt;  based on Hessian 
 #&gt; 
 #&gt; Error Analysis:
 #&gt;          Estimate  Std. Error  t value Pr(&gt;|t|)    
-#&gt; mu     -4.526e-05   9.863e-05   -0.459  0.64630    
+#&gt; mu     -4.527e-05   9.863e-05   -0.459  0.64628    
 #&gt; omega   2.230e-07   6.893e-08    3.236  0.00121 ** 
 #&gt; alpha1  5.651e-02   6.699e-03    8.436  &lt; 2e-16 ***
 #&gt; beta1   9.381e-01   6.846e-03  137.013  &lt; 2e-16 ***
@@ -742,18 +743,18 @@ Figure&nbsp;6.5: ACF of residuals from the GARCH(1,1) model for the USD/CAD log 
 #&gt; 
 #&gt; Coefficient(s):
 #&gt;          mu        omega       alpha1        beta1        shape  
-#&gt; -3.1972e-05   1.8744e-07   5.5352e-02   9.4057e-01   8.6423e+00  
+#&gt; -3.1968e-05   1.8744e-07   5.5352e-02   9.4057e-01   8.6423e+00  
 #&gt; 
 #&gt; Std. Errors:
 #&gt;  based on Hessian 
 #&gt; 
 #&gt; Error Analysis:
 #&gt;          Estimate  Std. Error  t value Pr(&gt;|t|)    
-#&gt; mu     -3.197e-05   9.433e-05   -0.339   0.7346    
+#&gt; mu     -3.197e-05   9.433e-05   -0.339   0.7347    
 #&gt; omega   1.874e-07   8.038e-08    2.332   0.0197 *  
 #&gt; alpha1  5.535e-02   7.765e-03    7.128 1.02e-12 ***
-#&gt; beta1   9.406e-01   7.760e-03  121.209  &lt; 2e-16 ***
-#&gt; shape   8.642e+00   1.420e+00    6.084 1.17e-09 ***
+#&gt; beta1   9.406e-01   7.760e-03  121.210  &lt; 2e-16 ***
+#&gt; shape   8.642e+00   1.421e+00    6.084 1.17e-09 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
@@ -904,9 +905,6 @@ Engle RF (1982) Autoregressive conditional heteroscedasticity with estimates of 
 </div>
 <div id="ref-Hansen:Lunde:2005" class="csl-entry" role="listitem">
 Hansen PR, Lunde A (2005) A comparison of volatility models: Does anything beat a <span>GARCH</span>(1, 1)? Journal of Applied Econometrics 20:873–889. <a href="https://doi.org/10.1002/jae.800">https://doi.org/10.1002/jae.800</a>
-</div>
-<div id="ref-Kirchgassner:Wolters:2007" class="csl-entry" role="listitem">
-Kirchgässner G, Wolters J (2007) <a href="https://doi.org/10.1007/978-3-540-73291-4">Introduction to modern time series analysis</a>. Springer-Verlag, Berlin, Germany
 </div>
 <div id="ref-Marinova:McAleer:2003" class="csl-entry" role="listitem">
 Marinova D, McAleer M (2003) Modelling trends and volatility in ecological patents in the <span>USA</span>. Environmental Modelling &amp; Software 18:195–203. <a href="https://doi.org/10.1016/S1364-8152(02)00079-8">https://doi.org/10.1016/S1364-8152(02)00079-8</a>

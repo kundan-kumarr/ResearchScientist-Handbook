@@ -13,5 +13,23 @@ theme_set(theme_light())
 ```
 
 # Model Evaluation and Analysis
-RL+Neural Network
+This chapter provides a unified framework for evaluating and analyzing models across multiple AI paradigms: `Machine Learning (ML)`, `Deep Learning (DL)`, `Deep Reinforcement Learning (DRL)`, `Large Language Models (LLMs)`, and `Computer Vision (CV)`.
+The goal is to assess performance, robustness, efficiency, and interpretability, providing actionable insights for model improvement and real-world deployment.
+
+## ML Model Evaluation & Analysis
+> Applies to classical models like Decision Trees, Random Forests, SVMs, and Gradient Boosting for structured data.
+
+The Evaluation Metrics are :
+
+### Calculate Mean Absolute Error (MAE)
+
+Analysis
+
+- Use cross-validation for unbiased performance estimation.
+- Visualize confusion matrix and feature importances.
+- Evaluate bias–variance tradeoff with learning curves.
+- Assess scalability for increasing dataset sizes.
+
+Interpretation:
+- Consistent performance across folds with stable feature importance indicates generalizatio
 

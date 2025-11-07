@@ -12,22 +12,23 @@ options(digits = 3)
 theme_set(theme_light())
 ```
 
-# Deep Learning Models {#sec-GARCH}
+# Neural Network {#sec-neural-network}
 
-The goal of this lecture is to introduce a class of models with conditional heteroskedasticity for stationary time series. 
-You will be able to recognize the presence of such heteroskedasticity from graphs or statistical tests and model it.
+The objective is to build and analyze a neural network from the ground up, manually implementing all core components to understand the underlying mathematics and mechanics of training, forward propagation, and backpropagation. By constructing the network step by step, we aim to gain a deeper understanding of how neural networks learn patterns and make predictions.
 
 **Objectives**
 
-1. List features of ARCH recognizable from plots.
-1. Diagnose ARCH effects using a statistical test.
-1. Define ARCH($p$) and GARCH($p, q$) models and identify the orders $p$ and $q$.
-1. Estimate the models and generate forecasts.
-1. Discuss further extensions of the models.
+1. Understand the architecture and components of a neural network (neurons, layers, weights, activation functions).
+1. Implement forward propagation and compute loss functions manually.
+1. Derive and implement the backpropagation algorithm for weight updates.
+1. Train and test the model on sample data to evaluate accuracy and generalization.
+1. For validation and efficiency, compare manual implementation with high-level frameworks (e.g., TensorFlow, PyTorch).
 
 **Reading materials**
 
-* Chapter 7 in @Kirchgassner:Wolters:2007
+* Chapter 4 in @Goodfellow:Bengio:Courville:2016 — Deep Learning
+* Section 2.3 in @Bishop:2006 — Pattern Recognition and Machine Learning
+* Online Tutorial: “Neural Networks from Scratch in Python” by Harrison Kinsley & Daniel Kukieła (2020)
 
 
 ## Introduction

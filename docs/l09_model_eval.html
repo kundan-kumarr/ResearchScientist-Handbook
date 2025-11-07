@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>9&nbsp; Model Evaluation and Analysis – Research Scientist Guide</title>
 <style>
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -108,13 +108,13 @@ ul.task-list li input[type="checkbox"] {
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
@@ -301,8 +301,17 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#ml-model-evaluation-analysis" id="toc-ml-model-evaluation-analysis" class="nav-link active" data-scroll-target="#ml-model-evaluation-analysis"><span class="header-section-number">9.1</span> ML Model Evaluation &amp; Analysis</a>
+  <ul class="collapse">
+<li><a href="#calculate-mean-absolute-error-mae" id="toc-calculate-mean-absolute-error-mae" class="nav-link" data-scroll-target="#calculate-mean-absolute-error-mae"><span class="header-section-number">9.1.1</span> Calculate Mean Absolute Error (MAE)</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/l09_model_eval.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -322,11 +331,26 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><p>RL+Neural Network</p>
+</header><p>This chapter provides a unified framework for evaluating and analyzing models across multiple AI paradigms: <code>Machine Learning (ML)</code>, <code>Deep Learning (DL)</code>, <code>Deep Reinforcement Learning (DRL)</code>, <code>Large Language Models (LLMs)</code>, and <code>Computer Vision (CV)</code>. The goal is to assess performance, robustness, efficiency, and interpretability, providing actionable insights for model improvement and real-world deployment.</p>
+<section id="ml-model-evaluation-analysis" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="ml-model-evaluation-analysis">
+<span class="header-section-number">9.1</span> ML Model Evaluation &amp; Analysis</h2>
+<blockquote class="blockquote">
+<p>Applies to classical models like Decision Trees, Random Forests, SVMs, and Gradient Boosting for structured data.</p>
+</blockquote>
+<p>The Evaluation Metrics are :</p>
+<section id="calculate-mean-absolute-error-mae" class="level3" data-number="9.1.1"><h3 data-number="9.1.1" class="anchored" data-anchor-id="calculate-mean-absolute-error-mae">
+<span class="header-section-number">9.1.1</span> Calculate Mean Absolute Error (MAE)</h3>
+<p>Analysis</p>
+<ul>
+<li>Use cross-validation for unbiased performance estimation.</li>
+<li>Visualize confusion matrix and feature importances.</li>
+<li>Evaluate bias–variance tradeoff with learning curves.</li>
+<li>Assess scalability for increasing dataset sizes.</li>
+</ul>
+<p>Interpretation: - Consistent performance across folds with stable feature importance indicates generalizatio</p>
 
 
-
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -739,4 +763,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/l09_model_eval.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/l09_model_eval.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
