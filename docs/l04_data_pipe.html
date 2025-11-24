@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>4&nbsp; ML Data Pipelines – Research Scientist Guide</title>
 <style>
@@ -89,10 +89,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -187,13 +187,13 @@ window.Quarto = {
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
@@ -254,7 +254,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l06_dl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -384,7 +384,7 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">4.1</span> Introduction</a></li>
+<li><a href="#data-handling" id="toc-data-handling" class="nav-link active" data-scroll-target="#data-handling"><span class="header-section-number">4.1</span> Data Handling</a></li>
   <li><a href="#autoregressive-ar-models" id="toc-autoregressive-ar-models" class="nav-link" data-scroll-target="#autoregressive-ar-models"><span class="header-section-number">4.2</span> Autoregressive (AR) models</a></li>
   <li><a href="#the-yulewold-representation-and-linear-processes" id="toc-the-yulewold-representation-and-linear-processes" class="nav-link" data-scroll-target="#the-yulewold-representation-and-linear-processes"><span class="header-section-number">4.3</span> The Yule–Wold representation and linear processes</a></li>
   <li><a href="#moving-average-ma-models" id="toc-moving-average-ma-models" class="nav-link" data-scroll-target="#moving-average-ma-models"><span class="header-section-number">4.4</span> Moving average (MA) models</a></li>
@@ -417,23 +417,26 @@ window.Quarto = {
   
 
 
-</header><p>The goal of this lecture is to introduce a broad class of models for stationary time series – autoregressive moving average (ARMA) models. You should recognize the difference between the AR and MA components and learn how to implement these models in practice.</p>
+</header><p>This module aims to introduce the complete workflow of modern machine learning data pipelines, emphasizing four key stages in nearly all ML systems: data handling, model selection and optimization, evaluation, and deployment. Mastering these components enables effective design, training, and deployment of models across various applications.</p>
 <p><strong>Objectives</strong></p>
 <ol type="1">
-<li>Define AR(<span class="math inline">\(p\)</span>), MA(<span class="math inline">\(q\)</span>), and ARMA(<span class="math inline">\(p,q\)</span>) models for stationary time series.</li>
-<li>Identify the orders <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> using ACF and PACF plots.</li>
-<li>Estimate models using different methods and select a model using an information criterion (AIC or BIC).</li>
-<li>Diagnose the residuals of an ARMA model.</li>
-<li>Obtain forecasts from ARMA models.</li>
+<li>Prepare and transform data by scaling, encoding, handling missing values, detecting leakage, and managing imbalances.</li>
+<li>Select and optimize machine learning models, tune hyperparameters, regularize them, and use AIC/BIC for comparison.</li>
+<li>Evaluate model performance with metrics, validation techniques, and error analysis for generalization.</li>
+<li>Deploy and maintain ML models in production, focusing on versioning, serving, drift detection, and continuous improvement.</li>
 </ol>
 <p><strong>Reading materials</strong></p>
 <ul>
-<li>Chapters 2, 3, and 5 in <span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="references.html#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span>
-</li>
+<li>Introduction to Machine Learning with Python — A. Müller &amp; S. Guido</li>
+<li>Hands-On Machine Learning with Scikit-Learn, Keras &amp; TensorFlow — Aurélien Géron</li>
+<li>Pattern Recognition and Machine Learning — C. Bishop (Ch. 1–4 on modeling &amp; inference)</li>
+<li>Elements of Statistical Learning — Hastie, Tibshirani, Friedman (Ch. 2–7 on supervised learning)</li>
+<li>Designing Machine Learning Systems — Chip Huyen (Sections on data pipelines, evaluation, deployment)</li>
+<li>Selected documentation: scikit-learn (preprocessing, metrics, model selection), MLflow, TensorFlow Lite, ONNX Runtime</li>
 </ul>
-<section id="introduction" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="introduction">
-<span class="header-section-number">4.1</span> Introduction</h2>
-<p>After removing or modeling a trend and strong seasonality in a time series, we need to take care of the stationary remainder, which may be autocorrelated or conditionally heteroskedastic. Here we introduce a broad class of ARMA models that deal with autocorrelation in time series.</p>
+<section id="data-handling" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="data-handling">
+<span class="header-section-number">4.1</span> Data Handling</h2>
+<p>The data handling stage converts raw, unstructured data into suitable inputs for machine learning. This involves preprocessing, statistical analysis, and decisions on missing values, feature rescaling, and training splits. The following subsections cover the main components. ### Feature Engineering Feature engineering creates meaningful predictors from raw data using mathematical transformations, categorical encodings, discretization, and text vectorization. ### Normalization / Standardization ### Dimensionality Reduction ### Missing Data Imputation ### Data Leakage ### Sampling Strategies ### Train/Validation/Test Split After removing or modeling a trend and strong seasonality in a time series, we need to take care of the stationary remainder, which may be autocorrelated or conditionally heteroskedastic. Here we introduce a broad class of ARMA models that deal with autocorrelation in time series.</p>
 <p>Recall that a time series is (weakly) stationary if its mean and autocovariance do not depend on time, <span class="math inline">\(t\)</span>; autocovariance depends only on the lag <span class="math inline">\(h\)</span>. We will use these two conditions to show that the time series processes that we will model as AR, MA, or ARMA are stationary. Remember that the presence of autocorrelation does not mean that there is a trend.</p>
 <p>We start by checking the two conditions for other typical univariate processes: white noise and random walk.</p>
 <div class="cell">
@@ -1400,9 +1403,6 @@ Figure&nbsp;4.13: Oberved time series (black) and one-step-ahead predictions (re
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-Brockwell:Davis:2002" class="csl-entry" role="listitem">
-Brockwell PJ, Davis RA (2002) Introduction to time series and forecasting, 2nd edn. Springer, New York, NY, USA
-</div>
 <div id="ref-Hall:VanKeilegom:2003" class="csl-entry" role="listitem">
 Hall P, Van Keilegom I (2003) Using difference-based methods for inference in nonparametric regression with time series errors. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 65:443–456. <a href="https://doi.org/10.1111/1467-9868.00395">https://doi.org/10.1111/1467-9868.00395</a>
 </div>

@@ -14,24 +14,43 @@ theme_set(theme_light())
 
 # ML Data Pipelines 
 
-The goal of this lecture is to introduce a broad class of models for stationary time series -- autoregressive moving average (ARMA) models. 
-You should recognize the difference between the AR and MA components and learn how to implement these models in practice.
+This module aims to introduce the complete workflow of modern machine learning data pipelines, emphasizing four key stages in nearly all ML systems: data handling, model selection and optimization, evaluation, and deployment. Mastering these components enables effective design, training, and deployment of models across various applications.
 
 **Objectives**
 
-1. Define AR($p$), MA($q$), and ARMA($p,q$) models for stationary time series.
-1. Identify the orders $p$ and $q$ using ACF and PACF plots.
-1. Estimate models using different methods and select a model using an information criterion (AIC or BIC).
-1. Diagnose the residuals of an ARMA model.
-1. Obtain forecasts from ARMA models.
+1. Prepare and transform data by scaling, encoding, handling missing values, detecting leakage, and managing imbalances. 
+1. Select and optimize machine learning models, tune hyperparameters, regularize them, and use AIC/BIC for comparison. 
+1. Evaluate model performance with metrics, validation techniques, and error analysis for generalization.
+1. Deploy and maintain ML models in production, focusing on versioning, serving, drift detection, and continuous improvement.
 
 **Reading materials**
 
-* Chapters 2, 3, and 5 in @Brockwell:Davis:2002
+* Introduction to Machine Learning with Python — A. Müller & S. Guido
+* Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow — Aurélien Géron
+* Pattern Recognition and Machine Learning — C. Bishop (Ch. 1–4 on modeling & inference)
+* Elements of Statistical Learning — Hastie, Tibshirani, Friedman (Ch. 2–7 on supervised learning)
+* Designing Machine Learning Systems — Chip Huyen (Sections on data pipelines, evaluation, deployment)
+* Selected documentation: scikit-learn (preprocessing, metrics, model selection), MLflow, TensorFlow Lite, ONNX Runtime
 
 
-## Introduction
+## Data Handling
+The data handling stage converts raw, unstructured data into suitable inputs for machine learning. This involves preprocessing, statistical analysis, and decisions on missing values, feature rescaling, and training splits. The following subsections cover the main components.
 
+### Feature Engineering
+Feature engineering creates meaningful predictors from raw data using mathematical transformations, categorical encodings, discretization, and text vectorization.
+Feature engineering (scaling, one-hot encoding, bucketing, transformations)
+
+### Normalization / Standardization
+
+### Dimensionality Reduction
+
+### Missing Data Imputation
+
+### Data Leakage
+
+### Sampling Strategies
+
+### Train/Validation/Test Split
 After removing or modeling a trend and strong seasonality in a time series, we need to take care of the stationary remainder, which may be autocorrelated or conditionally heteroskedastic. 
 Here we introduce a broad class of ARMA models that deal with autocorrelation in time series.
 
