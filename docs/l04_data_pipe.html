@@ -384,7 +384,18 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#data-handling" id="toc-data-handling" class="nav-link active" data-scroll-target="#data-handling"><span class="header-section-number">4.1</span> Data Handling</a></li>
+<li>
+<a href="#data-handling" id="toc-data-handling" class="nav-link active" data-scroll-target="#data-handling"><span class="header-section-number">4.1</span> Data Handling</a>
+  <ul class="collapse">
+<li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering"><span class="header-section-number">4.1.1</span> Feature Engineering</a></li>
+  <li><a href="#normalization-standardization" id="toc-normalization-standardization" class="nav-link" data-scroll-target="#normalization-standardization"><span class="header-section-number">4.1.2</span> Normalization / Standardization</a></li>
+  <li><a href="#dimensionality-reduction" id="toc-dimensionality-reduction" class="nav-link" data-scroll-target="#dimensionality-reduction"><span class="header-section-number">4.1.3</span> Dimensionality Reduction</a></li>
+  <li><a href="#missing-data-imputation" id="toc-missing-data-imputation" class="nav-link" data-scroll-target="#missing-data-imputation"><span class="header-section-number">4.1.4</span> Missing Data Imputation</a></li>
+  <li><a href="#data-leakage" id="toc-data-leakage" class="nav-link" data-scroll-target="#data-leakage"><span class="header-section-number">4.1.5</span> Data Leakage</a></li>
+  <li><a href="#sampling-strategies" id="toc-sampling-strategies" class="nav-link" data-scroll-target="#sampling-strategies"><span class="header-section-number">4.1.6</span> Sampling Strategies</a></li>
+  <li><a href="#trainvalidationtest-split" id="toc-trainvalidationtest-split" class="nav-link" data-scroll-target="#trainvalidationtest-split"><span class="header-section-number">4.1.7</span> Train/Validation/Test Split</a></li>
+  </ul>
+</li>
   <li><a href="#autoregressive-ar-models" id="toc-autoregressive-ar-models" class="nav-link" data-scroll-target="#autoregressive-ar-models"><span class="header-section-number">4.2</span> Autoregressive (AR) models</a></li>
   <li><a href="#the-yulewold-representation-and-linear-processes" id="toc-the-yulewold-representation-and-linear-processes" class="nav-link" data-scroll-target="#the-yulewold-representation-and-linear-processes"><span class="header-section-number">4.3</span> The Yule–Wold representation and linear processes</a></li>
   <li><a href="#moving-average-ma-models" id="toc-moving-average-ma-models" class="nav-link" data-scroll-target="#moving-average-ma-models"><span class="header-section-number">4.4</span> Moving average (MA) models</a></li>
@@ -436,7 +447,23 @@ window.Quarto = {
 </ul>
 <section id="data-handling" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="data-handling">
 <span class="header-section-number">4.1</span> Data Handling</h2>
-<p>The data handling stage converts raw, unstructured data into suitable inputs for machine learning. This involves preprocessing, statistical analysis, and decisions on missing values, feature rescaling, and training splits. The following subsections cover the main components. ### Feature Engineering Feature engineering creates meaningful predictors from raw data using mathematical transformations, categorical encodings, discretization, and text vectorization. ### Normalization / Standardization ### Dimensionality Reduction ### Missing Data Imputation ### Data Leakage ### Sampling Strategies ### Train/Validation/Test Split After removing or modeling a trend and strong seasonality in a time series, we need to take care of the stationary remainder, which may be autocorrelated or conditionally heteroskedastic. Here we introduce a broad class of ARMA models that deal with autocorrelation in time series.</p>
+<p>The data handling stage converts raw, unstructured data into suitable inputs for machine learning. This involves preprocessing, statistical analysis, and decisions on missing values, feature rescaling, and training splits. The following subsections cover the main components.</p>
+<section id="feature-engineering" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="feature-engineering">
+<span class="header-section-number">4.1.1</span> Feature Engineering</h3>
+<p>Feature engineering creates meaningful predictors from raw data using mathematical transformations, categorical encodings, discretization, and text vectorization. Feature engineering (scaling, one-hot encoding, bucketing, transformations)</p>
+</section><section id="normalization-standardization" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="normalization-standardization">
+<span class="header-section-number">4.1.2</span> Normalization / Standardization</h3>
+</section><section id="dimensionality-reduction" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="dimensionality-reduction">
+<span class="header-section-number">4.1.3</span> Dimensionality Reduction</h3>
+</section><section id="missing-data-imputation" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="missing-data-imputation">
+<span class="header-section-number">4.1.4</span> Missing Data Imputation</h3>
+</section><section id="data-leakage" class="level3" data-number="4.1.5"><h3 data-number="4.1.5" class="anchored" data-anchor-id="data-leakage">
+<span class="header-section-number">4.1.5</span> Data Leakage</h3>
+</section><section id="sampling-strategies" class="level3" data-number="4.1.6"><h3 data-number="4.1.6" class="anchored" data-anchor-id="sampling-strategies">
+<span class="header-section-number">4.1.6</span> Sampling Strategies</h3>
+</section><section id="trainvalidationtest-split" class="level3" data-number="4.1.7"><h3 data-number="4.1.7" class="anchored" data-anchor-id="trainvalidationtest-split">
+<span class="header-section-number">4.1.7</span> Train/Validation/Test Split</h3>
+<p>After removing or modeling a trend and strong seasonality in a time series, we need to take care of the stationary remainder, which may be autocorrelated or conditionally heteroskedastic. Here we introduce a broad class of ARMA models that deal with autocorrelation in time series.</p>
 <p>Recall that a time series is (weakly) stationary if its mean and autocovariance do not depend on time, <span class="math inline">\(t\)</span>; autocovariance depends only on the lag <span class="math inline">\(h\)</span>. We will use these two conditions to show that the time series processes that we will model as AR, MA, or ARMA are stationary. Remember that the presence of autocorrelation does not mean that there is a trend.</p>
 <p>We start by checking the two conditions for other typical univariate processes: white noise and random walk.</p>
 <div class="cell">
@@ -610,7 +637,7 @@ Figure&nbsp;4.3: Random walk with drift as specified in <a href="#eq-rw2" class=
 </div>
 </div>
 </div>
-</section><section id="autoregressive-ar-models" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="autoregressive-ar-models">
+</section></section><section id="autoregressive-ar-models" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="autoregressive-ar-models">
 <span class="header-section-number">4.2</span> Autoregressive (AR) models</h2>
 <p><strong>AR(1) model</strong></p>
 <p>We are already familiar with an AR(1) model <span class="math display">\[
