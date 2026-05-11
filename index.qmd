@@ -1,42 +1,88 @@
----
-engine: knitr
----
-
 ## Preface {.unnumbered}
 
-This is a curated collection of **Research Scientist** interview notes and guidelines. It is designed to serve as a practical reference for candidates preparing for research-oriented roles in academia, industry, and applied labs.
+> *"Think mathematically, reason scientifically, and build efficiently."*
 
-The materials consolidate insights from research experiences and professional practice to cover both technical depth and practical preparation.
-Each section begins with key learning objectives, followed by structured notes, example problems, and additional resources.
-The notes highlight essential methods, provide applied examples, and offer interview strategies. They are not intended to replace textbooks or formal training, but rather to complement them with targeted guidance.
+This is a structured preparation curriculum for Research Scientist roles at industrial AI labs, academic research groups, and applied ML organizations. It is built on a single conviction: every algorithm evolved to solve a pain point in its predecessor, and understanding that lineage is what separates a candidate who can recall methods from one who can reason about them.
 
-The intended audience is expected to have foundational knowledge in computer science, machine learning, and statistics, including: 
+The guide balances mathematical theory, statistical rigor, and hands-on implementation — tracing the evolution from classical machine learning through modern large language models and deep reinforcement learning systems.
 
-- Foundations in Statistics & Mathematics 
-  - probability and statistics  
-  - hypothesis testing and inference  
-  - regression and correlation analysis 
-- Algorithms & Optimization
-  - algorithms and data structures (sorting, searching, graph, dynamic programming, etc.)
-  - optimization techniques (convex, non-convex, gradient-based methods)  
-- Machine Learning & AI 
-  - classical and modern machine learning methods 
-  - reinforcement learning and deep learning foundations  
-  - natural language processing (NLP) and large language models (LLMs)
-  - AI/LLM design patterns (retrieval-augmented generation, agentic workflows, tool-use, prompt engineering, safety & alignment strategies)
-- Research Methods 
-  - research methodology and experimental design 
-  - critical analysis and interpretation of results 
+---
 
+## The Lineage {.unnumbered}
+
+Every method in this guide is positioned within an evolutionary chain:
+
+```
+Linear Models  →  Nonlinear Trees  →  Ensemble Boosting  →  Neural Networks
+     →  Transformers  →  LLMs  →  DRL  →  Physics-Informed & Federated Systems
+```
+
+Each chapter answers: *why was the next method needed, and what problem did it solve that its predecessor could not?*
+
+---
+
+## Learning Philosophy {.unnumbered}
+
+1. **Start from intuition.** Understand why each model exists before touching the math.
+2. **Derive manually.** Write gradients, losses, and activations by hand before running code.
+3. **Implement from scratch.** Rebuild models in PyTorch — no black boxes for core concepts.
+4. **Visualize.** Use loss landscapes, weight evolution plots, and activation maps to build spatial intuition.
+5. **Communicate.** Summarize each section as if presenting to a research committee.
+
+---
+
+## Curriculum Overview {.unnumbered}
+
+| Module | Theme | Core Topics |
+|--------|-------|-------------|
+| 1 | Mathematical Foundations | Linear algebra, probability, optimization, gradient calculus, statistical testing |
+| 2 | Algorithms & Data Engineering | Data structures, algorithm patterns, ML data pipelines |
+| 3 | Classical Machine Learning | Regression, SVM, trees, ensembles, dimensionality reduction, clustering, time series |
+| 4 | Deep Learning | Perceptrons, CNNs, RNNs, Transformers, computer vision |
+| 5 | Deep Reinforcement Learning | Q-learning, DDPG, PPO, SAC, GRPO, constrained RL, RLHF |
+| 6 | Large Language Models | Transformer theory, attention, fine-tuning, LoRA, RLHF, alignment |
+| 7 | Model Compression & Deployment | Pruning, quantization, distillation, inference optimization, scalability |
+| 8 | Research Design & Evaluation | Ablations, reproducibility, model evaluation, uncertainty quantification |
+| 9 | Trustworthy & Robust AI | Adversarial robustness, fairness, differential privacy, alignment |
+| 10 | Emerging Topics | Diffusion models, neural operators, causal learning, multimodal systems |
+| A | Appendices | Derivations, regression extensions, clustering, practice problems |
+
+---
+
+## Interview Preparation Framework {.unnumbered}
+
+| Phase | Weeks | Focus | Key Deliverable |
+|-------|-------|-------|-----------------|
+| Phase 1 — Core Concepts | 1–4 | ML/DL fundamentals, mathematical review | Linear models and neural nets from scratch |
+| Phase 2 — Deep RL | 5–7 | PPO, DDPG, constrained RL | End-to-end DRL implementation with ablation |
+| Phase 3 — LLMs | 8–10 | Pretraining, fine-tuning, LoRA, RLHF | GPT-2 from scratch + LoRA fine-tuning |
+| Phase 4 — Research Communication | 11 | Technical writing, experiment narration | Short technical blog or mini-paper |
+| Phase 5 — Systems & Scalability | 12–13 | Compression, quantization, deployment | Inference profiling report |
+| Phase 6 — Mock Interviews I | 14 | Technical + research + system design | Self-evaluation rubric |
+| Phase 7 — Mock Interviews II | 15 | Full simulation under time constraint | Final preparation checklist |
+
+---
+
+## Prerequisites {.unnumbered}
+
+Readers are expected to have foundational knowledge in:
+
+- **Mathematics** — linear algebra, multivariate calculus, probability theory
+- **Programming** — Python, PyTorch or TensorFlow, basic data manipulation
+- **Statistics** — hypothesis testing, regression, inference
+- **CS Fundamentals** — data structures, algorithms, complexity analysis
+
+---
 
 ## Author {.unnumbered}
 
-**Kundan Kumar** -  <https://kundan-kumarr.github.io/>
+**Kundan Kumar** — <https://kundan-kumarr.github.io/>
+
+Longer notes and weekly write-ups: [kundan-kumarr.github.io/blog](https://kundan-kumarr.github.io/blog) · [neuravp.substack.com](https://neuravp.substack.com/)
 
 ## Citation {.unnumbered}
 
-Kumar, Kumar. (`r substr(Sys.Date(), 1, 4)`). *Research Scientist Interview Notes and Guidelines*. Edition `r substr(Sys.Date(), 1, 7)`.
-
+Kumar, Kundan. (`r substr(Sys.Date(), 1, 4)`). *From First Principles: A Research Scientist Interview Guide*. `r substr(Sys.Date(), 1, 4)` Edition.
 
 ## License {.unnumbered}
 

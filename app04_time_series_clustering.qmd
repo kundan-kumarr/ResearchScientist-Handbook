@@ -1,0 +1,41 @@
+# Time Series Clustering {#sec-tscluster}
+
+```{r, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+options(digits = 3)
+theme_set(theme_light())
+```
+
+## Overview
+
+Time series clustering groups multiple time series based on similarity of their trend dynamics or value profiles. This appendix covers the BICC/CWindowCluster method [@Ciampi:etal:2010] and iterative synchronism testing via the `funtimes` R package.
+
+## Methods
+
+**Slide-level clustering** — For a data domain $[\alpha, \beta]$ and $\delta \in [0,1]$, the $\delta$-close measure is:
+
+$$
+\psi_{\delta}(x_1, x_2) =
+\begin{cases}
+1 & \frac{\|x_1 - x_2\|_1}{\beta - \alpha} \leq \delta \\
+0 & \text{otherwise}
+\end{cases}
+$$ {#eq-closeness}
+
+Time series buckets $B_u$ and $B_v$ are merged into one cluster when:
+
+$$
+\sum_{i=1}^{p} \psi_{\delta}(B_u[i], B_v[i]) \geq \theta \times p
+$$
+
+where $\theta \in [0,1]$ controls the homogeneity threshold and $p$ is the number of snapshots per slide.
+
+**Window-level clustering** — Time series are grouped together if they appear in the same slide cluster more than $\varepsilon \times w$ times across $w$ slides.
+
+## Example
+
+::: callout-note
+Content to be added. See `funtimes::CWindowCluster()` for implementation.
+:::

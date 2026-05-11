@@ -1,0 +1,655 @@
+# ML Data Pipelines {#sec-data-pipelines}
+
+**Objectives**
+
+After this chapter, you should understand why each preprocessing decision exists — not just what to do, but what goes wrong when you do it incorrectly. You should be able to design a complete training pipeline for tabular, text, vision, and time-series data, and explain the pipeline differences a research scientist would encounter across these modalities.
+
+**Reading**
+
+- *Designing Machine Learning Systems* — Chip Huyen, Chapters 4–7
+- *Feature Engineering for Machine Learning* — Zheng & Casari
+- *Speech and Language Processing* — Jurafsky & Martin, Chapters 2–3
+- *Programming PyTorch for Deep Learning* — Ian Pointer
+
+---
+
+## What a Pipeline Is and Why It Matters {#sec-pipeline-what}
+
+A data pipeline is the sequence of transformations that converts raw data into the numerical representations a model can consume, and then delivers those representations consistently at both training time and serving time. The word *consistently* is load-bearing: a pipeline that applies different transformations at training versus serving time — even subtly — will produce a model that fails in production despite strong offline metrics. This failure mode is called **training-serving skew**, and it is among the most common production ML bugs.
+
+Every pipeline, regardless of modality, passes through the same logical stages:
+
+```
+Raw Data → Cleaning → Representation → Normalization → Augmentation
+         → Splitting → Model Training → Evaluation → Serving
+```
+
+What differs across modalities is *what* each stage does and *why*. Text requires tokenization; images require spatial augmentation; tabular data requires categorical encoding. The mathematical reasons behind each choice are what this chapter covers.
+
+A second cross-cutting concern is **data leakage** — the accidental inclusion of information in the training set that would not be available at prediction time. Leakage causes inflated training metrics that collapse at deployment. Every splitting and preprocessing decision must be evaluated through the lens of "would I have this information when making a real prediction?"
+
+---
+
+## Tabular Data Pipelines {#sec-tabular}
+
+### The Nature of Tabular Data
+
+Tabular data is the most common format in industry: rows are observations, columns are features. What makes tabular data challenging is *heterogeneity* — a single table may contain integers, floats, free-text strings, categorical labels, timestamps, and boolean flags, each requiring a different preprocessing treatment.
+
+Unlike images or text, tabular data has no natural spatial or sequential structure that a model can exploit. Every feature must be made meaningful by the pipeline designer. This places more burden on feature engineering here than in any other modality.
+
+### Numerical Features: Scaling
+
+Most learning algorithms — linear models, SVMs, neural networks, and k-NN — are sensitive to the *scale* of numerical features. A feature measured in thousands (income) will dominate a feature measured in ones (number of children) in any distance or gradient computation. Scaling removes this accidental dominance.
+
+Three scalers address three different distributional situations:
+
+**StandardScaler** centers each feature at zero and scales to unit variance:
+
+$$
+x' = \frac{x - \mu}{\sigma}
+$$
+
+This is the default choice for features that are approximately Gaussian. It preserves the shape of the distribution while making all features commensurable. Neural networks train faster when inputs are zero-mean and unit-variance because gradients flow more uniformly.
+
+**MinMaxScaler** maps features to $[0, 1]$:
+
+$$
+x' = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
+$$
+
+It is appropriate when the feature has a bounded natural range (e.g., image pixel values 0–255, probabilities, percentages). Its weakness is sensitivity to outliers: a single extreme value compresses all other values toward zero.
+
+**RobustScaler** uses the median and interquartile range instead of the mean and standard deviation:
+
+$$
+x' = \frac{x - \text{median}(x)}{IQR(x)}
+$$
+
+Since the median and IQR are resistant to outliers by construction, RobustScaler is the correct choice for skewed distributions and tabular data from the real world, where outliers are the norm rather than the exception.
+
+Tree-based models (decision trees, random forests, gradient boosting) are invariant to monotone transformations of individual features — they never compute distances or gradients across features — so scaling has no effect on them.
+
+```python
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
+from sklearn.pipeline import Pipeline
+
+# The pipeline enforces fit-on-train, transform-on-test — eliminates leakage
+pipe = Pipeline([
+    ("scaler", RobustScaler()),
+    ("model",  LogisticRegression()),
+])
+pipe.fit(X_train, y_train)
+pipe.score(X_test, y_test)       # scaler never sees X_test statistics
+```
+
+The `Pipeline` object is not merely a convenience — it is a correctness guarantee. Fitting the scaler before splitting the data is one of the most common leakage mistakes.
+
+### Categorical Features: Encoding
+
+A categorical variable takes one of a finite set of discrete values. Models require numerical inputs, so categories must be encoded. The choice of encoding determines whether the model can learn the right relationships.
+
+**One-hot encoding** creates a binary indicator column for each category. It imposes no ordering — the model treats each category as independent. This is correct for *nominal* variables (city, product type, color). Its cost is dimensionality: a feature with k categories becomes k binary columns. For high-cardinality features (zip codes, user IDs, product SKUs), this becomes prohibitive.
+
+**Ordinal encoding** assigns integers in order: `low=0, medium=1, high=2`. It is correct for *ordinal* variables where the order is meaningful. Applying it to nominal variables is wrong — it tells the model that "Paris > London > Tokyo" in a way that has no semantic content.
+
+**Target encoding** replaces each category with the mean of the target variable conditioned on that category:
+
+$$
+\text{enc}(c) = \mathbb{E}[y \mid x = c]
+$$
+
+This is powerful for high-cardinality nominal features and is what many Kaggle-winning solutions use. Its critical weakness is **leakage**: computing the encoding on the full training set before cross-validation allows the model to see target information that would not be available for new, unseen categories. The correct implementation computes encodings *within* each cross-validation fold.
+
+```python
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import TargetEncoder
+
+# OneHotEncoder with unknown category handling
+ohe = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
+
+# TargetEncoder with cross-fitting to prevent leakage
+te = TargetEncoder(cv=5, smooth="auto")
+```
+
+### Missing Values: A Statistical Framework
+
+Missing data is not random noise to discard — it carries information about the data-generating process. Before imputing, identify *why* values are missing:
+
+- **MCAR (Missing Completely at Random):** missingness is independent of all variables. Simple imputation is safe.
+- **MAR (Missing at Random):** missingness depends on observed variables but not on the missing value itself. Imputation conditioned on observed covariates is appropriate.
+- **MNAR (Missing Not at Random):** missingness depends on the unobserved value itself (e.g., high-earners skip the income field). No imputation strategy is unbiased — the missingness pattern must be modeled.
+
+For MNAR variables, adding a binary indicator column before imputing is essential. The indicator preserves the information that the value was missing, which the model can then use as a signal.
+
+```python
+from sklearn.impute import SimpleImputer, KNNImputer
+
+# For MNAR variables: add indicator before imputing
+X["income_missing"] = X["income"].isna().astype(int)
+X["income"] = X["income"].fillna(X["income"].median())
+
+# KNN imputation: imputes using the k nearest complete observations
+# Appropriate when features are correlated and MCAR/MAR holds
+knn_imp = KNNImputer(n_neighbors=5)
+```
+
+### Feature Engineering for Tabular Data
+
+Feature engineering is the highest-leverage activity in tabular ML. A domain-informed feature often matters more than a better model. The guiding principle is to encode domain knowledge into the representation so the model does not have to discover it from scratch.
+
+Common transformations:
+
+- **Log transform** for right-skewed distributions (income, counts, prices). $\log(1 + x)$ handles zeros. This maps a multiplicative relationship to an additive one, which linear models can capture.
+- **Polynomial and interaction features** for capturing nonlinearities. A model that cannot learn $x_1 \cdot x_2$ from $x_1$ and $x_2$ separately benefits from seeing the product as a feature.
+- **Binning** converts a continuous variable to an ordinal category, which can help when the relationship is non-monotone (e.g., age vs. income has a hump shape, not a line).
+- **Ratio features** encode domain knowledge directly: debt-to-income, click-through rate, conversion rate.
+
+```python
+import numpy as np
+import pandas as pd
+
+df["log_price"]        = np.log1p(df["price"])
+df["debt_to_income"]   = df["debt"] / (df["income"] + 1e-6)
+df["age_x_experience"] = df["age"] * df["years_experience"]
+df["is_weekend"]       = df["timestamp"].dt.dayofweek.isin([5, 6]).astype(int)
+```
+
+### Data Leakage
+
+Leakage is the single most important concept in pipeline design. It causes a model to perform well in offline evaluation and fail in production — a failure that is both common and expensive.
+
+| Leakage Type | Mechanism | Prevention |
+|-------------|-----------|------------|
+| Target leakage | Feature derived from or correlated with target via post-event information | Audit feature creation timestamps relative to label timestamp |
+| Train-test contamination | Scaler or imputer fit on the full dataset before splitting | Always split before fitting any preprocessor |
+| Group leakage | Same entity (patient, user, product) appears in both train and test | Use `GroupKFold`; split by entity, not by row |
+| Temporal leakage | Future information used to predict the past | Use `TimeSeriesSplit`; enforce strict chronological splits |
+| Preprocessing leakage | Target encoding computed across full dataset | Compute encodings within cross-validation folds |
+
+### Class Imbalance
+
+In many real-world problems — fraud detection, medical diagnosis, rare event prediction — the positive class is a small fraction of the data. A model that predicts the majority class for every instance achieves high accuracy but zero utility. The appropriate response depends on the degree of imbalance and the cost asymmetry between false positives and false negatives.
+
+**Class weights** modify the loss function to penalize mistakes on the minority class more heavily. This is the lowest-overhead fix, built into most sklearn estimators, and should always be tried first.
+
+**SMOTE** (Synthetic Minority Oversampling Technique) generates new minority-class samples by interpolating between existing ones in feature space. For a minority sample $x_i$ and one of its k nearest minority neighbors $x_j$:
+
+$$
+x_{\text{new}} = x_i + \lambda (x_j - x_i), \quad \lambda \sim \text{Uniform}(0, 1)
+$$
+
+This is appropriate for tabular data with continuous features. It fails when the minority class forms a complex non-convex manifold or when features are highly categorical.
+
+**Threshold tuning** is the most underused tool: after training, choose the classification threshold to maximize the operating metric (F1, recall at fixed precision, or a business cost function). The threshold need not be 0.5.
+
+```python
+from sklearn.metrics import precision_recall_curve
+
+prec, rec, thresholds = precision_recall_curve(y_val, y_scores)
+f1 = 2 * prec * rec / (prec + rec + 1e-9)
+best_threshold = thresholds[f1[:-1].argmax()]
+y_pred = (y_scores >= best_threshold).astype(int)
+```
+
+---
+
+## NLP Data Pipelines {#sec-nlp}
+
+### From Characters to Meaning: The Representation Problem
+
+Text is a sequence of discrete symbols. Every NLP pipeline must solve the *representation problem*: how do you convert a string of characters into a fixed numerical representation that captures semantic and syntactic meaning?
+
+The history of NLP pipeline design is the history of increasingly sophisticated answers to this question:
+
+```
+Characters → Words (count-based) → Words (distributional, Word2Vec)
+          → Subwords (BPE) → Contextual embeddings (BERT) → LLM tokenization
+```
+
+Each transition was driven by a concrete failure of the previous approach.
+
+### Classical Text Preprocessing
+
+Before neural methods, text required explicit cleaning to remove noise that bag-of-words models would otherwise treat as signal.
+
+```python
+import re
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+
+def preprocess_text(text):
+    text = text.lower()
+    text = re.sub(r"[^a-z0-9\s]", "", text)     # remove punctuation
+    tokens = text.split()
+    stop_words = set(stopwords.words("english"))
+    lemmatizer = WordNetLemmatizer()
+    tokens = [lemmatizer.lemmatize(t) for t in tokens if t not in stop_words]
+    return tokens
+```
+
+Whether to keep stopwords, apply stemming vs. lemmatization, or remove punctuation depends on the downstream task. For sentiment analysis, "not" is crucial — removing it as a stopword is wrong. For topic modeling, stopwords add noise. These decisions require understanding the task, not just following a recipe.
+
+### Bag of Words and TF-IDF
+
+**Bag of Words (BoW)** represents a document as a vector of word counts over a fixed vocabulary. It loses word order entirely but captures topic content. Two documents about "machine learning" will have similar BoW vectors regardless of sentence structure.
+
+**TF-IDF** reweights BoW by penalizing words that appear in many documents (like "the") and rewarding words that are discriminative (appear frequently in a few documents but rarely overall):
+
+$$
+\text{TF-IDF}(t, d) = \underbrace{\frac{f_{t,d}}{\sum_{t'} f_{t',d}}}_{\text{term frequency}} \times \underbrace{\log \frac{N}{|\{d : t \in d\}|}}_{\text{inverse document frequency}}
+$$
+
+The IDF term is the information-theoretic insight: a word that appears in every document has zero discriminative power — its presence tells you nothing about document identity.
+
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+tfidf = TfidfVectorizer(
+    max_features=50_000,
+    ngram_range=(1, 2),          # unigrams and bigrams
+    min_df=2,                    # ignore very rare terms
+    max_df=0.95,                 # ignore near-universal terms
+    sublinear_tf=True,           # use log(1 + tf) to dampen high counts
+)
+X_train_tfidf = tfidf.fit_transform(train_texts)
+X_test_tfidf  = tfidf.transform(test_texts)      # never refit on test
+```
+
+### Tokenization: The Vocabulary Problem
+
+Word-level tokenization fails in two ways. First, the vocabulary must be fixed at training time — any word not seen during training becomes out-of-vocabulary (OOV). Second, morphologically related words ("run", "running", "ran") are treated as unrelated.
+
+**Byte Pair Encoding (BPE)**, used by GPT models, solves both problems by operating at the subword level. It starts from a character vocabulary and iteratively merges the most frequent adjacent pair of symbols. After enough merges, common words become single tokens, while rare words are decomposed into meaningful subword units. "unhappiness" might tokenize as `["un", "happiness"]` — both are meaningful subwords, and neither is OOV.
+
+The training procedure:
+
+1. Initialize vocabulary as all individual characters plus a special end-of-word symbol.
+2. Count all adjacent symbol pairs in the corpus.
+3. Merge the most frequent pair into a new symbol.
+4. Repeat until the vocabulary reaches the target size.
+
+**WordPiece** (used by BERT) is similar but selects merges to maximize the likelihood of the training corpus under a language model rather than by raw frequency.
+
+```python
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+tokens = tokenizer(
+    "The quick brown fox",
+    padding="max_length",
+    truncation=True,
+    max_length=128,
+    return_tensors="pt"
+)
+# tokens: {"input_ids": ..., "attention_mask": ..., "token_type_ids": ...}
+```
+
+The **attention mask** is as important as the token IDs: it tells the model which positions are real tokens and which are padding, preventing the padding from influencing the attention computation.
+
+### Word Embeddings: Distributional Semantics
+
+Word2Vec (2013) operationalized the *distributional hypothesis*: words that appear in similar contexts have similar meanings. It trains a shallow neural network on one of two tasks:
+
+- **CBOW (Continuous Bag of Words):** predict the center word from its context.
+- **Skip-gram:** predict context words from the center word.
+
+After training, the weight matrix is the embedding matrix — each row is a dense vector representation of a word. The famous "king − man + woman ≈ queen" result emerges from the geometry of this space, not from any explicit encoding of gender relationships.
+
+Word2Vec's limitation is that each word has a single embedding regardless of context. "Bank" has the same vector whether it refers to a river bank or a financial institution. **Contextual embeddings** (ELMo, BERT, GPT) produce a different vector for each occurrence of a word, conditioned on the full sentence. This is the fundamental shift that drove the modern NLP revolution.
+
+### Text Data Augmentation
+
+Augmenting text while preserving labels is harder than augmenting images, because small changes can flip the meaning ("I do not like this" → "I like this" after removing "not").
+
+| Technique | Method | Preserves Label? | Notes |
+|-----------|--------|-----------------|-------|
+| Synonym replacement | Replace n random words with synonyms | Usually | Avoid negations, sentiment words |
+| Random insertion | Insert a random synonym at a random position | Usually | Mild distributional shift |
+| Back-translation | Translate to language X, then back | Usually | Creates paraphrases |
+| EDA (Easy Data Augmentation) | Swap, delete, insert, replace | Usually | Effective for low-data regimes |
+| Mixup for text | Interpolate embeddings + labels | By construction | Operates in embedding space |
+
+```python
+import nlpaug.augmenter.word as naw
+
+aug = naw.SynonymAug(aug_src="wordnet", aug_p=0.1)   # replace 10% of words
+augmented = aug.augment("The model achieved state of the art results")
+```
+
+### Handling Variable-Length Sequences
+
+Models require fixed-size inputs. Text sequences vary in length. Two strategies:
+
+**Padding and truncation:** pad shorter sequences to a fixed maximum length with a special `[PAD]` token; truncate longer sequences. This is simple but wastes computation on padding tokens. The attention mask prevents padding from contributing to attention scores.
+
+**Dynamic batching with bucketing:** group sequences of similar length into the same batch, minimizing padding within each batch. Sort the dataset by length, then take batches of consecutive sequences. This reduces wasted computation by 20–40% on typical datasets.
+
+```python
+from torch.nn.utils.rnn import pad_sequence
+
+def collate_fn(batch):
+    texts, labels = zip(*batch)
+    # pad_sequence expects list of tensors, pads to longest in batch
+    padded = pad_sequence(texts, batch_first=True, padding_value=0)
+    return padded, torch.tensor(labels)
+```
+
+---
+
+## Computer Vision Pipelines {#sec-vision}
+
+### Images as Tensors
+
+A digital image is a 3-dimensional tensor of shape `[C, H, W]` — channels × height × width. For RGB images, C=3. Each element is a pixel intensity, typically an integer in [0, 255] or a float in [0.0, 1.0] after normalization.
+
+The core challenge in vision pipelines is that real-world image datasets exhibit enormous variation: objects appear at different scales, orientations, lighting conditions, and positions. A model trained on tightly cropped, evenly lit studio photographs will fail on natural scene photographs. The pipeline must bridge this gap through normalization and augmentation.
+
+### Normalization
+
+The first transformation applied to any image in a deep learning pipeline is normalization. Dividing by 255 converts integer pixels to [0, 1]. Subtracting the dataset mean and dividing by the dataset standard deviation, per channel, achieves zero-mean unit-variance inputs:
+
+$$
+x'_c = \frac{x_c - \mu_c}{\sigma_c}
+$$
+
+For models pretrained on ImageNet, the canonical statistics are used regardless of the target dataset, because the model's weights were tuned for inputs in this distribution:
+
+$$
+\mu = [0.485,\ 0.456,\ 0.406], \quad \sigma = [0.229,\ 0.224,\ 0.225]
+$$
+
+Deviating from these statistics when fine-tuning from an ImageNet-pretrained checkpoint will cause the first layer to receive out-of-distribution inputs, slowing convergence.
+
+### Data Augmentation for Vision
+
+Augmentation is the primary tool for reducing overfitting in vision models. It creates new training examples by applying transformations that preserve the semantic label while altering the pixel distribution. The transformations are applied randomly during training but never during validation or testing.
+
+**Geometric transformations** alter spatial structure:
+
+- Random horizontal flip: valid for most natural scene categories, but not for tasks where orientation matters (digit recognition, text recognition).
+- Random crop: forces the model to recognize objects from partial views, improving robustness to occlusion and translation.
+- Random rotation: improves rotational invariance where appropriate.
+
+**Photometric transformations** alter appearance without changing geometry:
+
+- Color jitter: randomly adjust brightness, contrast, saturation, and hue. Forces the model to rely on shape, not color, for classification.
+- Gaussian blur: simulates depth-of-field variation.
+- Grayscale conversion: removes color information, forcing reliance on texture and shape.
+
+**Advanced augmentations** mix samples:
+
+**MixUp** interpolates two images and their one-hot labels simultaneously:
+
+$$
+\tilde{x} = \lambda x_i + (1 - \lambda) x_j, \quad \tilde{y} = \lambda y_i + (1 - \lambda) y_j, \quad \lambda \sim \text{Beta}(\alpha, \alpha)
+$$
+
+This forces the model to predict proportional probabilities for mixed images, acting as a regularizer and improving calibration.
+
+**CutMix** replaces a rectangular patch of one image with a patch from another, mixing labels proportionally to the patch area. It is stronger than MixUp for recognition tasks because it preserves local texture statistics within each patch.
+
+```python
+import torchvision.transforms as T
+from torchvision.transforms import v2
+
+# Training pipeline with standard augmentations
+train_transform = T.Compose([
+    T.RandomResizedCrop(224, scale=(0.08, 1.0)),    # crop to 224×224
+    T.RandomHorizontalFlip(p=0.5),
+    T.ColorJitter(brightness=0.4, contrast=0.4,
+                  saturation=0.4, hue=0.1),
+    T.RandomGrayscale(p=0.2),
+    T.ToTensor(),
+    T.Normalize(mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]),
+])
+
+# Validation pipeline: no augmentation, only deterministic resizing
+val_transform = T.Compose([
+    T.Resize(256),
+    T.CenterCrop(224),
+    T.ToTensor(),
+    T.Normalize(mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]),
+])
+```
+
+The asymmetry between training and validation transforms is fundamental: augmentation improves training robustness but must never be applied at evaluation time, because it would make results non-reproducible and introduce noise into the metric.
+
+### Efficient Data Loading
+
+In vision training, the GPU is often idle waiting for data. The DataLoader pipeline must feed data fast enough to keep GPU utilization above 90%.
+
+```python
+from torch.utils.data import DataLoader
+
+loader = DataLoader(
+    dataset,
+    batch_size=256,
+    shuffle=True,
+    num_workers=8,         # parallel CPU workers for decoding and augmentation
+    pin_memory=True,       # page-locked memory for faster CPU→GPU transfer
+    prefetch_factor=2,     # each worker prefetches 2 batches ahead
+    persistent_workers=True,   # workers stay alive between epochs
+)
+```
+
+**Bottleneck diagnosis:** if GPU utilization is low during training, the bottleneck is data loading. Solutions: increase `num_workers`, move to faster storage (SSD over NFS), use DALI (NVIDIA Data Loading Library) for GPU-accelerated decoding, or pre-cache decoded images in RAM.
+
+### Transfer Learning and the ImageNet Bottleneck
+
+Almost all modern vision pipelines start with a pretrained backbone. The ImageNet-pretrained ResNet or ViT has already learned general visual features — edges, textures, shapes, object parts — that transfer across tasks. Fine-tuning on a new dataset typically requires only 10–100× fewer labeled examples than training from scratch.
+
+Two fine-tuning strategies:
+
+**Feature extraction:** freeze all backbone weights, train only the classification head. Appropriate when the target dataset is small and similar to the pretraining distribution. The backbone becomes a fixed feature extractor.
+
+**Full fine-tuning:** unfreeze all weights and train end-to-end with a small learning rate. Appropriate when the target dataset is large or dissimilar from the pretraining distribution. Use a lower learning rate for the backbone than the head to avoid destroying pretrained features.
+
+```python
+import torchvision.models as models
+
+backbone = models.resnet50(weights="IMAGENET1K_V2")
+
+# Feature extraction: freeze backbone
+for param in backbone.parameters():
+    param.requires_grad = False
+
+# Replace final layer for new number of classes
+backbone.fc = nn.Linear(backbone.fc.in_features, num_classes)
+
+# Fine-tuning: different learning rates
+optimizer = torch.optim.Adam([
+    {"params": backbone.layer4.parameters(), "lr": 1e-4},
+    {"params": backbone.fc.parameters(),     "lr": 1e-3},
+])
+```
+
+---
+
+## Time Series Pipelines {#sec-timeseries}
+
+### Why Time Series Requires Special Treatment
+
+Time series data violates the independence assumption that underlies standard ML pipelines. In a tabular dataset, the order of rows is arbitrary — you can shuffle them freely. In a time series, the order *is* the information. Shuffling destroys it.
+
+This has cascading consequences for every pipeline stage:
+
+- **Splitting must be chronological.** A random train/test split would allow future data to appear in the training set, producing a leaky model that has memorized the future.
+- **Features must be computed from the past only.** A rolling mean computed over a centered window uses future data. It must be backward-looking.
+- **Cross-validation must respect time.** Standard k-fold randomly assigns data to folds — forbidden here. Walk-forward validation is required.
+
+### Stationarity and Transformations
+
+A time series is *weakly stationary* if its mean and autocovariance do not depend on time. Most statistical models and many ML models assume stationarity. Non-stationary series (those with trends, changing variance, or structural breaks) must be transformed.
+
+**Differencing** removes trends by replacing each value with the change from the previous value:
+
+$$
+\Delta Y_t = Y_t - Y_{t-1}
+$$
+
+A series with a linear trend becomes stationary after first differencing. A series with a quadratic trend requires second differencing. Differencing is the appropriate transformation when the non-stationarity is *stochastic* (a random walk). For a *deterministic* trend (a polynomial in time), subtracting the fitted trend is more efficient.
+
+**Log transformation** stabilizes variance in series where variability grows with the level — common in economic and financial data. $\log(Y_t)$ converts multiplicative dynamics to additive ones.
+
+```python
+import pandas as pd
+import numpy as np
+
+# First-order differencing
+df["returns"]      = df["price"].pct_change()         # proportional change
+df["log_price"]    = np.log(df["price"])
+df["diff1"]        = df["price"].diff(1)              # absolute change
+df["diff_log"]     = df["log_price"].diff(1)          # log returns
+```
+
+### Feature Engineering for Time Series
+
+Unlike tabular data, where features are given, time series features must be *constructed* from the historical record. The art is choosing window sizes and aggregations that capture the relevant temporal dynamics.
+
+**Lag features** give the model direct access to past values. A lag-1 feature is $Y_{t-1}$, a lag-7 feature is $Y_{t-7}$ (one week ago for daily data). The choice of lags should be informed by the autocorrelation structure of the series.
+
+**Rolling statistics** summarize recent history:
+
+- Rolling mean: captures the local level.
+- Rolling standard deviation: captures local volatility.
+- Rolling min/max: captures recent extremes.
+
+**Calendar features** capture seasonality and periodic patterns:
+
+- Hour, day of week, month, quarter — for diurnal and seasonal patterns.
+- Is-holiday, days-since-last-holiday — for event-driven dynamics.
+- Fourier features: $\sin(2\pi k t / P)$ and $\cos(2\pi k t / P)$ for period P, encoding smooth periodicity.
+
+```python
+def build_time_features(df, target_col, lags, windows):
+    for lag in lags:
+        df[f"lag_{lag}"] = df[target_col].shift(lag)
+    for w in windows:
+        df[f"roll_mean_{w}"] = df[target_col].shift(1).rolling(w).mean()
+        df[f"roll_std_{w}"]  = df[target_col].shift(1).rolling(w).std()
+    df["hour"]        = df.index.hour
+    df["dayofweek"]   = df.index.dayofweek
+    df["month"]       = df.index.month
+    for k in [1, 2, 3]:
+        df[f"sin_{k}"] = np.sin(2 * np.pi * k * df.index.dayofyear / 365)
+        df[f"cos_{k}"] = np.cos(2 * np.pi * k * df.index.dayofyear / 365)
+    df.dropna(inplace=True)     # lags create NaNs at the start
+    return df
+```
+
+The `.shift(1)` on rolling features is critical: without it, the rolling mean at time $t$ includes $Y_t$ itself, which would be a future data leak.
+
+### Walk-Forward Validation
+
+Standard k-fold cross-validation is incorrect for time series because it allows future data to appear in training folds. Walk-forward (also called *expanding window*) validation maintains temporal order: the training set always ends before the validation set begins.
+
+```
+Fold 1: Train [1..100]     | Validate [101..120]
+Fold 2: Train [1..120]     | Validate [121..140]
+Fold 3: Train [1..140]     | Validate [141..160]
+```
+
+The training window grows with each fold (expanding window). An alternative is a *sliding window*, where the training window has fixed size and moves forward — appropriate when the data-generating process is non-stationary and older data is less relevant.
+
+```python
+from sklearn.model_selection import TimeSeriesSplit
+
+tscv = TimeSeriesSplit(n_splits=5, gap=0)   # gap prevents leakage between folds
+for train_idx, val_idx in tscv.split(X):
+    X_tr, X_val = X[train_idx], X[val_idx]
+    y_tr, y_val = y[train_idx], y[val_idx]
+    # fit and evaluate here
+```
+
+### Normalization in Time Series
+
+Unlike tabular data, where normalization statistics are computed once over the training set, time series normalization must account for the fact that the distribution may change over time (concept drift).
+
+**Global normalization** computes statistics over the entire training series. It is simple but assumes the series is stationary. For non-stationary series, early and late training data have different distributions, and a single mean/variance is not representative of either.
+
+**Instance normalization** (RevIN — Reversible Instance Normalization) normalizes each input sequence independently using its own mean and variance, then denormalizes the output. This allows the model to handle arbitrary levels and scales without being confused by the absolute magnitude of the series.
+
+```python
+class RevIN(nn.Module):
+    def __init__(self, num_features, eps=1e-5):
+        super().__init__()
+        self.eps = eps
+        self.affine_weight = nn.Parameter(torch.ones(num_features))
+        self.affine_bias   = nn.Parameter(torch.zeros(num_features))
+
+    def forward(self, x, mode="norm"):
+        if mode == "norm":
+            self.mean = x.mean(dim=1, keepdim=True).detach()
+            self.std  = x.std(dim=1, keepdim=True).detach() + self.eps
+            x = (x - self.mean) / self.std
+            return x * self.affine_weight + self.affine_bias
+        elif mode == "denorm":
+            x = (x - self.affine_bias) / self.affine_weight
+            return x * self.std + self.mean
+```
+
+---
+
+## Production Concerns {#sec-production}
+
+### Training-Serving Skew
+
+The most important production pipeline concern is ensuring that the transformation applied to a feature during serving is *identical* to the transformation applied during training. Any discrepancy — different normalization statistics, different handling of missing values, different encoding of categories — produces a model that sees out-of-distribution inputs at serving time and degrades silently.
+
+A **feature store** is the architectural solution: a system that computes and stores feature values once, serving the identical computation to both training pipelines (historical features) and serving systems (online, low-latency features). The feature definition is written once and executed in both contexts, eliminating the possibility of skew by construction.
+
+### Distribution Shift Detection
+
+A deployed model's performance degrades when the input distribution changes — when the world changes in ways the training data did not capture. Two types of shift require different responses:
+
+**Covariate shift:** $P(X)$ changes but $P(Y \mid X)$ is unchanged. The model is still correct for inputs it receives, but it is receiving inputs unlike those it was trained on. Importance weighting can correct for this without retraining.
+
+**Concept drift:** $P(Y \mid X)$ changes — the underlying relationship between features and labels has shifted. The model is genuinely wrong on the new distribution. Retraining is required.
+
+Detection uses statistical tests on feature distributions:
+
+```python
+from scipy.stats import ks_2samp
+
+def detect_drift(reference_df, current_df, threshold=0.05):
+    drifted = {}
+    for col in reference_df.columns:
+        stat, p = ks_2samp(reference_df[col].dropna(),
+                           current_df[col].dropna())
+        if p < threshold:
+            drifted[col] = {"ks_statistic": round(stat, 4),
+                            "p_value": round(p, 4)}
+    return drifted
+```
+
+The **Population Stability Index (PSI)** measures the magnitude of distributional shift:
+
+$$
+\text{PSI} = \sum_b \left( P_{\text{actual},b} - P_{\text{reference},b} \right) \log \frac{P_{\text{actual},b}}{P_{\text{reference},b}}
+$$
+
+PSI < 0.1 indicates negligible shift; 0.1–0.25 moderate shift requiring investigation; above 0.25 requires immediate model review.
+
+---
+
+## Pipeline Comparison by Modality {#sec-comparison}
+
+| Concern | Tabular | NLP | Vision | Time Series |
+|---------|---------|-----|--------|-------------|
+| Core representation | Scaled numerical + encoded categorical | Token IDs + attention masks | Normalized pixel tensors | Lag features + rolling statistics |
+| Normalization | StandardScaler / RobustScaler | Per-corpus vocabulary statistics | ImageNet mean/std | Global or per-instance (RevIN) |
+| Augmentation | SMOTE, Gaussian noise, Mixup | Synonym replacement, back-translation | Geometric + photometric transforms, MixUp, CutMix | Window jitter, time warping |
+| Splitting | Stratified k-fold or group k-fold | Usually random; group split for user-level tasks | Stratified k-fold | Walk-forward (expanding or sliding window) |
+| Leakage risk | Target encoding, feature timestamp | Label contamination in pretraining data | Test images in training split | Any feature using values after the prediction timestamp |
+| Pretrained representations | Rare (embeddings for categorical) | Always (BERT, GPT family) | Almost always (ImageNet backbone) | Emerging (time series foundation models) |
+
+---
+
+::: {.callout-tip}
+## Interview Focus
+
+**Design a pipeline from scratch:** given a new dataset and task, walk through every stage — what transformations apply, why, and in what order. **Leakage diagnosis:** given a pipeline that shows unexpectedly high offline metrics, identify three places where leakage could be hiding. **Modality differences:** explain why you cannot use standard k-fold CV for time series data, and describe the correct alternative. **Normalization choice:** when would you prefer RobustScaler over StandardScaler for a tabular feature, and why? **Transfer learning strategy:** describe the fine-tuning protocol for a small vision dataset (500 examples per class) starting from an ImageNet-pretrained ResNet-50.
+:::

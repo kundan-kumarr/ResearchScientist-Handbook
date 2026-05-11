@@ -1,0 +1,659 @@
+---
+title: "Data Structures with Python"
+---
+
+# Data Structures {#sec-data-structures}
+
+**Objectives**
+
+- Know which data structure to reach for given a problem's access pattern and operation requirements.
+- Analyze time and space complexity for each core structure.
+- Implement canonical operations from scratch: insertion, deletion, search, traversal.
+- Recognize structure-to-pattern mappings in interview problems.
+
+**Reading**
+
+- *Introduction to Algorithms* — Cormen et al. (CLRS), Chapters 10–14
+- *Data Structures and Algorithms in Python* — Goodrich, Tamassia, Goldwasser
+- Python docs: `collections`, `heapq`, `bisect`
+
+---
+
+## Big-O Complexity Reference {#sec-complexity}
+
+| Complexity | Name | Example |
+|------------|------|---------|
+| O(1) | Constant | Hash table lookup, array index |
+| O(log n) | Logarithmic | Binary search, balanced BST |
+| O(n) | Linear | Array scan, linked list traversal |
+| O(n log n) | Linearithmic | Merge sort, heap sort |
+| O(n²) | Quadratic | Nested loops, bubble sort |
+| O(2ⁿ) | Exponential | Subset generation, recursive Fibonacci |
+| O(n!) | Factorial | Permutation enumeration |
+
+**Space complexity** tracks auxiliary memory. Recursive calls consume stack space — an O(n) recursive DFS uses O(n) call-stack space even with no explicit data structure.
+
+---
+
+## Arrays and Lists {#sec-arrays}
+
+Python `list` is a dynamic array: a contiguous block of memory that doubles capacity on overflow.
+
+```python
+arr = [1, 2, 3, 4, 5]
+arr.append(6)         # O(1) amortized — occasional O(n) resize
+arr.insert(2, 99)     # O(n) — shifts elements right
+arr.pop()             # O(1) — remove last
+arr.pop(2)            # O(n) — remove at index, shift left
+arr[2]                # O(1) — random access
+```
+
+### Prefix Sums
+
+Precompute cumulative sums to answer range-sum queries in O(1) after O(n) preprocessing.
+
+```python
+def build_prefix(arr):
+    prefix = [0] * (len(arr) + 1)
+    for i, v in enumerate(arr):
+        prefix[i + 1] = prefix[i] + v
+    return prefix
+
+def range_sum(prefix, l, r):  # inclusive [l, r]
+    return prefix[r + 1] - prefix[l]
+
+arr = [1, 3, 5, 7, 9]
+prefix = build_prefix(arr)
+print(range_sum(prefix, 1, 3))  # 3+5+7 = 15
+```
+
+### Complexity
+
+| Operation | Time | Notes |
+|-----------|------|-------|
+| Access by index | O(1) | |
+| Append | O(1) amortized | O(n) worst on resize |
+| Insert / Delete at index | O(n) | Shifts elements |
+| Search (unsorted) | O(n) | |
+| Search (sorted) | O(log n) | Binary search |
+
+---
+
+## Hash Tables {#sec-hash}
+
+A hash table maps keys to values via a hash function. Python `dict` uses open addressing with a load factor threshold.
+
+**Collision resolution:** Python uses probing; Java's `HashMap` uses chaining.
+**Worst case:** O(n) if all keys collide — practically O(1) with a good hash function.
+
+```python
+from collections import defaultdict, Counter, OrderedDict
+
+# Frequency counting
+freq = Counter("abracadabra")
+freq.most_common(2)         # [('a', 5), ('b', 2)]
+
+# Grouping
+groups = defaultdict(list)
+for word in ["cat", "act", "tac", "dog", "god"]:
+    key = tuple(sorted(word))
+    groups[key].append(word)
+# {('a','c','t'): ['cat','act','tac'], ('d','g','o'): ['dog','god']}
+
+# Two-sum pattern
+def two_sum(nums, target):
+    seen = {}
+    for i, n in enumerate(nums):
+        complement = target - n
+        if complement in seen:
+            return [seen[complement], i]
+        seen[n] = i
+```
+
+### When to Use Sets vs Dicts
+
+```python
+# Set: O(1) membership, no values needed
+valid = {"admin", "editor", "viewer"}
+role = "admin"
+if role in valid:        # O(1)
+    pass
+
+# Dict: O(1) lookup when value matters
+cache = {}
+cache["key"] = compute_value()
+result = cache.get("key", default_value)
+```
+
+### Complexity
+
+| Operation | Average | Worst |
+|-----------|---------|-------|
+| Insert | O(1) | O(n) |
+| Lookup | O(1) | O(n) |
+| Delete | O(1) | O(n) |
+| Iteration | O(n) | O(n) |
+
+---
+
+## Stacks and Queues {#sec-stack-queue}
+
+### Stack (LIFO)
+
+Use `list` or `collections.deque`. Stack is natural for: bracket matching, undo/redo, DFS iteratively, expression evaluation.
+
+```python
+stack = []
+stack.append(1); stack.append(2); stack.append(3)
+stack.pop()   # 3
+
+# Valid parentheses
+def is_valid(s):
+    stack = []
+    pairs = {')': '(', '}': '{', ']': '['}
+    for ch in s:
+        if ch in "([{":
+            stack.append(ch)
+        elif not stack or stack[-1] != pairs[ch]:
+            return False
+        else:
+            stack.pop()
+    return not stack
+```
+
+### Monotonic Stack
+
+Maintains a stack in sorted (monotone) order. Solves "next greater / smaller element" in O(n).
+
+```python
+def next_greater(arr):
+    result = [-1] * len(arr)
+    stack = []  # stores indices
+    for i, v in enumerate(arr):
+        while stack and arr[stack[-1]] < v:
+            result[stack.pop()] = v
+        stack.append(i)
+    return result
+
+next_greater([2, 1, 2, 4, 3])  # [4, 2, 4, -1, -1]
+```
+
+### Queue (FIFO)
+
+Use `collections.deque` — O(1) append and popleft. Natural for BFS, sliding window, task scheduling.
+
+```python
+from collections import deque
+
+queue = deque()
+queue.append(1); queue.append(2)
+queue.popleft()   # 1 — O(1)
+
+# Sliding window maximum (monotonic deque)
+def max_sliding_window(nums, k):
+    dq, result = deque(), []
+    for i, n in enumerate(nums):
+        while dq and nums[dq[-1]] < n:
+            dq.pop()
+        dq.append(i)
+        if dq[0] == i - k:    # out of window
+            dq.popleft()
+        if i >= k - 1:
+            result.append(nums[dq[0]])
+    return result
+```
+
+### Priority Queue (Heap)
+
+Python's `heapq` is a **min-heap**. For max-heap, negate values.
+
+```python
+import heapq
+
+# Min-heap
+heap = [5, 3, 1, 4, 2]
+heapq.heapify(heap)          # O(n)
+heapq.heappush(heap, 0)      # O(log n)
+heapq.heappop(heap)          # 0 — O(log n)
+
+# K largest elements
+def k_largest(nums, k):
+    return heapq.nlargest(k, nums)   # O(n log k)
+
+# K-way merge
+def merge_k_sorted(lists):
+    heap = [(lst[0], i, 0) for i, lst in enumerate(lists) if lst]
+    heapq.heapify(heap)
+    result = []
+    while heap:
+        val, i, j = heapq.heappop(heap)
+        result.append(val)
+        if j + 1 < len(lists[i]):
+            heapq.heappush(heap, (lists[i][j + 1], i, j + 1))
+    return result
+```
+
+---
+
+## Linked Lists {#sec-linked-list}
+
+Each node stores data and a pointer. No random access — O(n) search — but O(1) insert/delete at a known position.
+
+```python
+class ListNode:
+    def __init__(self, val=0, nxt=None):
+        self.val = val
+        self.next = nxt
+
+# Reverse a linked list — iterative
+def reverse(head):
+    prev, curr = None, head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev, curr = curr, nxt
+    return prev
+
+# Detect cycle — Floyd's two-pointer
+def has_cycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            return True
+    return False
+
+# Find middle — slow/fast pointers
+def find_middle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+```
+
+### Dummy Node Pattern
+
+Dummy/sentinel nodes simplify edge cases (empty list, head deletion).
+
+```python
+def remove_nth_from_end(head, n):
+    dummy = ListNode(0, head)
+    fast = slow = dummy
+    for _ in range(n + 1):
+        fast = fast.next
+    while fast:
+        fast = fast.next
+        slow = slow.next
+    slow.next = slow.next.next
+    return dummy.next
+```
+
+---
+
+## Trees {#sec-trees}
+
+### Binary Tree Traversals
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# Recursive traversals
+def inorder(root):    # left → root → right  (sorted for BST)
+    return inorder(root.left) + [root.val] + inorder(root.right) if root else []
+
+def preorder(root):   # root → left → right
+    return [root.val] + preorder(root.left) + preorder(root.right) if root else []
+
+def postorder(root):  # left → right → root
+    return postorder(root.left) + postorder(root.right) + [root.val] if root else []
+
+# Level-order (BFS)
+from collections import deque
+def level_order(root):
+    if not root: return []
+    q, result = deque([root]), []
+    while q:
+        level = []
+        for _ in range(len(q)):
+            node = q.popleft()
+            level.append(node.val)
+            if node.left:  q.append(node.left)
+            if node.right: q.append(node.right)
+        result.append(level)
+    return result
+```
+
+### Binary Search Tree (BST)
+
+BST invariant: `left.val < node.val < right.val`.
+Search, insert, delete: O(log n) average, O(n) worst (degenerate/skewed tree).
+
+```python
+def search(root, target):
+    if not root or root.val == target:
+        return root
+    return search(root.left, target) if target < root.val else search(root.right, target)
+
+def insert(root, val):
+    if not root:
+        return TreeNode(val)
+    if val < root.val:
+        root.left = insert(root.left, val)
+    else:
+        root.right = insert(root.right, val)
+    return root
+
+def height(root):
+    return 0 if not root else 1 + max(height(root.left), height(root.right))
+
+def is_valid_bst(root, lo=float('-inf'), hi=float('inf')):
+    if not root: return True
+    if not (lo < root.val < hi): return False
+    return is_valid_bst(root.left, lo, root.val) and is_valid_bst(root.right, root.val, hi)
+```
+
+### Heap (Complete Binary Tree)
+
+A heap is a complete binary tree stored as an array. Min-heap: `parent ≤ children`.
+
+```python
+# Array representation: parent(i) = (i-1)//2, left(i) = 2i+1, right(i) = 2i+2
+
+class MinHeap:
+    def __init__(self): self.h = []
+
+    def push(self, val):
+        self.h.append(val)
+        self._sift_up(len(self.h) - 1)
+
+    def pop(self):
+        self.h[0], self.h[-1] = self.h[-1], self.h[0]
+        val = self.h.pop()
+        if self.h: self._sift_down(0)
+        return val
+
+    def _sift_up(self, i):
+        while i > 0:
+            p = (i - 1) // 2
+            if self.h[p] > self.h[i]:
+                self.h[p], self.h[i] = self.h[i], self.h[p]
+                i = p
+            else: break
+
+    def _sift_down(self, i):
+        n = len(self.h)
+        while True:
+            smallest = i
+            for c in [2*i+1, 2*i+2]:
+                if c < n and self.h[c] < self.h[smallest]:
+                    smallest = c
+            if smallest == i: break
+            self.h[i], self.h[smallest] = self.h[smallest], self.h[i]
+            i = smallest
+```
+
+---
+
+## Tries (Prefix Trees) {#sec-trie}
+
+Efficient for prefix search, autocomplete, and dictionary lookups. O(m) operations where m = word length.
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for ch in word:
+            node = node.children.setdefault(ch, TrieNode())
+        node.is_end = True
+
+    def search(self, word):
+        node = self.root
+        for ch in word:
+            if ch not in node.children: return False
+            node = node.children[ch]
+        return node.is_end
+
+    def starts_with(self, prefix):
+        node = self.root
+        for ch in prefix:
+            if ch not in node.children: return False
+            node = node.children[ch]
+        return True
+```
+
+**Interview applications:** autocomplete, word search in a grid (with DFS), longest common prefix, word break problem.
+
+---
+
+## Graphs {#sec-graphs}
+
+A graph G = (V, E). Two standard representations:
+
+```python
+# Adjacency list — sparse graphs (most interview problems)
+graph = {
+    0: [1, 2],
+    1: [0, 3],
+    2: [0, 4],
+    3: [1],
+    4: [2]
+}
+
+# Adjacency matrix — dense graphs or when edge weight lookup needed
+n = 5
+matrix = [[0]*n for _ in range(n)]
+matrix[0][1] = 1   # directed edge 0 → 1
+```
+
+### BFS — Shortest path in unweighted graph
+
+```python
+from collections import deque
+
+def bfs(graph, start):
+    visited = {start}
+    queue = deque([(start, 0)])    # (node, distance)
+    while queue:
+        node, dist = queue.popleft()
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, dist + 1))
+```
+
+### DFS — Connected components, cycle detection, topological sort
+
+```python
+def dfs(graph, node, visited=None):
+    if visited is None: visited = set()
+    visited.add(node)
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+    return visited
+
+# Count connected components
+def count_components(n, edges):
+    graph = defaultdict(list)
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+    visited = set()
+    count = 0
+    for node in range(n):
+        if node not in visited:
+            dfs(graph, node, visited)
+            count += 1
+    return count
+```
+
+### Topological Sort (Kahn's Algorithm — BFS)
+
+```python
+from collections import deque
+
+def topological_sort(n, prerequisites):
+    graph = defaultdict(list)
+    indegree = [0] * n
+    for u, v in prerequisites:
+        graph[v].append(u)
+        indegree[u] += 1
+    queue = deque([i for i in range(n) if indegree[i] == 0])
+    order = []
+    while queue:
+        node = queue.popleft()
+        order.append(node)
+        for neighbor in graph[node]:
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                queue.append(neighbor)
+    return order if len(order) == n else []   # empty = cycle detected
+```
+
+---
+
+## Union-Find (Disjoint Set Union) {#sec-union-find}
+
+Efficiently tracks connected components. With path compression + union by rank: O(α(n)) ≈ O(1) per operation.
+
+**Use:** detect cycles in undirected graphs, Kruskal's MST, network connectivity, grouping problems.
+
+```python
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+        self.components = n
+
+    def find(self, x):                        # path compression
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):                    # union by rank
+        px, py = self.find(x), self.find(y)
+        if px == py: return False             # already connected
+        if self.rank[px] < self.rank[py]:
+            px, py = py, px
+        self.parent[py] = px
+        if self.rank[px] == self.rank[py]:
+            self.rank[px] += 1
+        self.components -= 1
+        return True
+
+    def connected(self, x, y):
+        return self.find(x) == self.find(y)
+```
+
+---
+
+## Core Patterns {#sec-patterns}
+
+### Two Pointers
+
+```python
+# Pair sum in sorted array
+def pair_sum(arr, target):
+    l, r = 0, len(arr) - 1
+    while l < r:
+        s = arr[l] + arr[r]
+        if s == target:   return (arr[l], arr[r])
+        elif s < target:  l += 1
+        else:             r -= 1
+    return None
+
+# Remove duplicates in-place
+def remove_duplicates(nums):
+    k = 1
+    for i in range(1, len(nums)):
+        if nums[i] != nums[k - 1]:
+            nums[k] = nums[i]
+            k += 1
+    return k
+```
+
+### Sliding Window
+
+Fixed or variable window over a sequence. Avoids O(n²) nested loops.
+
+```python
+# Fixed window — max sum of k elements
+def max_sum_k(arr, k):
+    window = sum(arr[:k])
+    best = window
+    for i in range(k, len(arr)):
+        window += arr[i] - arr[i - k]
+        best = max(best, window)
+    return best
+
+# Variable window — longest substring with at most k distinct chars
+def longest_k_distinct(s, k):
+    freq = defaultdict(int)
+    l = best = 0
+    for r, ch in enumerate(s):
+        freq[ch] += 1
+        while len(freq) > k:
+            freq[s[l]] -= 1
+            if freq[s[l]] == 0: del freq[s[l]]
+            l += 1
+        best = max(best, r - l + 1)
+    return best
+```
+
+### Fast & Slow Pointers
+
+```python
+# Find cycle start in linked list
+def cycle_start(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            slow = head
+            while slow is not fast:
+                slow = slow.next
+                fast = fast.next
+            return slow
+    return None
+```
+
+---
+
+## Structure Selection Guide {#sec-guide}
+
+| Problem Signal | Best Structure |
+|----------------|----------------|
+| Fast lookup by key | `dict` / hash set |
+| Top-k / priority | `heapq` |
+| LIFO / undo / matching parens | Stack (`list`) |
+| FIFO / BFS | `deque` |
+| Prefix search / autocomplete | Trie |
+| Sorted order + dynamic inserts | Sorted list (`sortedcontainers`) / BST |
+| Connectivity / components | Union-Find |
+| Shortest path (unweighted) | BFS |
+| Shortest path (weighted) | Dijkstra (`heapq`) |
+| Dependencies / ordering | Topological sort |
+| Range sum queries | Prefix sums / Fenwick tree |
+
+---
+
+::: {.callout-tip}
+## Interview Focus
+
+**Derive** the amortized O(1) cost of dynamic array append. Implement a min-heap from scratch. Detect a cycle in a linked list without extra space. Implement Trie insert and search. Explain Union-Find with path compression and union by rank — what is the amortized complexity?
+:::

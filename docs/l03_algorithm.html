@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>3&nbsp; Algorithms Coding Patterns – Research Scientist Guide</title>
 <style>
@@ -85,14 +85,15 @@ div.csl-indent {
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -129,7 +130,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -161,7 +162,9 @@ window.Quarto = {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Research Scientist Guide</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -449,23 +452,23 @@ window.Quarto = {
 </ol>
 <p><strong>Reading materials</strong></p>
 <ul>
-<li>Chapter 1.5 in <span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="references.html#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span>
+<li>Chapter 1.5 in <span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span>
 </li>
-<li>Chapter 5 in <span class="citation" data-cites="Kirchgassner:Wolters:2007">Kirchgässner and Wolters (<a href="references.html#ref-Kirchgassner:Wolters:2007" role="doc-biblioref">2007</a>)</span> (optional)</li>
+<li>Chapter 5 in <span class="citation" data-cites="Kirchgassner:Wolters:2007">Kirchgässner and Wolters (<a href="#ref-Kirchgassner:Wolters:2007" role="doc-biblioref">2007</a>)</span> (optional)</li>
 </ul>
 <section id="introduction" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">3.1</span> Introduction</h2>
 <p>Recall the classical decomposition <span id="eq-trseas"><span class="math display">\[
 Y_t = M_t + S_t + \epsilon_t,
 \tag{3.1}\]</span></span> where <span class="math inline">\(M_t\)</span> is a slowly changing function (trend component), <span class="math inline">\(\epsilon_t\)</span> is stationary random noise component, and <span class="math inline">\(S_t\)</span> is the periodic term with the period <span class="math inline">\(m\geqslant 2\)</span> (seasonal component) and scaling factors <span class="math inline">\(\lambda_k &gt; 0\)</span> such that <span class="math inline">\(S_{t+km} = \lambda_kS_t\)</span> for <span class="math inline">\(1 \leqslant t \leqslant m\)</span> and each <span class="math inline">\(k \geqslant 1\)</span>. For identification, we need <span class="math inline">\(\sum_{t=1}^m S_t = 0\)</span> and <span class="math inline">\(\mathrm{E}(\epsilon_t)=0\)</span>.</p>
-<p>Our goal is to estimate and extract <span class="math inline">\(M_t\)</span> and <span class="math inline">\(S_t\)</span> with the hope that the residual or noise component <span class="math inline">\(\epsilon_t\)</span> will turn out to be a stationary time series (<a href="#sec-movavg" class="quarto-xref"><span>Section 3.2</span></a>–<a href="#sec-regressionTime" class="quarto-xref"><span>Section 3.5</span></a>). Alternatively, Box–Jenkins models use difference operators repeatedly to the series <span class="math inline">\(Y_t\)</span> until a stationary time series is obtained (see <a href="#sec-differencing" class="quarto-xref"><span>Section 3.7</span></a> on differencing).</p>
+<p>Our goal is to estimate and extract <span class="math inline">\(M_t\)</span> and <span class="math inline">\(S_t\)</span> with the hope that the residual or noise component <span class="math inline">\(\epsilon_t\)</span> will turn out to be a stationary time series (<a href="#sec-movavg" class="quarto-xref"><span class="quarto-unresolved-ref">sec-movavg</span></a>–<a href="#sec-regressionTime" class="quarto-xref"><span class="quarto-unresolved-ref">sec-regressionTime</span></a>). Alternatively, Box–Jenkins models use difference operators repeatedly to the series <span class="math inline">\(Y_t\)</span> until a stationary time series is obtained (see <a href="#sec-differencing" class="quarto-xref"><span class="quarto-unresolved-ref">sec-differencing</span></a> on differencing).</p>
 <p>The seasonal component is said to have <em>constant seasonal variation</em> if the scaling factors satisfy <span class="math inline">\(\lambda_{k} = 1\)</span> for all <span class="math inline">\(k\)</span>. In other words, <span class="math inline">\(S_{t+m} = S_{t}\)</span> for all <span class="math inline">\(t\)</span>. The constant variation is an assumption of most modeling techniques we will be using in this course. Unfortunately, many real seasonal time series do not have this constancy property and it is necessary to first perform a <em>variance-stabilizing transformation</em> to modify the original time series into one with constant variation. To some extent, this is a matter of trial and error, where we work from ‘weaker’ transformations to ‘stronger’ transformations as needed. Typically, power transformations are used <span class="math inline">\(Y_{t} \rightarrow Y^{\lambda}_{t}\)</span>, where <span class="math inline">\(0 &lt; \lambda &lt; 1\)</span> or, log or even log log transformations, e.g., <span class="math inline">\(Y_{t} \rightarrow \log Y_{t}\)</span>.</p>
-<p>The log transformation of <span class="math inline">\(Y_t\)</span> is convenient when we assume not an additive model as <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> is, but a multiplicative model as <span id="eq-trseasmult"><span class="math display">\[
+<p>The log transformation of <span class="math inline">\(Y_t\)</span> is convenient when we assume not an additive model as <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseas</span></a> is, but a multiplicative model as <span id="eq-trseasmult"><span class="math display">\[
 Y_t = M_t \cdot S_t \cdot \epsilon_t.
-\tag{3.2}\]</span></span> When applying variance-stabilizing log transformation to <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span>3.2</span></a>, we get an additive result: <span id="eq-trseasmultlog"><span class="math display">\[
+\tag{3.2}\]</span></span> When applying variance-stabilizing log transformation to <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseasmult</span></a>, we get an additive result: <span id="eq-trseasmultlog"><span class="math display">\[
 \log Y_t = \log M_t + \log S_t + \log \epsilon_t,
-\tag{3.3}\]</span></span> which is now similar to <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span>3.1</span></a>. We will refer to <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> as <em>additive seasonality</em>, and to <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span>3.2</span></a> as <em>multiplicative seasonality</em>. Only a few methods can deal with the multiplicative case <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span>3.2</span></a> directly; most methods we consider in this course will require us to apply a transformation as in <a href="#eq-trseasmultlog" class="quarto-xref">Equation&nbsp;<span>3.3</span></a>.</p>
-<p>In the following sections, we consider methods for the estimation and elimination of <span class="math inline">\(M_t\)</span> (for non-seasonal data, when <span class="math inline">\(S_t = 0\)</span> in the additive case <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> or <span class="math inline">\(S_t = 1\)</span> in the multiplicative case <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span>3.2</span></a>) and of both <span class="math inline">\(M_t\)</span> and <span class="math inline">\(S_t\)</span> (for seasonal data).</p>
+\tag{3.3}\]</span></span> which is now similar to <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseas</span></a>. We will refer to <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseas</span></a> as <em>additive seasonality</em>, and to <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseasmult</span></a> as <em>multiplicative seasonality</em>. Only a few methods can deal with the multiplicative case <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseasmult</span></a> directly; most methods we consider in this course will require us to apply a transformation as in <a href="#eq-trseasmultlog" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseasmultlog</span></a>.</p>
+<p>In the following sections, we consider methods for the estimation and elimination of <span class="math inline">\(M_t\)</span> (for non-seasonal data, when <span class="math inline">\(S_t = 0\)</span> in the additive case <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseas</span></a> or <span class="math inline">\(S_t = 1\)</span> in the multiplicative case <a href="#eq-trseasmult" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseasmult</span></a>) and of both <span class="math inline">\(M_t\)</span> and <span class="math inline">\(S_t\)</span> (for seasonal data).</p>
 </section><section id="sec-movavg" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="sec-movavg">
 <span class="header-section-number">3.2</span> Finite moving average smoothing</h2>
 <p>The non-seasonal model with a trend: <span class="math display">\[
@@ -484,20 +487,20 @@ W_t &amp;= \frac{1}{2q+1}\sum_{j=-q}^q Y_{t-j}\\
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Shampoo plots
+<span class="screen-reader-only">Note</span>Example: Shampoo plots
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="#fig-shampoo" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> shows a time series plot of monthly shampoo sales. While the data are monthly, the seasonal component is not visible:</p>
+<p><a href="#fig-shampoo" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-shampoo</span></a> shows a time series plot of monthly shampoo sales. While the data are monthly, the seasonal component is not visible:</p>
 <ul>
 <li>no strong periodicity in the time series plot;</li>
 <li>the ACF at seasonal lag (1 year) is not significant.</li>
 </ul>
-<p>Therefore, we apply <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span>3.4</span></a> treating the shampoo time series as non-seasonal data.</p>
+<p>Therefore, we apply <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-movav</span></a> treating the shampoo time series as non-seasonal data.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Get the data from the package fma</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Get the data from the package fma</span></span>
 <span><span class="va">shampoo</span> <span class="op">&lt;-</span> <span class="fu">fma</span><span class="fu">::</span><span class="va"><a href="https://pkg.robjhyndman.com/fma/reference/shampoo.html">shampoo</a></span></span>
-<span><span class="va">shampoo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">shampoo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 #&gt; 1 266 146 183 119 180 168 232 224 193 123 336 186
@@ -506,14 +509,14 @@ Example: Shampoo plots
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pshampoo</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">shampoo</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pshampoo</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">shampoo</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Year"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Sales"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">shampoo</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="va">pshampoo</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-shampoo" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-shampoo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -527,7 +530,7 @@ Figure&nbsp;3.1: Monthly shampoo sales over three years and a corresponding samp
 </div>
 </div>
 </div>
-<p>There are multiple ways to calculate moving averages in R, and formulas for <span class="math inline">\(W_t\)</span> may vary. If using someone’s else functions, remember to read the help files or source code to find out the exact formula in place of <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span>3.4</span></a>. Below are some examples.</p>
+<p>There are multiple ways to calculate moving averages in R, and formulas for <span class="math inline">\(W_t\)</span> may vary. If using someone’s else functions, remember to read the help files or source code to find out the exact formula in place of <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-movav</span></a>. Below are some examples.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -541,9 +544,9 @@ Note
 <p>The package <code>forecast</code> is now retired in favor of the package <code>fable</code>.</p>
 </div>
 </div>
-<p>For example, <code><a href="https://pkg.robjhyndman.com/forecast/reference/ma.html">forecast::ma()</a></code> has the default option <code>centre = TRUE</code>, and the <code>order</code> argument represents the window size. Odd <code>order</code> and <code>centre = TRUE</code> correspond exactly to our definitions in <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span>3.4</span></a>:</p>
+<p>For example, <code><a href="https://pkg.robjhyndman.com/forecast/reference/ma.html">forecast::ma()</a></code> has the default option <code>centre = TRUE</code>, and the <code>order</code> argument represents the window size. Odd <code>order</code> and <code>centre = TRUE</code> correspond exactly to our definitions in <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-movav</span></a>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/ma.html">ma</a></span><span class="op">(</span><span class="va">shampoo</span>, order <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/ma.html">ma</a></span><span class="op">(</span><span class="va">shampoo</span>, order <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 #&gt; 1  NA  NA 179 159 177 185 200 188 222 213 206 198
@@ -553,16 +556,16 @@ Note
 </div>
 <p>For example, <code><a href="https://rdrr.io/pkg/pracma/man/movavg.html">pracma::movavg()</a></code> averages the last <code>n</code> data points:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pracma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pracma/man/movavg.html">movavg</a></span><span class="op">(</span><span class="va">shampoo</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pracma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pracma/man/movavg.html">movavg</a></span><span class="op">(</span><span class="va">shampoo</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;  [1] 266 206 198 179 179 159 177 185 200 188 222 213 206 198 215 203 204 222 238
 #&gt; [20] 256 260 306 301 324 332 362 341 376 387 407 434 452 501 516 544 559</code></pre>
 </div>
 </div>
-<p>The base-R function <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> can also be used. Its odd window size and <code>sides = 2</code> correspond to our definitions in <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span>3.4</span></a>:</p>
+<p>The base-R function <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> can also be used. Its odd window size and <code>sides = 2</code> correspond to our definitions in <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-movav</span></a>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">window_size</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">shampoo</span>, filter <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">window_size</span>, <span class="va">window_size</span><span class="op">)</span>, sides <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">window_size</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">shampoo</span>, filter <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">window_size</span>, <span class="va">window_size</span><span class="op">)</span>, sides <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 #&gt; 1  NA  NA 179 159 177 185 200 188 222 213 206 198
@@ -572,7 +575,7 @@ Note
 </div>
 <p>The <code>sides = 1</code> in <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> corresponds to the <code><a href="https://rdrr.io/pkg/pracma/man/movavg.html">pracma::movavg()</a></code> results above:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">shampoo</span>, filter <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">window_size</span>, <span class="va">window_size</span><span class="op">)</span>, sides <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">shampoo</span>, filter <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">window_size</span>, <span class="va">window_size</span><span class="op">)</span>, sides <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 #&gt; 1  NA  NA  NA  NA 179 159 177 185 200 188 222 213
@@ -580,19 +583,19 @@ Note
 #&gt; 3 332 362 341 376 387 407 434 452 501 516 544 559</code></pre>
 </div>
 </div>
-<p>See <a href="#fig-shampoo-movavg" class="quarto-xref">Figure&nbsp;<span>3.2</span></a> and <a href="#fig-shampoo-movavg2" class="quarto-xref">Figure&nbsp;<span>3.3</span></a> for the effects of the window size.</p>
+<p>See <a href="#fig-shampoo-movavg" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-shampoo-movavg</span></a> and <a href="#fig-shampoo-movavg2" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-shampoo-movavg2</span></a> for the effects of the window size.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Shampoo moving average smoothing
+<span class="screen-reader-only">Note</span>Example: Shampoo moving average smoothing
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span><span class="op">{</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">w</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">q</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span>    <span class="va">Wt</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/ma.html">ma</a></span><span class="op">(</span><span class="va">shampoo</span>, order <span class="op">=</span> <span class="va">w</span><span class="op">)</span></span>
 <span>    <span class="va">pshampoo</span> <span class="op">+</span> </span>
@@ -600,7 +603,7 @@ Example: Shampoo moving average smoothing
 <span>        <span class="fu">ggtitle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"q = "</span>, <span class="va">q</span>, <span class="st">" (window = "</span>, <span class="va">w</span>, <span class="st">")"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="fu">wrap_plots</span><span class="op">(</span><span class="va">ps</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-shampoo-movavg" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-shampoo-movavg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -613,7 +616,7 @@ Figure&nbsp;3.2: Shampoo sales over three years smoothed with <em>centered</em> 
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span><span class="op">{</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">q</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">w</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">q</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span>    <span class="va">Wt</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">shampoo</span>, filter <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">w</span>, <span class="va">w</span><span class="op">)</span>, sides <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>    <span class="va">pshampoo</span> <span class="op">+</span> </span>
@@ -621,7 +624,7 @@ Figure&nbsp;3.2: Shampoo sales over three years smoothed with <em>centered</em> 
 <span>        <span class="fu">ggtitle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"q = "</span>, <span class="va">q</span>, <span class="st">" (window = "</span>, <span class="va">w</span>, <span class="st">")"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="fu">wrap_plots</span><span class="op">(</span><span class="va">ps</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-shampoo-movavg2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-shampoo-movavg2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -637,12 +640,12 @@ Figure&nbsp;3.3: Shampoo sales over three years smoothed with <em>non-centered</
 </div>
 <section id="sec-movavgSeas" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-movavgSeas">
 <span class="header-section-number">3.2.1</span> Moving average smoothing for seasonal data</h3>
-<p>Come back to the trend-seasonal model <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span>3.1</span></a>: <span class="math display">\[
+<p>Come back to the trend-seasonal model <a href="#eq-trseas" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-trseas</span></a>: <span class="math display">\[
 Y_t = M_t + S_t + \epsilon_t.
 \]</span></p>
 <p>We apply the following steps for estimating seasonality and trend:</p>
 <ol type="1">
-<li>Apply a moving average filter specially chosen to eliminate the seasonal component and dampen the noise – get <span class="math inline">\(\hat{M}_t\)</span>. Remember that the sum of <span class="math inline">\(S_t\)</span> within each period is 0. Hence, to smooth out the seasonal component (and noise) and get an estimate of just <span class="math inline">\(M_t\)</span>, we will use a moving window <span class="math inline">\(w\)</span> sized as the seasonal period <span class="math inline">\(m\)</span> (more generally, <span class="math inline">\(w = km\)</span>, where <span class="math inline">\(k\in \mathbb{N}^{+}\)</span>, if a greater smoothness is desired). It will often lead to the even window size <span class="math inline">\(w\)</span>. For even <span class="math inline">\(w\)</span>, <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span>3.4</span></a> is modified as follows (we now use <span class="math inline">\(km + 1\)</span> elements so the window is still centered, but the elements on the ends receive half the weight): <span id="eq-movavEven"><span class="math display">\[
+<li>Apply a moving average filter specially chosen to eliminate the seasonal component and dampen the noise – get <span class="math inline">\(\hat{M}_t\)</span>. Remember that the sum of <span class="math inline">\(S_t\)</span> within each period is 0. Hence, to smooth out the seasonal component (and noise) and get an estimate of just <span class="math inline">\(M_t\)</span>, we will use a moving window <span class="math inline">\(w\)</span> sized as the seasonal period <span class="math inline">\(m\)</span> (more generally, <span class="math inline">\(w = km\)</span>, where <span class="math inline">\(k\in \mathbb{N}^{+}\)</span>, if a greater smoothness is desired). It will often lead to the even window size <span class="math inline">\(w\)</span>. For even <span class="math inline">\(w\)</span>, <a href="#eq-movav" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-movav</span></a> is modified as follows (we now use <span class="math inline">\(km + 1\)</span> elements so the window is still centered, but the elements on the ends receive half the weight): <span id="eq-movavEven"><span class="math display">\[
 \hat{M}_t = \frac{0.5Y_{t-km/2} + Y_{t-km/2 + 1} +\dots+Y_{t+km/2-1} + 0.5Y_{t+km/2}}{km}.
 \tag{3.5}\]</span></span>
 </li>
@@ -670,13 +673,13 @@ Note
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Secchi depth automatic (simple moving average-based) decomposition
+<span class="screen-reader-only">Note</span>Example: Secchi depth automatic (simple moving average-based) decomposition
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Consider monthly data of Secchi disk depth measured at station CB1.1 in Chesapeake Bay (<a href="#fig-Secchi" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>), with the decomposition in <a href="#fig-SecchiDecompose" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>.</p>
+<p>Consider monthly data of Secchi disk depth measured at station CB1.1 in Chesapeake Bay (<a href="#fig-Secchi" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-Secchi</span></a>), with the decomposition in <a href="#fig-SecchiDecompose" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDecompose</span></a>.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Secchi_CB1.1.RData"</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Secchi_CB1.1.RData"</span><span class="op">)</span></span>
 <span><span class="va">pSecchi</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">Secchi</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Year"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Secchi depth (m)"</span><span class="op">)</span></span>
@@ -684,7 +687,7 @@ Example: Secchi depth automatic (simple moving average-based) decomposition
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="va">pSecchi</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-Secchi" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Secchi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -697,7 +700,7 @@ Figure&nbsp;3.4: Monthly average Secchi disk depth at station CB1.1 and its ACF.
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/decompose.html">decompose</a></span><span class="op">(</span><span class="va">Secchi</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/decompose.html">decompose</a></span><span class="op">(</span><span class="va">Secchi</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-SecchiDecompose" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-SecchiDecompose-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -717,13 +720,13 @@ Figure&nbsp;3.5: Trend-seasonal decomposition of monthly average Secchi disk dep
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Secchi depth manual simple moving average smoothing
+<span class="screen-reader-only">Note</span>Example: Secchi depth manual simple moving average smoothing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To replicate the behavior of the function <code><a href="https://rdrr.io/r/stats/decompose.html">stats::decompose()</a></code> or tune the outputs, use the following code. For example, <a href="#fig-SecchiDecompose" class="quarto-xref">Figure&nbsp;<span>3.5</span></a> shows a wiggly trend that we might want to smooth more, using a bigger window, such as 24 months instead of 12 months.</p>
+<p>To replicate the behavior of the function <code><a href="https://rdrr.io/r/stats/decompose.html">stats::decompose()</a></code> or tune the outputs, use the following code. For example, <a href="#fig-SecchiDecompose" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDecompose</span></a> shows a wiggly trend that we might want to smooth more, using a bigger window, such as 24 months instead of 12 months.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Yt</span> <span class="op">&lt;-</span> <span class="va">Secchi</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Yt</span> <span class="op">&lt;-</span> <span class="va">Secchi</span></span>
 <span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">Yt</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">cycle</a></span><span class="op">(</span><span class="va">Yt</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -736,23 +739,23 @@ Example: Secchi depth manual simple moving average smoothing
 <span></span>
 <span><span class="co"># 2. Estimate of the seasonality, corrected to sum up to 0</span></span>
 <span><span class="va">St</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">Yt</span> <span class="op">-</span> <span class="va">Mt</span>, <span class="va">month</span>, <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">St</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">St</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;       1       2       3       4       5       6       7       8       9      10 
 #&gt; -0.0225  0.0869 -0.2469 -0.2791 -0.0748 -0.0379  0.1256  0.1831  0.1234  0.1150 
 #&gt;      11      12 
 #&gt;  0.0368 -0.0164</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] -0.00673</code></pre>
 </div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">St_star</span> <span class="op">&lt;-</span> <span class="va">St</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span><span class="op">/</span><span class="fl">12</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St_star</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">St_star</span> <span class="op">&lt;-</span> <span class="va">St</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span><span class="op">/</span><span class="fl">12</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St_star</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] -3.82e-17</code></pre>
+<pre><code>#&gt; [1] -1.49e-16</code></pre>
 </div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3. Refined trend estimate</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3. Refined trend estimate</span></span>
 <span><span class="va">Mt_star</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Yt</span> <span class="op">-</span> <span class="va">St_star</span><span class="op">[</span><span class="va">month</span><span class="op">]</span>, </span>
 <span>                    filter <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">window_size</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">window_size</span>, <span class="va">window_size</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>, </span>
 <span>                                 <span class="fl">2</span><span class="op">*</span><span class="va">window_size</span><span class="op">)</span>, </span>
@@ -762,11 +765,11 @@ Example: Secchi depth manual simple moving average smoothing
 <span><span class="va">et</span> <span class="op">&lt;-</span> <span class="va">Yt</span> <span class="op">-</span> <span class="va">Mt_star</span> <span class="op">-</span> <span class="va">St_star</span><span class="op">[</span><span class="va">month</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Convert back to ts format for plotting</span></span>
-<span><span class="va">et</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">et</span><span class="op">)</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">Secchi</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">et</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">et</span><span class="op">)</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">Secchi</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>See <a href="#fig-SecchiDeseasMA" class="quarto-xref">Figure&nbsp;<span>3.6</span></a> for the results.</p>
+<p>See <a href="#fig-SecchiDeseasMA" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseasMA</span></a> for the results.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pSecchi</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pSecchi</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Mt_star</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Trend estimate: Mt_star"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">pSecchi</span> <span class="op">+</span> </span>
@@ -779,7 +782,7 @@ Example: Secchi depth manual simple moving average smoothing
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ACF of residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-SecchiDeseasMA" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-SecchiDeseasMA-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -795,7 +798,7 @@ Figure&nbsp;3.6: Detrending using simple moving average and deseasonalizing the 
 </div>
 </section></section><section id="sec-lowess" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="sec-lowess">
 <span class="header-section-number">3.3</span> Lowess smoothing</h2>
-<p>One of the alternatives for estimating trends <span class="math inline">\(M_t\)</span> is <em>locally weighted regression</em> (shortened as ‘lowess’ or ‘loess’) <span class="citation" data-cites="Cleveland:1979">(<a href="references.html#ref-Cleveland:1979" role="doc-biblioref">Cleveland 1979</a>)</span>. We can apply lowess as a regression of <span class="math inline">\(Y_t\)</span> on time, for example, using the algorithm outlined by <span class="citation" data-cites="Berk:2016">Berk (<a href="references.html#ref-Berk:2016" role="doc-biblioref">2016</a>)</span>:</p>
+<p>One of the alternatives for estimating trends <span class="math inline">\(M_t\)</span> is <em>locally weighted regression</em> (shortened as ‘lowess’ or ‘loess’) <span class="citation" data-cites="Cleveland:1979">(<a href="#ref-Cleveland:1979" role="doc-biblioref">Cleveland 1979</a>)</span>. We can apply lowess as a regression of <span class="math inline">\(Y_t\)</span> on time, for example, using the algorithm outlined by <span class="citation" data-cites="Berk:2016">Berk (<a href="#ref-Berk:2016" role="doc-biblioref">2016</a>)</span>:</p>
 <ol type="1">
 <li>Choose the smoothing parameter such as bandwidth, <span class="math inline">\(f\)</span>, which is a proportion between 0 and 1.</li>
 <li>Choose a point <span class="math inline">\(t_0\)</span> and its <span class="math inline">\(w = f n\)</span> nearest points on the time axis.</li>
@@ -805,23 +808,23 @@ Figure&nbsp;3.6: Detrending using simple moving average and deseasonalizing the 
 <li>Calculate the fitted value <span class="math inline">\(\tilde{Y}_t\)</span> for that single <span class="math inline">\(t_0\)</span>.</li>
 <li>Repeat Steps 2–4 for each <span class="math inline">\(t_0 = 1,\dots,n\)</span>.</li>
 </ol>
-<p>By selecting large bandwidth <span class="math inline">\(f\)</span> in the lowess algorithm, we can obtain greater smoothing (see <a href="#fig-lowess" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>).</p>
+<p>By selecting large bandwidth <span class="math inline">\(f\)</span> in the lowess algorithm, we can obtain greater smoothing (see <a href="#fig-lowess" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-lowess</span></a>).</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">WWWusage</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">WWWusage</span><span class="op">)</span></span>
 <span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">w</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">WWWusage</span>, colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span>  <span class="op">+</span> </span>
 <span>        <span class="fu">ggtitle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"span = "</span>, <span class="va">w</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>        <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"loess"</span>, span <span class="op">=</span> <span class="va">w</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="fu">wrap_plots</span><span class="op">(</span><span class="va">ps</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-lowess" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lowess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="l03_algorithm_files/figure-html/fig-lowess-1.png" class="img-fluid figure-img" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lowess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.7: A lowess illustration, adapted from <span class="citation" data-cites="Berk:2016">Berk (<a href="references.html#ref-Berk:2016" role="doc-biblioref">2016</a>)</span>.
+Figure&nbsp;3.7: A lowess illustration, adapted from <span class="citation" data-cites="Berk:2016">Berk (<a href="#ref-Berk:2016" role="doc-biblioref">2016</a>)</span>.
 </figcaption></figure>
 </div>
 </div>
@@ -841,19 +844,19 @@ Note
 </div>
 <section id="lowess-smoothing-for-seasonal-data" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="lowess-smoothing-for-seasonal-data">
 <span class="header-section-number">3.3.1</span> Lowess smoothing for seasonal data</h3>
-<p>Now use the Secchi time series (<a href="#fig-Secchi" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>) and implement the procedure of detrending and deseasonalizing from <a href="#sec-movavgSeas" class="quarto-xref"><span>Section 3.2.1</span></a>, but replace the simple moving average estimates of <span class="math inline">\(M_t\)</span> with lowess estimates.</p>
+<p>Now use the Secchi time series (<a href="#fig-Secchi" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-Secchi</span></a>) and implement the procedure of detrending and deseasonalizing from <a href="#sec-movavgSeas" class="quarto-xref"><span class="quarto-unresolved-ref">sec-movavgSeas</span></a>, but replace the simple moving average estimates of <span class="math inline">\(M_t\)</span> with lowess estimates.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Secchi depth lowess-based decomposition
+<span class="screen-reader-only">Note</span>Example: Secchi depth lowess-based decomposition
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Yt</span> <span class="op">&lt;-</span> <span class="va">Secchi</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Yt</span> <span class="op">&lt;-</span> <span class="va">Secchi</span></span>
 <span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">Yt</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">cycle</a></span><span class="op">(</span><span class="va">Yt</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -862,34 +865,34 @@ Example: Secchi depth lowess-based decomposition
 <span></span>
 <span><span class="co"># 2. Estimate of the seasonality, corrected to sum up to 0</span></span>
 <span><span class="va">St</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">Yt</span> <span class="op">-</span> <span class="va">Mt</span>, <span class="va">month</span>, <span class="va">mean</span><span class="op">)</span></span>
-<span><span class="va">St</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">St</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;       1       2       3       4       5       6       7       8       9      10 
 #&gt; -0.0359  0.0457 -0.2483 -0.2683 -0.0716 -0.0129  0.1411  0.2024  0.1276  0.1108 
 #&gt;      11      12 
 #&gt;  0.0391 -0.0165</code></pre>
 </div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 0.0131</code></pre>
 </div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">St_star</span> <span class="op">&lt;-</span> <span class="va">St</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span><span class="op">/</span><span class="fl">12</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St_star</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">St_star</span> <span class="op">&lt;-</span> <span class="va">St</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St</span><span class="op">)</span><span class="op">/</span><span class="fl">12</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">St_star</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#&gt; [1] -3.47e-17</code></pre>
+<pre><code>#&gt; [1] -6.94e-18</code></pre>
 </div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3. Refined trend estimate</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 3. Refined trend estimate</span></span>
 <span><span class="va">Mt_star</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/loess.html">loess</a></span><span class="op">(</span><span class="op">(</span><span class="va">Yt</span> <span class="op">-</span> <span class="va">St_star</span><span class="op">[</span><span class="va">month</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="va">t</span>, span <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">$</span><span class="va">fitted</span></span>
 <span></span>
 <span><span class="co"># 4. Noise</span></span>
 <span><span class="va">et</span> <span class="op">&lt;-</span> <span class="va">Yt</span> <span class="op">-</span> <span class="va">Mt_star</span> <span class="op">-</span> <span class="va">St_star</span><span class="op">[</span><span class="va">month</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Convert back to ts format for plotting</span></span>
-<span><span class="va">et</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">et</span><span class="op">)</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">Secchi</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">et</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">et</span><span class="op">)</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">Secchi</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>See <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span>3.8</span></a> for the results.</p>
+<p>See <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseas</span></a> for the results.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pSecchi</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pSecchi</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Mt_star</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Trend estimate: Mt_star"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">pSecchi</span> <span class="op">+</span> </span>
@@ -902,7 +905,7 @@ Example: Secchi depth lowess-based decomposition
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ACF of residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-SecchiDeseas" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-SecchiDeseas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -914,9 +917,9 @@ Figure&nbsp;3.8: Detrending using lowess and deseasonalizing the Secchi depth da
 </div>
 </div>
 </div>
-<p>In <a href="#fig-SecchiDeseas2" class="quarto-xref">Figure&nbsp;<span>3.9</span></a>, we use the decomposition function <code><a href="https://rdrr.io/r/stats/stl.html">stl()</a></code> forced to have approximately the same values as we used in the steps above and as shown in <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span>3.8</span></a>. Hence, <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span>3.8</span></a> and <a href="#fig-SecchiDeseas2" class="quarto-xref">Figure&nbsp;<span>3.9</span></a> are similar. However, the function <code><a href="https://rdrr.io/r/stats/stl.html">stl()</a></code> is more flexible – it also automatically smooths the seasonal component (across Januaries, across Februaries, etc.) – and can provide finer estimates (see <a href="#fig-SecchiDeseas3" class="quarto-xref">Figure&nbsp;<span>3.10</span></a>).</p>
+<p>In <a href="#fig-SecchiDeseas2" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseas2</span></a>, we use the decomposition function <code><a href="https://rdrr.io/r/stats/stl.html">stl()</a></code> forced to have approximately the same values as we used in the steps above and as shown in <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseas</span></a>. Hence, <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseas</span></a> and <a href="#fig-SecchiDeseas2" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseas2</span></a> are similar. However, the function <code><a href="https://rdrr.io/r/stats/stl.html">stl()</a></code> is more flexible – it also automatically smooths the seasonal component (across Januaries, across Februaries, etc.) – and can provide finer estimates (see <a href="#fig-SecchiDeseas3" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseas3</span></a>).</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Span we used above (the fraction)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Span we used above (the fraction)</span></span>
 <span><span class="va">span</span> <span class="op">=</span> <span class="fl">0.25</span></span>
 <span></span>
 <span><span class="co"># Window size in number of lags (observations)</span></span>
@@ -939,20 +942,20 @@ Figure&nbsp;3.8: Detrending using lowess and deseasonalizing the Secchi depth da
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ACF of residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-SecchiDeseas2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-SecchiDeseas2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="l03_algorithm_files/figure-html/fig-SecchiDeseas2-1.png" class="img-fluid figure-img" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SecchiDeseas2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.9: Detrending and deseasonalizing the Secchi depth data using lowess within the function <code><a href="https://rdrr.io/r/stats/stl.html">stl()</a></code> forced to behave similarly to <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span>3.8</span></a>.
+Figure&nbsp;3.9: Detrending and deseasonalizing the Secchi depth data using lowess within the function <code><a href="https://rdrr.io/r/stats/stl.html">stl()</a></code> forced to behave similarly to <a href="#fig-SecchiDeseas" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SecchiDeseas</span></a>.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/stl.html">stl</a></span><span class="op">(</span><span class="va">Yt</span>, s.window <span class="op">=</span> <span class="fl">24</span>, s.degree <span class="op">=</span> <span class="fl">1</span>, t.window <span class="op">=</span> <span class="va">w</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/stl.html">stl</a></span><span class="op">(</span><span class="va">Yt</span>, s.window <span class="op">=</span> <span class="fl">24</span>, s.degree <span class="op">=</span> <span class="fl">1</span>, t.window <span class="op">=</span> <span class="va">w</span><span class="op">)</span></span>
 <span><span class="va">Mt_star</span> <span class="op">&lt;-</span> <span class="va">D</span><span class="op">$</span><span class="va">time.series</span><span class="op">[</span>,<span class="st">"trend"</span><span class="op">]</span></span>
 <span><span class="va">St_star</span> <span class="op">&lt;-</span> <span class="va">D</span><span class="op">$</span><span class="va">time.series</span><span class="op">[</span>,<span class="st">"seasonal"</span><span class="op">]</span></span>
 <span><span class="va">et</span> <span class="op">&lt;-</span> <span class="va">D</span><span class="op">$</span><span class="va">time.series</span><span class="op">[</span>,<span class="st">"remainder"</span><span class="op">]</span></span>
@@ -970,7 +973,7 @@ Figure&nbsp;3.9: Detrending and deseasonalizing the Secchi depth data using lowe
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ACF of residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-SecchiDeseas3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-SecchiDeseas3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1028,13 +1031,13 @@ b_{1} &amp; = Y_{2} - Y_{1}.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Shampoo exponential smoothing
+<span class="screen-reader-only">Note</span>Example: Shampoo exponential smoothing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>See an example in <a href="#fig-shampoo-ses" class="quarto-xref">Figure&nbsp;<span>3.11</span></a>.</p>
+<p>See an example in <a href="#fig-shampoo-ses" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-shampoo-ses</span></a>.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0.3"</span> <span class="op">=</span> <span class="fl">4</span>, <span class="st">"0.7"</span> <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">clrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0.3"</span> <span class="op">=</span> <span class="fl">4</span>, <span class="st">"0.7"</span> <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">shampoo</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, beta <span class="op">=</span> <span class="cn">FALSE</span>, gamma <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">shampoo</span>, alpha <span class="op">=</span> <span class="fl">0.7</span>, beta <span class="op">=</span> <span class="cn">FALSE</span>, gamma <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pshampoo</span> <span class="op">+</span> </span>
@@ -1053,7 +1056,7 @@ Example: Shampoo exponential smoothing
 <span>    <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"(\u03b1, \u03b2)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">clrs</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-shampoo-ses" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-shampoo-ses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1104,20 +1107,20 @@ S_{t} &amp; = \gamma (Y_{t} - a_{t}) + (1 - \gamma) S_{t - m}.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Airline passengers non-seasonal and seasonal exponential smoothing
+<span class="screen-reader-only">Note</span>Example: Airline passengers non-seasonal and seasonal exponential smoothing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Monthly totals of international airline passengers, 1949–1960 (see <a href="#fig-airpassangers" class="quarto-xref">Figure&nbsp;<span>3.12</span></a>). This is a classical example in time series analysis. Note that the seasonal variability increases with the increasing mean, hence, we deal with the multiplicative seasonality.</p>
+<p>Monthly totals of international airline passengers, 1949–1960 (see <a href="#fig-airpassangers" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangers</span></a>). This is a classical example in time series analysis. Note that the seasonal variability increases with the increasing mean, hence, we deal with the multiplicative seasonality.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pAirPassengers</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">AirPassengers</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pAirPassengers</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">AirPassengers</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Year"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Airline passengers (thousand)"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="va">pAirPassengers</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-airpassangers" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airpassangers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1131,49 +1134,49 @@ Figure&nbsp;3.12: Monthly <code>AirPassengers</code> data and a corresponding sa
 </div>
 <p>Comparison of various exponential smoothing techniques for the <code>AirPassengers</code> data:</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span>, beta <span class="op">=</span> <span class="cn">FALSE</span>, gamma <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">m1</span><span class="op">$</span><span class="va">SSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span>, beta <span class="op">=</span> <span class="cn">FALSE</span>, gamma <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">m1</span><span class="op">$</span><span class="va">SSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 162511</code></pre>
 </div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m1</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m1</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m1</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m1</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m1</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m1</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 1 0 0</code></pre>
 </div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span>, gamma <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">m2</span><span class="op">$</span><span class="va">SSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span>, gamma <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">m2</span><span class="op">$</span><span class="va">SSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 163634</code></pre>
 </div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m2</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m2</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m2</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m2</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m2</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m2</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;   alpha    beta         
 #&gt; 1.00000 0.00322 0.00000</code></pre>
 </div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
-<span><span class="va">m3</span><span class="op">$</span><span class="va">SSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
+<span><span class="va">m3</span><span class="op">$</span><span class="va">SSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 21860</code></pre>
 </div>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m3</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m3</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m3</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m3</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m3</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m3</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;  alpha   beta  gamma 
 #&gt; 0.2480 0.0345 1.0000</code></pre>
 </div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span>, seasonal <span class="op">=</span> <span class="st">"multiplicative"</span><span class="op">)</span></span>
-<span><span class="va">m4</span><span class="op">$</span><span class="va">SSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/HoltWinters.html">HoltWinters</a></span><span class="op">(</span><span class="va">AirPassengers</span>, seasonal <span class="op">=</span> <span class="st">"multiplicative"</span><span class="op">)</span></span>
+<span><span class="va">m4</span><span class="op">$</span><span class="va">SSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; [1] 16571</code></pre>
 </div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m4</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m4</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m4</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m4</span><span class="op">$</span><span class="va">alpha</span>, <span class="va">m4</span><span class="op">$</span><span class="va">beta</span>, <span class="va">m4</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;  alpha   beta  gamma 
 #&gt; 0.2756 0.0327 0.8707</code></pre>
 </div>
 </div>
-<p>The last multiplicative model is the best one, based on the sum of squared errors (SSE) in the training set (see <a href="#fig-airpassangersHW" class="quarto-xref">Figure&nbsp;<span>3.13</span></a>). For a more thorough comparison, consider using out-of-sample data in cross-validation.</p>
+<p>The last multiplicative model is the best one, based on the sum of squared errors (SSE) in the training set (see <a href="#fig-airpassangersHW" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersHW</span></a>). For a more thorough comparison, consider using out-of-sample data in cross-validation.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">k</span> <span class="op">=</span> <span class="fl">12</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">k</span> <span class="op">=</span> <span class="fl">12</span></span>
 <span><span class="va">fm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m1</span>, n.ahead <span class="op">=</span> <span class="va">k</span><span class="op">)</span></span>
 <span><span class="va">fm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m2</span>, n.ahead <span class="op">=</span> <span class="va">k</span><span class="op">)</span></span>
 <span><span class="va">fm3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m3</span>, n.ahead <span class="op">=</span> <span class="va">k</span><span class="op">)</span></span>
@@ -1199,7 +1202,7 @@ Figure&nbsp;3.12: Monthly <code>AirPassengers</code> data and a corresponding sa
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Multiplicative Holt-Winters"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-airpassangersHW" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airpassangersHW-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1242,29 +1245,29 @@ Note
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Airline passengers non-seasonal polynomial smoothing
+<span class="screen-reader-only">Note</span>Example: Airline passengers non-seasonal polynomial smoothing
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Continue using the <code>AirPassengers</code> data and fit linear and quadratic trends.</p>
 <div class="cell">
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="va">t</span><span class="op">^</span><span class="fl">2</span></span>
 <span><span class="va">tm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">AirPassengers</span> <span class="op">~</span> <span class="va">t</span><span class="op">)</span></span>
 <span><span class="va">tm2.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">AirPassengers</span> <span class="op">~</span> <span class="va">t</span> <span class="op">+</span> <span class="va">t2</span><span class="op">)</span></span>
 <span><span class="va">tm2.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">AirPassengers</span> <span class="op">~</span> <span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">t</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tm2.3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">AirPassengers</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">t</span>, degree <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">tm2.3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">AirPassengers</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">t</span>, degree <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>After estimating the trend coefficients with OLS, visualize the results (<a href="#fig-airpassangersRegTrend" class="quarto-xref">Figure&nbsp;<span>3.14</span></a>).</p>
+<p>After estimating the trend coefficients with OLS, visualize the results (<a href="#fig-airpassangersRegTrend" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersRegTrend</span></a>).</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">tm1</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Linear trend"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">tm2.3</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Quadratic trend"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-airpassangersRegTrend" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airpassangersRegTrend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1313,7 +1316,7 @@ f (Y_{t}) &amp;= M_{t} + \beta_{2} X_{2,t} + \beta_{3} X_{3,t} + \dots + \beta_{
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Airline passengers polynomial smoothing with dummy variables for the seasons
+<span class="screen-reader-only">Note</span>Example: Airline passengers polynomial smoothing with dummy variables for the seasons
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1352,11 +1355,11 @@ Note
 <p>The way the months are represented above as separate columns of 0s and 1s is called <em>one-hot encoding</em> in the field of machine learning.</p>
 </div>
 </div>
-<p>In R, it is enough to have <em>one</em> variable representing the seasons. This categorical variable should be saved as a <code>factor</code>. Then we apply the OLS method to find the model coefficients (see results in <a href="#fig-airpassangersRegTrendSeas" class="quarto-xref">Figure&nbsp;<span>3.15</span></a>):</p>
+<p>In R, it is enough to have <em>one</em> variable representing the seasons. This categorical variable should be saved as a <code>factor</code>. Then we apply the OLS method to find the model coefficients (see results in <a href="#fig-airpassangersRegTrendSeas" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersRegTrendSeas</span></a>):</p>
 <div class="cell">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">cycle</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">cycle</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">t</span>, degree <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="va">Month</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Call:
@@ -1391,13 +1394,13 @@ Note
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">m</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">m</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ACF of residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-airpassangersRegTrendSeas" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airpassangersRegTrendSeas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1426,7 +1429,7 @@ sin_{k} (i) &amp;= \sin (2 \pi ki / 12),
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Airline passengers polynomial smoothing with Fourier series for the seasons
+<span class="screen-reader-only">Note</span>Example: Airline passengers polynomial smoothing with Fourier series for the seasons
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1440,15 +1443,15 @@ sin_{2,t} &amp;= \sin(4 \pi \text{month}_t/12)
 \]</span> to use in the model <span class="math display">\[
 \ln(Y_{t}) = \alpha_0 + \alpha_1 t + \alpha_2 t^2 + \beta_{1}cos_{1,t} + \beta_{2}sin_{1,t} + \beta_{3}cos_{2,t} + \beta_{4}sin_{2,t} + \epsilon_{t}.
 \]</span></p>
-<p>Calculate the predictors and estimate the model in R (see results in <a href="#fig-airpassangersRegTrendFourier" class="quarto-xref">Figure&nbsp;<span>3.16</span></a>):</p>
+<p>Calculate the predictors and estimate the model in R (see results in <a href="#fig-airpassangersRegTrendFourier" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersRegTrendFourier</span></a>):</p>
 <div class="cell">
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">cycle</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">cycle</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">cos1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">cos</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span> <span class="op">*</span> <span class="va">month</span> <span class="op">/</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">sin1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span> <span class="op">*</span> <span class="va">month</span> <span class="op">/</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">cos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">cos</a></span><span class="op">(</span><span class="fl">4</span> <span class="op">*</span> <span class="va">pi</span> <span class="op">*</span> <span class="va">month</span> <span class="op">/</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">sin2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="fl">4</span> <span class="op">*</span> <span class="va">pi</span> <span class="op">*</span> <span class="va">month</span> <span class="op">/</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">t</span>, degree <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="va">cos1</span> <span class="op">+</span> <span class="va">sin1</span> <span class="op">+</span> <span class="va">cos2</span> <span class="op">+</span> <span class="va">sin2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Call:
@@ -1477,13 +1480,13 @@ sin_{2,t} &amp;= \sin(4 \pi \text{month}_t/12)
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">m</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">m</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ACF of residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-airpassangersRegTrendFourier" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airpassangersRegTrendFourier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1499,8 +1502,8 @@ Figure&nbsp;3.16: The <code>AirPassengers</code> data, with estimated parametric
 </div>
 </section></section><section id="sec-GAM" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="sec-GAM">
 <span class="header-section-number">3.6</span> Generalized additive models (GAMs)</h2>
-<p>An alternative way of modeling nonlinearities in trends, seasonality, and other patterns is by replacing the original variables with those individually transformed using smooth nonparametric functions, such as in a <em>generalized additive model</em> <span class="citation" data-cites="Wood:2006book">(GAM, <a href="references.html#ref-Wood:2006book" role="doc-biblioref">Wood 2006</a>)</span>. The model is called ‘generalized’ because the distribution of the response variable <span class="math inline">\(Y_t\)</span> is not just normal but can be from a family of exponential distributions, such as Poisson, binomial, and gamma. A smooth monotonic function <span class="math inline">\(g(\cdot)\)</span> called the ‘link function’ is applied to transform the response variable. However, our interest currently is in the additive nature of these models.</p>
-<p>Instead of fitting a global nonlinear function like in a polynomial regression (<a href="#sec-regressionTime" class="quarto-xref"><span>Section 3.5</span></a>) or fitting simpler local polynomials directly like in lowess smoothing (<a href="#sec-lowess" class="quarto-xref"><span>Section 3.3</span></a>), we can construct a basis from basic splines (B-splines). B-splines are simple functions, which vanish outside the intervals defined by time points called the ‘knots.’ These splines are defined recursively, from the lowest to higher orders, starting from a simple indicator function for the intervals between the knots <span class="citation" data-cites="Hastie:etal:2009 Wood:2006book">(see Appendix to Chapter 5 in <a href="references.html#ref-Hastie:etal:2009" role="doc-biblioref">Hastie et al. 2009</a>; or Chapter 4.1 in <a href="references.html#ref-Wood:2006book" role="doc-biblioref">Wood 2006</a> for the recursive formulas)</span>. Here we show the results of the recursive computations, for times <span class="math inline">\(t = 1, \dots,\)</span> 100 and knots 1, 10, 20, 50 spaced unequally for illustration purposes (uniformly-spaced knots give us cardinal B-splines). <a href="#fig-BS1" class="quarto-xref">Figure&nbsp;<span>3.17</span></a> shows a basis formed by B-splines of degree one, and <a href="#fig-BS2" class="quarto-xref">Figure&nbsp;<span>3.18</span></a> shows splines of degree two.</p>
+<p>An alternative way of modeling nonlinearities in trends, seasonality, and other patterns is by replacing the original variables with those individually transformed using smooth nonparametric functions, such as in a <em>generalized additive model</em> <span class="citation" data-cites="Wood:2006book">(GAM, <a href="#ref-Wood:2006book" role="doc-biblioref">Wood 2006</a>)</span>. The model is called ‘generalized’ because the distribution of the response variable <span class="math inline">\(Y_t\)</span> is not just normal but can be from a family of exponential distributions, such as Poisson, binomial, and gamma. A smooth monotonic function <span class="math inline">\(g(\cdot)\)</span> called the ‘link function’ is applied to transform the response variable. However, our interest currently is in the additive nature of these models.</p>
+<p>Instead of fitting a global nonlinear function like in a polynomial regression (<a href="#sec-regressionTime" class="quarto-xref"><span class="quarto-unresolved-ref">sec-regressionTime</span></a>) or fitting simpler local polynomials directly like in lowess smoothing (<a href="#sec-lowess" class="quarto-xref"><span class="quarto-unresolved-ref">sec-lowess</span></a>), we can construct a basis from basic splines (B-splines). B-splines are simple functions, which vanish outside the intervals defined by time points called the ‘knots.’ These splines are defined recursively, from the lowest to higher orders, starting from a simple indicator function for the intervals between the knots <span class="citation" data-cites="Hastie:etal:2009 Wood:2006book">(see Appendix to Chapter 5 in <a href="#ref-Hastie:etal:2009" role="doc-biblioref">Hastie et al. 2009</a>; or Chapter 4.1 in <a href="#ref-Wood:2006book" role="doc-biblioref">Wood 2006</a> for the recursive formulas)</span>. Here we show the results of the recursive computations, for times <span class="math inline">\(t = 1, \dots,\)</span> 100 and knots 1, 10, 20, 50 spaced unequally for illustration purposes (uniformly-spaced knots give us cardinal B-splines). <a href="#fig-BS1" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-BS1</span></a> shows a basis formed by B-splines of degree one, and <a href="#fig-BS2" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-BS2</span></a> shows splines of degree two.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-BS1" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1525,15 +1528,15 @@ Figure&nbsp;3.18: B-splines of degree two. The vertical dashed lines denote loca
 </div>
 </div>
 </div>
-<p>In the next step, the basis is used in regression, for example, to model the expected value <span class="math inline">\(\mu_t\)</span> of the <code>WWWusage</code> data introduced in <a href="#sec-lowess" class="quarto-xref"><span>Section 3.3</span></a>: <span id="eq-GAM"><span class="math display">\[
+<p>In the next step, the basis is used in regression, for example, to model the expected value <span class="math inline">\(\mu_t\)</span> of the <code>WWWusage</code> data introduced in <a href="#sec-lowess" class="quarto-xref"><span class="quarto-unresolved-ref">sec-lowess</span></a>: <span id="eq-GAM"><span class="math display">\[
 g(\mu_t) = \alpha_0 + f(t),
 \tag{3.6}\]</span></span> where <span class="math inline">\(\alpha_0\)</span> is the intercept, and <span class="math inline">\(f(t)\)</span> represents the added effects of the <span class="math inline">\(M\)</span> basis functions <span class="math inline">\(B_m(t)\)</span> (hence the word ‘additive’ in GAM): <span class="math display">\[
 f(t) = \sum_{m = 1}^M \beta_m B_m(t).
-\]</span> Here we may assume that the response <code>WWWusage</code> is normally distributed. The link function <span class="math inline">\(g(\cdot)\)</span> for normal distribution is identity (no transformation to the original data), hence we can omit it and rewrite <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> for our data as follows: <span class="math display">\[
+\]</span> Here we may assume that the response <code>WWWusage</code> is normally distributed. The link function <span class="math inline">\(g(\cdot)\)</span> for normal distribution is identity (no transformation to the original data), hence we can omit it and rewrite <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-GAM</span></a> for our data as follows: <span class="math display">\[
 \mu_t = \alpha_0 + f(t).
 \]</span> We are not interested in the individual regression coefficients <span class="math inline">\(\beta_m\)</span> (regression parameters) we estimated, hence the function <span class="math inline">\(f(t)\)</span> is <em>nonparametric</em> even though many parameters have been estimated to obtain <span class="math inline">\(f(t)\)</span>, similar to lowess smoothing.</p>
-<p>The model in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> can handle deviations from normality and can accommodate nonlinearity and nonmonotonicity of individual relationships, however, the model does not address the potential issue of remaining dependencies in the errors <span class="citation" data-cites="Kohn:etal:2000">(e.g., see <a href="references.html#ref-Kohn:etal:2000" role="doc-biblioref">Kohn et al. 2000</a>)</span>. We skip the topic of selecting an appropriate distribution, testing statistical significance of estimated patterns, or using the reported confidence intervals for inference until later in the course when we are familiar with various tests for autocorrelation and trends (e.g., see <a href="l07_time_series.html" class="quarto-xref"><span>Chapter 7</span></a> on trend tests and <span class="quarto-unresolved-ref">?sec-GAMLSS</span> using additional covariates, specifying structure of the regression errors, and extending GAM to several parameters of an exponential distribution beyond just the mean).</p>
-<p><a href="#fig-BSreg" class="quarto-xref">Figure&nbsp;<span>3.19</span></a> shows the results of fitting the model in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> to the bases shown in <a href="#fig-BS1" class="quarto-xref">Figure&nbsp;<span>3.17</span></a> and <a href="#fig-BS2" class="quarto-xref">Figure&nbsp;<span>3.18</span></a>. The results are not so bad given the knots were set without considering the data.</p>
+<p>The model in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-GAM</span></a> can handle deviations from normality and can accommodate nonlinearity and nonmonotonicity of individual relationships, however, the model does not address the potential issue of remaining dependencies in the errors <span class="citation" data-cites="Kohn:etal:2000">(e.g., see <a href="#ref-Kohn:etal:2000" role="doc-biblioref">Kohn et al. 2000</a>)</span>. We skip the topic of selecting an appropriate distribution, testing statistical significance of estimated patterns, or using the reported confidence intervals for inference until later in the course when we are familiar with various tests for autocorrelation and trends (e.g., see <a href="#sec-trendtest" class="quarto-xref"><span class="quarto-unresolved-ref">sec-trendtest</span></a> on trend tests and <a href="#sec-GAMLSS" class="quarto-xref"><span class="quarto-unresolved-ref">sec-GAMLSS</span></a> using additional covariates, specifying structure of the regression errors, and extending GAM to several parameters of an exponential distribution beyond just the mean).</p>
+<p><a href="#fig-BSreg" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-BSreg</span></a> shows the results of fitting the model in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-GAM</span></a> to the bases shown in <a href="#fig-BS1" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-BS1</span></a> and <a href="#fig-BS2" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-BS2</span></a>. The results are not so bad given the knots were set without considering the data.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-BSreg" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1547,27 +1550,27 @@ Figure&nbsp;3.19: Results of regressing <code>WWWusage</code> on the linear, qua
 </div>
 </div>
 <p>The number and locations of the knots are important tuning parameters for achieving the desired smoothness. Fortunately, there exist cross-validation procedures and penalization techniques that allow us to set these parameters rather automatically. When a penalty is applied to the basis coefficients, B-splines are called P-splines.</p>
-<p>The R packages <code>mgcv</code> and <code>gamlss</code> provide several types of smoothing splines. In this lecture, we demonstrate the package <code>mgcv</code> but we will use the package <code>gamlss</code> in <span class="quarto-unresolved-ref">?sec-GAMLSS</span>.</p>
+<p>The R packages <code>mgcv</code> and <code>gamlss</code> provide several types of smoothing splines. In this lecture, we demonstrate the package <code>mgcv</code> but we will use the package <code>gamlss</code> in <a href="#sec-GAMLSS" class="quarto-xref"><span class="quarto-unresolved-ref">sec-GAMLSS</span></a>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: GAM of WWWusage
+<span class="screen-reader-only">Note</span>Example: GAM of WWWusage
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Consider fitting the GAM specified in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span>3.6</span></a> to the <code>WWWusage</code> time series. Here we use B-splines again (see <code><a href="https://rdrr.io/pkg/mgcv/man/smooth.terms.html">?mgcv::smooth.terms</a></code> and <code><a href="https://rdrr.io/pkg/mgcv/man/smooth.construct.bs.smooth.spec.html">?mgcv::b.spline</a></code> for different options), but allow the parameters to be estimated each time using cross-validation (see <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html">?mgcv::gam</a></code> for more details).</p>
+<p>Consider fitting the GAM specified in <a href="#eq-GAM" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-GAM</span></a> to the <code>WWWusage</code> time series. Here we use B-splines again (see <code><a href="https://rdrr.io/pkg/mgcv/man/smooth.terms.html">?mgcv::smooth.terms</a></code> and <code><a href="https://rdrr.io/pkg/mgcv/man/smooth.construct.bs.smooth.spec.html">?mgcv::b.spline</a></code> for different options), but allow the parameters to be estimated each time using cross-validation (see <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html">?mgcv::gam</a></code> for more details).</p>
 <p>In the code below, we estimate the model four times, with different spline orders <code>m[1]</code> (quadratic or cubic) and basis dimensions <code>k</code> (<code>k</code> controls the overall smoothness as it sets the upper limit on the degrees of freedom associated with a smooth, see <code><a href="https://rdrr.io/pkg/mgcv/man/choose.k.html">?mgcv::choose.k</a></code>). The models can be compared using the Akaike information criterion (AIC).</p>
 <div class="cell">
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span>
 <span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">WWWusage</span><span class="op">)</span></span>
 <span><span class="va">mwww_q1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html">gam</a></span><span class="op">(</span><span class="va">WWWusage</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">t</span>, bs <span class="op">=</span> <span class="st">"bs"</span>, m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">mwww_c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html">gam</a></span><span class="op">(</span><span class="va">WWWusage</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">t</span>, bs <span class="op">=</span> <span class="st">"bs"</span>, m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">mwww_c2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html">gam</a></span><span class="op">(</span><span class="va">WWWusage</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">t</span>, bs <span class="op">=</span> <span class="st">"bs"</span>, m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>, k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">mwww_c3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html">gam</a></span><span class="op">(</span><span class="va">WWWusage</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">t</span>, bs <span class="op">=</span> <span class="st">"bs"</span>, m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>, k <span class="op">=</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">mwww_q1</span>, <span class="va">mwww_c1</span>, <span class="va">mwww_c2</span>, <span class="va">mwww_c3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">mwww_q1</span>, <span class="va">mwww_c1</span>, <span class="va">mwww_c2</span>, <span class="va">mwww_c3</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt;            df AIC
 #&gt; mwww_q1 10.92 701
@@ -1576,9 +1579,9 @@ Example: GAM of WWWusage
 #&gt; mwww_c3 15.20 641</code></pre>
 </div>
 </div>
-<p>From the results above and <a href="#fig-WWWusageGAM" class="quarto-xref">Figure&nbsp;<span>3.20</span></a>, we may conclude that when the smoothing parameters are allowed to be selected automatically, restricting the degrees of freedom leads to more dramatic changes than switching the order of splines.</p>
+<p>From the results above and <a href="#fig-WWWusageGAM" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-WWWusageGAM</span></a>, we may conclude that when the smoothing parameters are allowed to be selected automatically, restricting the degrees of freedom leads to more dramatic changes than switching the order of splines.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p0</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p0</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">mwww_q1</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Quadratic splines, automatic k"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p0</span> <span class="op">+</span> </span>
@@ -1591,7 +1594,7 @@ Example: GAM of WWWusage
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">mwww_c3</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Cubic splines, k = 15"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-WWWusageGAM" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-WWWusageGAM-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1605,7 +1608,7 @@ Figure&nbsp;3.20: Results of regressing <code>WWWusage</code> on time, using the
 </div>
 <p>Summary of the last model using cubic smoothing splines:</p>
 <div class="cell">
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mwww_c3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mwww_c3</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Family: gaussian 
@@ -1638,7 +1641,7 @@ Figure&nbsp;3.20: Results of regressing <code>WWWusage</code> on time, using the
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: GAM of the airline passengers time series
+<span class="screen-reader-only">Note</span>Example: GAM of the airline passengers time series
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1650,20 +1653,20 @@ Y_t \sim N(\mu_t, \sigma^2).
 <p>For the expected values, we will use a GAM with smoothing splines applied to the numeric time and month: <span class="math display">\[
 g(\mu_t) = \alpha_0 + f_1(t) + f_2(Month_t).
 \]</span> This model will capture a potentially non-monotonic trend and seasonality. We will use cyclical splines for <span class="math inline">\(f_2(\cdot)\)</span>. Cyclical splines have an additional penalty to ensure a smooth transition between the last and the first month of the annual cycle (from December to January).</p>
-<p>Below we fit the model for both distribution families, lognormal with the identity link function (<a href="#eq-GAMlno" class="quarto-xref">Equation&nbsp;<span>3.7</span></a>) and normal with the logarithmic link (<a href="#eq-GAMno" class="quarto-xref">Equation&nbsp;<span>3.8</span></a>):</p>
+<p>Below we fit the model for both distribution families, lognormal with the identity link function (<a href="#eq-GAMlno" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-GAMlno</span></a>) and normal with the logarithmic link (<a href="#eq-GAMno" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-GAMno</span></a>):</p>
 <div class="cell">
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">cycle</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">m_lno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html">gam</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">month</span>, bs <span class="op">=</span> <span class="st">"cp"</span><span class="op">)</span>, </span>
 <span>         family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">m_no</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html">gam</a></span><span class="op">(</span><span class="va">AirPassengers</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html">s</a></span><span class="op">(</span><span class="va">month</span>, bs <span class="op">=</span> <span class="st">"cp"</span><span class="op">)</span>, </span>
-<span>         family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>         family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><a href="#fig-airpassangersGAM" class="quarto-xref">Figure&nbsp;<span>3.21</span></a> shows the results of smoothing are quite similar. In both cases, we were not able to fully remove seasonality from the data, based on the residual autocorrelation at the seasonal lag of 12 months.</p>
+<p><a href="#fig-airpassangersGAM" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersGAM</span></a> shows the results of smoothing are quite similar. In both cases, we were not able to fully remove seasonality from the data, based on the residual autocorrelation at the seasonal lag of 12 months.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pAirPassengers</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">m_lno</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="fl">4</span>, lwd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"GAM smoothing using lognormal distribution"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">m_lno</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1676,7 +1679,7 @@ g(\mu_t) = \alpha_0 + f_1(t) + f_2(Month_t).
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ACF of residuals, using normal distribution with log link"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-airpassangersGAM" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airpassangersGAM-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1688,14 +1691,14 @@ Figure&nbsp;3.21: Plots of the <code>AirPassengers</code> data smoothed with GAM
 </div>
 </div>
 </div>
-<p>We might prefer using the formulation in <a href="#eq-GAMno" class="quarto-xref">Equation&nbsp;<span>3.8</span></a> since it captures the most recent peaks better (<a href="#fig-airpassangersGAM" class="quarto-xref">Figure&nbsp;<span>3.21</span></a> C) than the alternative (<a href="#fig-airpassangersGAM" class="quarto-xref">Figure&nbsp;<span>3.21</span></a> A), however, more rigorous numeric comparisons can be performed.</p>
-<p>The fitted smooth functions can be visualized using <code>plot(m_no)</code> or using the <code>ggplot2</code>-type graphics as in <a href="#fig-airpassangersGAMterms" class="quarto-xref">Figure&nbsp;<span>3.22</span></a>. Note that the smooths are centered at 0 for the identifiability. This model used approximately 8.069 degrees of freedom to fit the trend, which is much more than the polynomial regression used. To fit the seasonality, the GAM used approximately 8.922 degrees of freedom, which is between the numbers for the regressions with Fourier series (4) and categorical months (11). Note that the quality of removing seasonality by GAM in this case is also between the regressions with Fourier series (strong autocorrelation at the seasonal lag remains, <a href="#fig-airpassangersRegTrendFourier" class="quarto-xref">Figure&nbsp;<span>3.16</span></a>) and categorical months (no significant autocorrelation at the seasonal lag, <a href="#fig-airpassangersRegTrendSeas" class="quarto-xref">Figure&nbsp;<span>3.15</span></a>).</p>
+<p>We might prefer using the formulation in <a href="#eq-GAMno" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-GAMno</span></a> since it captures the most recent peaks better (<a href="#fig-airpassangersGAM" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersGAM</span></a> C) than the alternative (<a href="#fig-airpassangersGAM" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersGAM</span></a> A), however, more rigorous numeric comparisons can be performed.</p>
+<p>The fitted smooth functions can be visualized using <code>plot(m_no)</code> or using the <code>ggplot2</code>-type graphics as in <a href="#fig-airpassangersGAMterms" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersGAMterms</span></a>. Note that the smooths are centered at 0 for the identifiability. This model used approximately 8.069 degrees of freedom to fit the trend, which is much more than the polynomial regression used. To fit the seasonality, the GAM used approximately 8.922 degrees of freedom, which is between the numbers for the regressions with Fourier series (4) and categorical months (11). Note that the quality of removing seasonality by GAM in this case is also between the regressions with Fourier series (strong autocorrelation at the seasonal lag remains, <a href="#fig-airpassangersRegTrendFourier" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersRegTrendFourier</span></a>) and categorical months (no significant autocorrelation at the seasonal lag, <a href="#fig-airpassangersRegTrendSeas" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-airpassangersRegTrendSeas</span></a>).</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mfasiolo/mgcViz">mgcViz</a></span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mfasiolo/mgcViz">mgcViz</a></span><span class="op">)</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcViz/man/getViz.html">getViz</a></span><span class="op">(</span><span class="va">m_no</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">b</span>, allTerms <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>          <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>      pages <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>      pages <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-airpassangersGAMterms" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-airpassangersGAMterms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1755,16 +1758,16 @@ Note
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Shampoo detrending by differencing
+<span class="screen-reader-only">Note</span>Example: Shampoo detrending by differencing
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Remove the trend from the shampoo series by applying the differences.</p>
-<p>Based on <a href="#fig-shampooDiff" class="quarto-xref">Figure&nbsp;<span>3.23</span></a>, differencing once is enough to remove the trend. The resulting detrended series is <span class="math display">\[
+<p>Based on <a href="#fig-shampooDiff" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-shampooDiff</span></a>, differencing once is enough to remove the trend. The resulting detrended series is <span class="math display">\[
 Y^*_t = \Delta Y_t = (1 - B)Y_t = Y_t - Y_{t-1}.
 \]</span></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pshampoo</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">pshampoo</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Yt"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">shampoo</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1784,7 +1787,7 @@ Y^*_t = \Delta Y_t = (1 - B)Y_t = Y_t - Y_{t-1}.
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p5</span> <span class="op">+</span> <span class="va">p6</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-shampooDiff" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-shampooDiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1814,19 +1817,19 @@ X_t = a + b t + Z_t,
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Airline passengers detrending and deseasonalizing by differencing
+<span class="screen-reader-only">Note</span>Example: Airline passengers detrending and deseasonalizing by differencing
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Remove trend and seasonality from the log-transformed <code>AirPassengers</code> series by applying the differences.</p>
-<p>Based on <a href="#fig-AirPassengersDiff" class="quarto-xref">Figure&nbsp;<span>3.24</span></a>, differencing once with the non-seasonal and the seasonal lags is enough to remove the trend and strong seasonality. The final series (denoted as <code>D1D12</code>) is <span class="math display">\[
+<p>Based on <a href="#fig-AirPassengersDiff" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-AirPassengersDiff</span></a>, differencing once with the non-seasonal and the seasonal lags is enough to remove the trend and strong seasonality. The final series (denoted as <code>D1D12</code>) is <span class="math display">\[
 \begin{split}
 D1D12_t &amp; = (1 - B)(1 - B^{12})\lg Y_t = (1 - B - B^{12} + B^{13})\lg Y_t\\
 &amp; = \lg Y_t - \lg Y_{t-1} - \lg Y_{t-12} + \lg Y_{t-13}.
 \end{split}
 \]</span></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Yt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Yt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Apply first-order (non-seasonal) differences</span></span>
 <span><span class="va">D1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">Yt</span><span class="op">)</span></span>
@@ -1856,7 +1859,7 @@ D1D12_t &amp; = (1 - B)(1 - B^{12})\lg Y_t = (1 - B - B^{12} + B^{13})\lg Y_t\\
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"(1-B)(1-B12)Yt"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Lag (months)"</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p5</span> <span class="op">+</span> <span class="va">p6</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-AirPassengersDiff" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-AirPassengersDiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1890,29 +1893,29 @@ Figure&nbsp;3.24: Time series plot of the airline passenger series with an estim
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Smoothing blocks
+<span class="screen-reader-only">Note</span>Example: Smoothing blocks
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>A student was concerned about applying smoothing to data with a block-like structure. Without a real dataset on hand, below we simulate a series <span class="math inline">\(X_t\)</span> with the mentioned structure.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Set number of blocks</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10</span> </span>
 <span></span>
 <span><span class="co"># Let the values of blocks come from standard normal distribution,</span></span>
 <span><span class="co"># and length of block be a random variable generated from Poisson distribution:</span></span>
-<span><span class="va">Xt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">Xt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p><a href="#fig-blocks" class="quarto-xref">Figure&nbsp;<span>3.25</span></a> shows an example of lowess applied to <span class="math inline">\(X_t\)</span> to get a smoothed series <span class="math inline">\(M_t\)</span>.</p>
+<p><a href="#fig-blocks" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-blocks</span></a> shows an example of lowess applied to <span class="math inline">\(X_t\)</span> to get a smoothed series <span class="math inline">\(M_t\)</span>.</p>
 <p>We see that lowess estimates <em>smooth</em> trends. If we assume that trends are not smooth, then some other techniques (e.g., piecewise linear estimation) should be used.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Xt</span><span class="op">)</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Xt</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">t</span>, Xt <span class="op">=</span> <span class="va">Xt</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">Xt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span>, span <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span>, span <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-blocks" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-blocks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1928,7 +1931,7 @@ Figure&nbsp;3.25: Smoothing of the block-like data <span class="math inline">\(X
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Berk:2016" class="csl-entry" role="listitem">
 Berk RA (2016) <a href="https://doi.org/10.1007/978-3-319-44048-4">Statistical learning from a regression perspective</a>, 2nd edn. Springer, Switzerland
 </div>
@@ -2002,13 +2005,14 @@ Wood SN (2006) Generalized additive models: An introduction with r. Chapman; Hal
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

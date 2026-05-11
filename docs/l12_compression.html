@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>12&nbsp; Model Compression, Deployment, and Efficiency – Research Scientist Guide</title>
 <style>
@@ -50,14 +50,15 @@ div.csl-indent {
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -94,7 +95,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -126,7 +127,9 @@ window.Quarto = {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Research Scientist Guide</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -390,9 +393,9 @@ window.Quarto = {
 </ol>
 <p><strong>Reading materials</strong></p>
 <ul>
-<li>Chapter 9 in <span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="references.html#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span>
+<li>Chapter 9 in <span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span>
 </li>
-<li>Chapter 7 in <span class="citation" data-cites="Hastie:etal:2009">Hastie et al. (<a href="references.html#ref-Hastie:etal:2009" role="doc-biblioref">2009</a>)</span>
+<li>Chapter 7 in <span class="citation" data-cites="Hastie:etal:2009">Hastie et al. (<a href="#ref-Hastie:etal:2009" role="doc-biblioref">2009</a>)</span>
 </li>
 </ul>
 <section id="time-series-forecasts" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="time-series-forecasts">
@@ -406,7 +409,7 @@ window.Quarto = {
 </section><section id="types-of-forecasts-especially-when-multiple-regression" class="level3" data-number="12.1.3"><h3 data-number="12.1.3" class="anchored" data-anchor-id="types-of-forecasts-especially-when-multiple-regression">
 <span class="header-section-number">12.1.3</span> Types of forecasts, especially when multiple regression</h3>
 <p>Types (<em>ex-post</em> from <em>ex-ante</em> forecasts)</p>
-<p>Let <span class="math inline">\(\hat{Y}_T(h)\)</span> be a forecast <span class="math inline">\(h\)</span> steps ahead made at the time <span class="math inline">\(T\)</span>. If <span class="math inline">\(\hat{Y}_T(h)\)</span> only uses information up to time <span class="math inline">\(T\)</span>, the resulting forecasts are called out-of-sample forecasts. Economists call them <em>ex-ante</em> forecasts. We have discussed several ways to select the optimal method or model for forecasting, e.g., using PMAE, PMSE, or coverage – all calculated on a testing set. <span class="citation" data-cites="Chatfield:2000">Chatfield (<a href="references.html#ref-Chatfield:2000" role="doc-biblioref">2000</a>)</span> lists several ways to unfairly ‘improve’ forecasts:</p>
+<p>Let <span class="math inline">\(\hat{Y}_T(h)\)</span> be a forecast <span class="math inline">\(h\)</span> steps ahead made at the time <span class="math inline">\(T\)</span>. If <span class="math inline">\(\hat{Y}_T(h)\)</span> only uses information up to time <span class="math inline">\(T\)</span>, the resulting forecasts are called out-of-sample forecasts. Economists call them <em>ex-ante</em> forecasts. We have discussed several ways to select the optimal method or model for forecasting, e.g., using PMAE, PMSE, or coverage – all calculated on a testing set. <span class="citation" data-cites="Chatfield:2000">Chatfield (<a href="#ref-Chatfield:2000" role="doc-biblioref">2000</a>)</span> lists several ways to unfairly ‘improve’ forecasts:</p>
 <ol type="1">
 <li>Fitting the model to all the data including the test set.</li>
 <li>Fitting several models to the training set and choosing the model which gives the best ‘forecasts’ of the test set. The selected model is then used (again) to produce forecasts of the test set, even though the latter has already been used in the modeling process.</li>
@@ -414,7 +417,7 @@ window.Quarto = {
 </ol>
 <p>So what to do if we put lots of effort to build a regression model using time series and need to forecast the response, <span class="math inline">\(Y_t\)</span>, which is modeled using different independent variables <span class="math inline">\(X_{t,k}\)</span> (<span class="math inline">\(k=1,\dots,K\)</span>)? Two options are possible.</p>
 <p><strong>Leading indicators</strong></p>
-<p>If <span class="math inline">\(X_{t,k}\)</span>’s are leading indicators with lags starting at <span class="math inline">\(l\)</span>, we, generally, would not need their future values to obtain the forecasts <span class="math inline">\(\hat{Y}_T(h)\)</span>, where <span class="math inline">\(h\leqslant l\)</span>. For example, the model for losses tested in <span class="quarto-unresolved-ref">?sec-Granger</span> shows that precipitation with lag 1 is a good predictor for current losses, i.e., precipitation is a leading indicator. The 1-week ahead forecast of <span class="math inline">\(Y_{t+1}\)</span> can be obtained using the current precipitation <span class="math inline">\(X_t\)</span> (all data are available). If <span class="math inline">\(h&gt;l\)</span>, we will be forced to forecast the independent variables, <span class="math inline">\(X_{t,k}\)</span>’s – see the next option.</p>
+<p>If <span class="math inline">\(X_{t,k}\)</span>’s are leading indicators with lags starting at <span class="math inline">\(l\)</span>, we, generally, would not need their future values to obtain the forecasts <span class="math inline">\(\hat{Y}_T(h)\)</span>, where <span class="math inline">\(h\leqslant l\)</span>. For example, the model for losses tested in <a href="#sec-Granger" class="quarto-xref"><span class="quarto-unresolved-ref">sec-Granger</span></a> shows that precipitation with lag 1 is a good predictor for current losses, i.e., precipitation is a leading indicator. The 1-week ahead forecast of <span class="math inline">\(Y_{t+1}\)</span> can be obtained using the current precipitation <span class="math inline">\(X_t\)</span> (all data are available). If <span class="math inline">\(h&gt;l\)</span>, we will be forced to forecast the independent variables, <span class="math inline">\(X_{t,k}\)</span>’s – see the next option.</p>
 <p><strong>Forecast of predictors</strong></p>
 <p>If we opt for forecasting <span class="math inline">\(X_{t,k}\)</span>’s, the errors (uncertainty) of such forecasts will be larger, because future <span class="math inline">\(X_{t,k}\)</span>’s themselves will be the estimates. Nevertheless, it might be the only choice when leading indicators are not available. Building a full and comprehensive model with all diagnostics for each regressor is usually unfeasible and even problematic if we plan to consider multivariate models for regressors (the complexity of models will quickly escalate). As an alternative, it is common to use automatic or semi-automatic univariate procedures that can help to forecast each of the <span class="math inline">\(X_{t,k}\)</span>’s. For example, consider exponential smoothing, Holt–Winters smoothing, and auto-selected SARIMA/ARIMA/ARMA/AR/MA models – all those can be automated for a large number of forecasts to make.</p>
 </section></section><section id="cross-validation-schemes" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="cross-validation-schemes">
@@ -487,7 +490,7 @@ Note
 <span class="header-section-number">12.5</span> Conclusion</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Brockwell:Davis:2002" class="csl-entry" role="listitem">
 Brockwell PJ, Davis RA (2002) Introduction to time series and forecasting, 2nd edn. Springer, New York, NY, USA
 </div>
@@ -549,13 +552,14 @@ Hastie TJ, Tibshirani RJ, Friedman JH (2009) <a href="https://doi.org/10.1007/97
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

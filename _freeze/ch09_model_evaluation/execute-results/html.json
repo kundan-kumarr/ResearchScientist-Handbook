@@ -1,0 +1,15 @@
+{
+  "hash": "01e101df47fcf891ca99b383257e2485",
+  "result": {
+    "engine": "knitr",
+    "markdown": "\n\n::: {.cell}\n\n:::\n\n\n# Model Evaluation and Analysis\nThis chapter provides a unified framework for evaluating and analyzing models across multiple AI paradigms: `Machine Learning (ML)`, `Deep Learning (DL)`, `Deep Reinforcement Learning (DRL)`, `Large Language Models (LLMs)`, and `Computer Vision (CV)`.\nThe goal is to assess performance, robustness, efficiency, and interpretability, providing actionable insights for model improvement and real-world deployment.\n\n## ML Model Evaluation & Analysis\n> Applies to classical models like Decision Trees, Random Forests, SVMs, and Gradient Boosting for structured data.\n\nThe Evaluation Metrics are :\n\n### Calculate Mean Absolute Error (MAE)\n\nAnalysis\n\n- Use cross-validation for unbiased performance estimation.\n- Visualize confusion matrix and feature importances.\n- Evaluate bias–variance tradeoff with learning curves.\n- Assess scalability for increasing dataset sizes.\n\nInterpretation:\n- Consistent performance across folds with stable feature importance indicates generalizatio\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

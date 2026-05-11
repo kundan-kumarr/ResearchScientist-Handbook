@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>1&nbsp; Statistics &amp; Mathematics – Research Scientist Guide</title>
 <style>
@@ -85,14 +85,15 @@ div.csl-indent {
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -129,7 +130,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -161,7 +162,9 @@ window.Quarto = {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Research Scientist Guide</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -187,13 +190,13 @@ window.Quarto = {
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
@@ -254,7 +257,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./l06_dl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -480,11 +483,11 @@ Note
 <p>We plot the residuals <span class="math inline">\(\hat{\epsilon}_{t}\)</span> vs.&nbsp;time, fitted values <span class="math inline">\(\hat{Y}_{t}\)</span>, and predictor values <span class="math inline">\(X_t\)</span>. If the assumption of constant variance is satisfied, <span class="math inline">\(\hat{\epsilon}_{t}\)</span> fluctuate around the zero mean with more or less constant amplitude and this amplitude does not change with time, fitted values <span class="math inline">\(\hat{Y}_{t}\)</span>, and predictor values <span class="math inline">\(X_t\)</span>.</p>
 <p>If the (linear) model is not appropriate, the mean of the residuals may be non-constant, i.e., not always 0. <a href="#fig-IdealResiduals" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> shows an example of a random pattern that we would like the residuals to have (no systematic patterns).</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">n</span> <span class="op">=</span> <span class="fl">26</span>; <span class="va">m</span> <span class="op">=</span> <span class="fl">0</span>; <span class="va">s</span> <span class="op">=</span> <span class="fl">522</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="va">m</span>, sd <span class="op">=</span> <span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-IdealResiduals" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-IdealResiduals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -510,14 +513,14 @@ Figure&nbsp;1.1: A time series plot of ‘ideal’ residuals. These residuals <s
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Dishwasher shipments model and patterns in residuals
+<span class="screen-reader-only">Note</span>Example: Dishwasher shipments model and patterns in residuals
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p><a href="#fig-DishResiduals" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> shows the R code and residuals of a simple linear regression exploring dishwasher shipments (DISH) and private residential investments (RES) for several years.</p>
 <p>How different are the patterns in <a href="#fig-DishResiduals" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> from those in <a href="#fig-IdealResiduals" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>?</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span><span class="op">(</span><span class="st">"data/dish.txt"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span><span class="op">(</span><span class="st">"data/dish.txt"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
 <span>    <span class="fu">rename</span><span class="op">(</span>Year <span class="op">=</span> <span class="va">YEAR</span><span class="op">)</span></span>
 <span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">DISH</span> <span class="op">~</span> <span class="va">RES</span>, data <span class="op">=</span> <span class="va">D</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">D</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -535,7 +538,7 @@ Example: Dishwasher shipments model and patterns in residuals
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Residential investments (RES)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Residuals"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-DishResiduals" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-DishResiduals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -644,13 +647,13 @@ z = \left(\frac{\text{DW}}{2} - 1 \right)\sqrt{n}.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Dishwasher residuals DW test
+<span class="screen-reader-only">Note</span>Example: Dishwasher residuals DW test
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Apply the Durbin–Watson test to the residuals from the dishwashers example, i.e., <code>DISH</code> vs.&nbsp;<code>RES</code>, using the R package <code>lmtest</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="va">D</span><span class="op">$</span><span class="va">DISH</span> <span class="op">~</span> <span class="va">D</span><span class="op">$</span><span class="va">RES</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="va">D</span><span class="op">$</span><span class="va">DISH</span> <span class="op">~</span> <span class="va">D</span><span class="op">$</span><span class="va">RES</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Durbin-Watson test
@@ -688,13 +691,13 @@ z = \frac{R - \mathrm{E}(R)}{ \sigma(R)}.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Dishwasher residuals runs test
+<span class="screen-reader-only">Note</span>Example: Dishwasher residuals runs test
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">lawstat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lawstat/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">x</span>, plot.it <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">lawstat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lawstat/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">x</span>, plot.it <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Runs Test - Two sided
@@ -702,7 +705,7 @@ Example: Dishwasher residuals runs test
 #&gt; data:  x
 #&gt; Standardized Runs Statistic = -0.4, p-value = 0.7</code></pre>
 </div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lawstat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lawstat/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span>, plot.it <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lawstat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lawstat/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span>, plot.it <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Runs Test - Two sided
@@ -730,7 +733,7 @@ Figure&nbsp;1.3: Runs tests and plots of independent normally distributed simula
 <p><strong>Graphical methods</strong></p>
 <p>Graphical methods visualize the data using graphs, such as histograms, stem-and-leaf plots, box plots, etc. For example, <a href="#fig-Histograms" class="quarto-xref">Figure&nbsp;<span>1.4</span></a> shows a histogram of the simulated normally distributed data and the residuals from the dishwasher example with superimposed normal curves with the corresponding mean and standard deviation.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">300</span>, fill <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">stat_function</span><span class="op">(</span>fun <span class="op">=</span> <span class="va">dnorm</span>, </span>
 <span>                  args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -745,7 +748,7 @@ Figure&nbsp;1.3: Runs tests and plots of independent normally distributed simula
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Density"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Model residuals"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-Histograms" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Histograms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -808,20 +811,20 @@ X_{(1/n)} &lt; X_{(2/n)} &lt; X_{(3/n)} &lt; \dots &lt; X_{\left((n - 1)/n\right
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Dishwasher residuals normal Q-Q plot
+<span class="screen-reader-only">Note</span>Example: Dishwasher residuals normal Q-Q plot
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p><a href="#fig-QQ" class="quarto-xref">Figure&nbsp;<span>1.5</span></a> shows the Q-Q plots of the residuals from the dishwasher example and the simulated normal data with the same mean and standard deviation.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggqqplot.html">ggqqplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggqqplot.html">ggqqplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Random normal values"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Standard normal quantiles"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggqqplot.html">ggqqplot</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Model residuals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Standard normal quantiles"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-QQ" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-QQ-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -854,13 +857,13 @@ Figure&nbsp;1.5: Normal Q-Q plots of the normally distributed simulated values <
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Dishwasher residuals normality test
+<span class="screen-reader-only">Note</span>Example: Dishwasher residuals normality test
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Based on the <span class="math inline">\(p\)</span>-values below, we cannot reject the null hypothesis of normality in both cases.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Shapiro-Wilk normality test
@@ -868,7 +871,7 @@ Example: Dishwasher residuals normality test
 #&gt; data:  x
 #&gt; W = 0.9, p-value = 0.08</code></pre>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Shapiro-Wilk normality test
@@ -975,7 +978,7 @@ Note
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Dishwasher shipments multiple linear regression
+<span class="screen-reader-only">Note</span>Example: Dishwasher shipments multiple linear regression
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -984,8 +987,8 @@ Y_{t} = \beta_{0} + \beta_{1} X_{t,1} + \beta_{2} X_{t,2} + \epsilon_t,
 \]</span> where <span class="math inline">\(X_{t,1}\)</span> is the private residential investment <code>RES</code>; <span class="math inline">\(X_{t,2}\)</span> is the durable goods expenditures <code>DUR</code>.</p>
 <p>Now we apply the OLS method to estimate the coefficients <span class="math inline">\(\beta_{0}\)</span>, <span class="math inline">\(\beta_{1}\)</span>, and <span class="math inline">\(\beta_{2}\)</span> using the function <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">DISH</span> <span class="op">~</span> <span class="va">RES</span> <span class="op">+</span> <span class="va">DUR</span>, data <span class="op">=</span> <span class="va">D</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">DISH</span> <span class="op">~</span> <span class="va">RES</span> <span class="op">+</span> <span class="va">DUR</span>, data <span class="op">=</span> <span class="va">D</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Call:
@@ -1011,7 +1014,7 @@ Y_{t} = \beta_{0} + \beta_{1} X_{t,1} + \beta_{2} X_{t,2} + \epsilon_t,
 <p>We have a high <span class="math inline">\(R^2_{adj} =\)</span> 0.867 and both predictors are statistically significant, but can we already wholeheartedly trust these results? We need to perform the residual diagnostics.</p>
 <p>Plot the estimated residuals <span class="math inline">\(\hat{\epsilon}_{t} = \hat{Y}_{t} - Y_{t}\)</span> vs.&nbsp;the observed <span class="math inline">\(Y_{t}\)</span> (<span class="math inline">\(t = 1, 2, \dots, 26\)</span> or <code>Year</code>) – see <a href="#fig-DishResiduals2" class="quarto-xref">Figure&nbsp;<span>1.6</span></a>. The plots show a remaining pattern, with residuals peaking, then declining. The assumption of homoskedasticity is violated. We should update the model so that this pattern is modeled or removed.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">D</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">D</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Residuals"</span><span class="op">)</span></span>
@@ -1021,7 +1024,7 @@ Y_{t} = \beta_{0} + \beta_{1} X_{t,1} + \beta_{2} X_{t,2} + \epsilon_t,
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Fitted values"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Residuals"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-DishResiduals2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-DishResiduals2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1035,7 +1038,7 @@ Figure&nbsp;1.6: Residuals vs.&nbsp;time and vs.&nbsp;fitted values.
 </div>
 <p>Check that the residuals <span class="math inline">\(\epsilon_{t}\)</span> are uncorrelated (the Durbin–Watson and the runs tests):</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="va">D</span><span class="op">$</span><span class="va">DISH</span> <span class="op">~</span> <span class="va">D</span><span class="op">$</span><span class="va">RES</span> <span class="op">+</span> <span class="va">D</span><span class="op">$</span><span class="va">DUR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="va">D</span><span class="op">$</span><span class="va">DISH</span> <span class="op">~</span> <span class="va">D</span><span class="op">$</span><span class="va">RES</span> <span class="op">+</span> <span class="va">D</span><span class="op">$</span><span class="va">DUR</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Durbin-Watson test
@@ -1046,7 +1049,7 @@ Figure&nbsp;1.6: Residuals vs.&nbsp;time and vs.&nbsp;fitted values.
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lawstat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lawstat/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span>, plot.it <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">lawstat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lawstat/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span>, plot.it <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Runs Test - Two sided
@@ -1058,7 +1061,7 @@ Figure&nbsp;1.6: Residuals vs.&nbsp;time and vs.&nbsp;fitted values.
 <p>Both the tests reject <span class="math inline">\(H_0\)</span> of no autocorrelation; hence the assumption of uncorrelatedness is violated.</p>
 <p>Check that the residuals <span class="math inline">\(\epsilon_{t}\)</span> are normally distributed using the Q-Q plot (<a href="#fig-QQ2" class="quarto-xref">Figure&nbsp;<span>1.7</span></a>) and Shapiro–Wilk test.</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Shapiro-Wilk normality test
@@ -1068,8 +1071,8 @@ Figure&nbsp;1.6: Residuals vs.&nbsp;time and vs.&nbsp;fitted values.
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggqqplot.html">ggqqplot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Standard normal quantiles"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggqqplot.html">ggqqplot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Standard normal quantiles"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-QQ2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-QQ2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1096,8 +1099,8 @@ Figure&nbsp;1.7: Normal Q-Q plot of the multiple regression residuals.
 <p>For example, assume that we need to predict the future unit factory shipments of dishwashers (<code>DISH</code>) based on the private residential investment of 100 billion USD and durable goods expenditures of 150 billion USD.</p>
 <p>Supply new values of independent variables and use the function <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">newData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>RES <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, DUR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">150</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod2</span>, <span class="va">newData</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span>, interval <span class="op">=</span> <span class="st">"prediction"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">newData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>RES <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, DUR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">150</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod2</span>, <span class="va">newData</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span>, interval <span class="op">=</span> <span class="st">"prediction"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; $fit
 #&gt;    fit  lwr  upr
@@ -1123,7 +1126,7 @@ Figure&nbsp;1.7: Normal Q-Q plot of the multiple regression residuals.
 <span class="header-section-number">1.4</span> Appendix</h2>
 <p>Alternative versions of the runs test are available, e.g., in the package <code>randtests</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/runs.test.html">runs.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Runs Test
@@ -1137,7 +1140,7 @@ Figure&nbsp;1.7: Normal Q-Q plot of the multiple regression residuals.
 <p>The logic behind the difference sign test is that in a random process, there will be roughly the same number of ups (positive differences between consecutive values, i.e., <span class="math inline">\(X_t-X_{t-1}\)</span>) and downs (negative differences).</p>
 <p><span class="citation" data-cites="Brockwell:Davis:2002">Brockwell and Davis (<a href="references.html#ref-Brockwell:Davis:2002" role="doc-biblioref">2002</a>)</span>: “The difference-sign test must be used with caution. A set of observations exhibiting a strong cyclic component will pass the difference-sign test for randomness since roughly half of the observations will be points of increase.” We may see (<a href="#fig-DishResiduals" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> and <a href="#fig-DishResiduals2" class="quarto-xref">Figure&nbsp;<span>1.6</span></a>), it is the case for our residuals, even though we have no cyclic component, but have a rise followed by a decline.</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/difference.sign.test.html">difference.sign.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/difference.sign.test.html">difference.sign.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Difference Sign Test
@@ -1146,7 +1149,7 @@ Figure&nbsp;1.7: Normal Q-Q plot of the multiple regression residuals.
 #&gt; statistic = -2, n = 26, p-value = 0.1
 #&gt; alternative hypothesis: nonrandomness</code></pre>
 </div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/difference.sign.test.html">difference.sign.test</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/difference.sign.test.html">difference.sign.test</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Difference Sign Test
@@ -1155,7 +1158,7 @@ Figure&nbsp;1.7: Normal Q-Q plot of the multiple regression residuals.
 #&gt; statistic = 0.3, n = 26, p-value = 0.7
 #&gt; alternative hypothesis: nonrandomness</code></pre>
 </div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/difference.sign.test.html">difference.sign.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">randtests</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randtests/man/difference.sign.test.html">difference.sign.test</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Difference Sign Test
@@ -1229,13 +1232,14 @@ Chatterjee S, Simonoff JS (2013) Handbook of regression analysis. John Wiley &am
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -1,0 +1,15 @@
+{
+  "hash": "0112b1e16ddd66cb20a4ca7020caa8ba",
+  "result": {
+    "engine": "knitr",
+    "markdown": "\n\n::: {.cell}\n\n:::\n\n\n# Analysis of precipitation extremes and climate projections {#sec-extremes}\n\nText\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

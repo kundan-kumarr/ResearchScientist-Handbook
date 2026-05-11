@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>6&nbsp; Neural Network – Research Scientist Guide</title>
 <style>
@@ -85,14 +85,15 @@ div.csl-indent {
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -129,7 +130,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -161,7 +162,9 @@ window.Quarto = {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Research Scientist Guide</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -424,14 +427,14 @@ window.Quarto = {
 </ol>
 <p><strong>Reading materials</strong></p>
 <ul>
-<li>Chapter 4 in <span class="citation" data-cites="Goodfellow:Bengio:Courville:2016">(<a href="references.html#ref-Goodfellow:Bengio:Courville:2016" role="doc-biblioref"><strong>Goodfellow:Bengio:Courville:2016?</strong></a>)</span> — Deep Learning</li>
-<li>Section 2.3 in <span class="citation" data-cites="Bishop:2006">(<a href="references.html#ref-Bishop:2006" role="doc-biblioref"><strong>Bishop:2006?</strong></a>)</span> — Pattern Recognition and Machine Learning</li>
+<li>Chapter 4 in <span class="citation" data-cites="Goodfellow:Bengio:Courville:2016">(<a href="#ref-Goodfellow:Bengio:Courville:2016" role="doc-biblioref"><strong>Goodfellow:Bengio:Courville:2016?</strong></a>)</span> — Deep Learning</li>
+<li>Section 2.3 in <span class="citation" data-cites="Bishop:2006">(<a href="#ref-Bishop:2006" role="doc-biblioref"><strong>Bishop:2006?</strong></a>)</span> — Pattern Recognition and Machine Learning</li>
 <li>Online Tutorial: “Neural Networks from Scratch in Python” by Harrison Kinsley &amp; Daniel Kukieła (2020)</li>
 </ul>
 <section id="introduction" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">6.1</span> Introduction</h2>
 <p>In contrast to the traditional time series analysis that focuses on modeling the conditional first moment, models of <em>autoregressive conditional heteroskedasticity</em> (ARCH) and <em>generalized autoregressive conditional heteroskedasticity</em> (GARCH) specifically take the dependency of the conditional second moment into modeling consideration and accommodate the increasingly important need to explain and model risk and uncertainty in, for example, financial time series.</p>
-<p>The ARCH models were introduced in 1982 by Robert Engle to model varying (conditional) variance or volatility of time series. It is often found in economics that the larger values of time series also lead to larger instability (i.e., larger variances), which is termed <em>(conditional) heteroskedasticity</em>. Standard examples for demonstrating ARCH or GARCH effects are time series of stock prices, interest and foreign exchange rates, and even some environmental processes: high-frequency data on wind speed, energy production, air quality, etc. <span class="citation" data-cites="Cripps:Dunsmuir:2003 Marinova:McAleer:2003 Taylor:Buizza:2004 Campbell:Diebold:2005">(see examples in <a href="references.html#ref-Cripps:Dunsmuir:2003" role="doc-biblioref">Cripps and Dunsmuir 2003</a>; <a href="references.html#ref-Marinova:McAleer:2003" role="doc-biblioref">Marinova and McAleer 2003</a>; <a href="references.html#ref-Taylor:Buizza:2004" role="doc-biblioref">Taylor and Buizza 2004</a>; <a href="references.html#ref-Campbell:Diebold:2005" role="doc-biblioref">Campbell and Diebold 2005</a>)</span>. In 2003, <a href="https://www.nobelprize.org/prizes/economic-sciences/2003/engle/facts/">Robert F. Engle was awarded 1/2 of the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel</a> for his work on ARCH models (the other half was awarded to C. Granger, see <a href="l08_drl.html#sec-cointegration" class="quarto-xref"><span>Section 8.3</span></a>). Although it is not one of the prizes that Alfred Nobel established in his will in 1895, the Sveriges Riksbank Prize is referred to along with the other Nobel Prizes by the Nobel Foundation.</p>
+<p>The ARCH models were introduced in 1982 by Robert Engle to model varying (conditional) variance or volatility of time series. It is often found in economics that the larger values of time series also lead to larger instability (i.e., larger variances), which is termed <em>(conditional) heteroskedasticity</em>. Standard examples for demonstrating ARCH or GARCH effects are time series of stock prices, interest and foreign exchange rates, and even some environmental processes: high-frequency data on wind speed, energy production, air quality, etc. <span class="citation" data-cites="Cripps:Dunsmuir:2003 Marinova:McAleer:2003 Taylor:Buizza:2004 Campbell:Diebold:2005">(see examples in <a href="#ref-Cripps:Dunsmuir:2003" role="doc-biblioref">Cripps and Dunsmuir 2003</a>; <a href="#ref-Marinova:McAleer:2003" role="doc-biblioref">Marinova and McAleer 2003</a>; <a href="#ref-Taylor:Buizza:2004" role="doc-biblioref">Taylor and Buizza 2004</a>; <a href="#ref-Campbell:Diebold:2005" role="doc-biblioref">Campbell and Diebold 2005</a>)</span>. In 2003, <a href="https://www.nobelprize.org/prizes/economic-sciences/2003/engle/facts/">Robert F. Engle was awarded 1/2 of the Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel</a> for his work on ARCH models (the other half was awarded to C. Granger, see <a href="#sec-cointegration" class="quarto-xref"><span class="quarto-unresolved-ref">sec-cointegration</span></a>). Although it is not one of the prizes that Alfred Nobel established in his will in 1895, the Sveriges Riksbank Prize is referred to along with the other Nobel Prizes by the Nobel Foundation.</p>
 </section><section id="features-of-arch" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="features-of-arch">
 <span class="header-section-number">6.2</span> Features of ARCH</h2>
 <p>Since financial data typically have the autocorrelation coefficient close to 1 at lag 1 (e.g., the exchange rate between the US and Canadian dollar hardly changes from today to tomorrow), it is much more interesting and also more practically relevant to model the returns of a financial time series rather than the series itself. Let <span class="math inline">\(Y_t\)</span> be a time series of stock prices. The returns <span class="math inline">\(X_t\)</span> measure the relative changes in price and are typically defined as simple returns <span id="eq-returnsimple"><span class="math display">\[
@@ -446,9 +449,9 @@ X_t = \ln Y_t - \ln Y_{t-1}.
 &amp;\approx \frac{ Y_{t} - Y_{t-1}}{ Y_{t -1} }.
 \end{split}
 \tag{6.3}\]</span></span> The approximation <span class="math inline">\(\ln(1+x) \approx x\)</span> works when <span class="math inline">\(x\)</span> is close to zero, which is true for many real-world financial problems. However, logarithmic returns are often preferred because in many applications their distribution is closer to normal compared to one of simple returns. Also, log returns have infinite support (from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>) compared to simple returns that have a lower bound of <span class="math inline">\(-1\)</span>.</p>
-<p>For an example calculation of log returns, see <a href="#fig-CAD" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>.</p>
+<p>For an example calculation of log returns, see <a href="#fig-CAD" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-CAD</span></a>.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load data and calculate log returns</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load data and calculate log returns</span></span>
 <span><span class="va">CAD</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/CAD.csv"</span>,</span>
 <span>                       na <span class="op">=</span> <span class="st">"Bank holiday"</span>,</span>
 <span>                       skip <span class="op">=</span> <span class="fl">11</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
@@ -463,7 +466,7 @@ X_t = \ln Y_t - \ln Y_{t-1}.
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Log return"</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-CAD" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-CAD-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -475,7 +478,7 @@ Figure&nbsp;6.1: CAD per USD daily noon exchange rates and log returns, from 200
 </div>
 </div>
 </div>
-<p><span class="citation" data-cites="Rydberg:2000">Rydberg (<a href="references.html#ref-Rydberg:2000" role="doc-biblioref">2000</a>)</span> summarizes some important <em>stylized features</em> of financial return series, which have been repeatedly observed in all kinds of assets including stock prices, interest rates, and foreign exchange rates:</p>
+<p><span class="citation" data-cites="Rydberg:2000">Rydberg (<a href="#ref-Rydberg:2000" role="doc-biblioref">2000</a>)</span> summarizes some important <em>stylized features</em> of financial return series, which have been repeatedly observed in all kinds of assets including stock prices, interest rates, and foreign exchange rates:</p>
 <ol type="1">
 <li>
 <em>Heavy tails.</em> The distribution of the returns <span class="math inline">\(X_t\)</span> has tails heavier than the tails of a normal distribution.</li>
@@ -488,14 +491,14 @@ Figure&nbsp;6.1: CAD per USD daily noon exchange rates and log returns, from 200
 <li>
 <em>Long-range dependence.</em> The returns themselves hardly show any autocorrelation, which, however, does not mean that they are independent. Both squared returns and absolute returns often exhibit persistent autocorrelations indicating possible long-memory dependence in those series.</li>
 </ol>
-<p><a href="#fig-CADACF" class="quarto-xref">Figure&nbsp;<span>6.2</span></a> is the simplest check for the presence of ARCH effects: when the time series is not autocorrelated but is autocorrelated if squared.</p>
+<p><a href="#fig-CADACF" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-CADACF</span></a> is the simplest check for the presence of ARCH effects: when the time series is not autocorrelated but is autocorrelated if squared.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">$</span><span class="va">lnR</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">$</span><span class="va">lnR</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Log returns"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">$</span><span class="va">lnR</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/bquote.html">bquote</a></span><span class="op">(</span><span class="st">'(Log returns)'</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-CADACF" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-CADACF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -507,9 +510,9 @@ Figure&nbsp;6.2: ACF of log returns and squared log returns for USD/CAD exchange
 </div>
 </div>
 </div>
-<p>For comparison, see <a href="#fig-iidACF" class="quarto-xref">Figure&nbsp;<span>6.3</span></a> with similar plots for simulated i.i.d. series.</p>
+<p>For comparison, see <a href="#fig-iidACF" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-iidACF</span></a> with similar plots for simulated i.i.d. series.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">iid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">iid</span><span class="op">)</span> <span class="op">+</span></span>
@@ -517,7 +520,7 @@ Figure&nbsp;6.2: ACF of log returns and squared log returns for USD/CAD exchange
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">iid</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/bquote.html">bquote</a></span><span class="op">(</span><span class="st">'iid'</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-iidACF" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-iidACF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -531,7 +534,7 @@ Figure&nbsp;6.3: ACF of simulated i.i.d. <span class="math inline">\(N(0,1)\)</s
 </div>
 </section><section id="models" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="models">
 <span class="header-section-number">6.3</span> Models</h2>
-<p><span class="citation" data-cites="Engle:1982">Engle (<a href="references.html#ref-Engle:1982" role="doc-biblioref">1982</a>)</span> defines an autoregressive conditional heteroskedastic (ARCH) model as <span id="eq-ARCH"><span class="math display">\[
+<p><span class="citation" data-cites="Engle:1982">Engle (<a href="#ref-Engle:1982" role="doc-biblioref">1982</a>)</span> defines an autoregressive conditional heteroskedastic (ARCH) model as <span id="eq-ARCH"><span class="math display">\[
 \begin{split}
 X_{t} &amp;=  \sigma_{t} \varepsilon_{t}, \\
 \sigma^{2}_{t} &amp;=  a_{0} + a_{1} X^{2}_{t-1} + \dots + a_{p} X^{2}_{t-p},
@@ -558,7 +561,7 @@ Note
 </div>
 </div>
 <p>Thus, in ARCH, the predictive distribution of <span class="math inline">\(X_{t}\)</span> based on its past is a scale-transform of the distribution of <span class="math inline">\(\varepsilon_{t}\)</span> with the scaling constant <span class="math inline">\(\sigma_{t}\)</span> depending on the past of the process.</p>
-<p><span class="citation" data-cites="Bollerslev:1986">Bollerslev (<a href="references.html#ref-Bollerslev:1986" role="doc-biblioref">1986</a>)</span> introduced a generalized autoregressive conditional heteroskedastic (GARCH) model by replacing the second formula in <a href="#eq-ARCH" class="quarto-xref">Equation&nbsp;<span>6.4</span></a> with <span id="eq-GARCH"><span class="math display">\[
+<p><span class="citation" data-cites="Bollerslev:1986">Bollerslev (<a href="#ref-Bollerslev:1986" role="doc-biblioref">1986</a>)</span> introduced a generalized autoregressive conditional heteroskedastic (GARCH) model by replacing the second formula in <a href="#eq-ARCH" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-ARCH</span></a> with <span id="eq-GARCH"><span class="math display">\[
 \begin{split}
 \sigma^{2}_{t} &amp;= a_{0}  + a_{1} X^{2}_{ t  - 1} + \dots + a_{p} X^{2}_{ t  - p} + b_{1} \sigma^{2}_{t - 1} + \dots + b_{q} \sigma^{2}_{t  - q}\\
 &amp;= a_0  + \sum_{i=1}^p a_{i} X^{2}_{ t  - i} + \sum_{j=1}^q b_{j} \sigma^{2}_{ t  - j},
@@ -569,8 +572,8 @@ Note
 <p>The approaches to selecting the orders <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> for GARCH include:</p>
 <ul>
 <li>Visual analysis of ACF and PACF of the squared time series and other residual diagnostics;</li>
-<li>Variations of information criteria such as AIC and BIC to account for the number of estimated parameters in the GARCH model <span class="citation" data-cites="Brooks:Burke:2003">(<a href="references.html#ref-Brooks:Burke:2003" role="doc-biblioref">Brooks and Burke 2003</a>)</span>;</li>
-<li>Using GARCH(1,1) by following <span class="citation" data-cites="Hansen:Lunde:2005">Hansen and Lunde (<a href="references.html#ref-Hansen:Lunde:2005" role="doc-biblioref">2005</a>)</span>;</li>
+<li>Variations of information criteria such as AIC and BIC to account for the number of estimated parameters in the GARCH model <span class="citation" data-cites="Brooks:Burke:2003">(<a href="#ref-Brooks:Burke:2003" role="doc-biblioref">Brooks and Burke 2003</a>)</span>;</li>
+<li>Using GARCH(1,1) by following <span class="citation" data-cites="Hansen:Lunde:2005">Hansen and Lunde (<a href="#ref-Hansen:Lunde:2005" role="doc-biblioref">2005</a>)</span>;</li>
 <li>Using out-of-sample forecasts (comparing alternative model specifications on a testing set).</li>
 </ul>
 <section id="lagrange-multiplier-test" class="level3" data-number="6.3.1"><h3 data-number="6.3.1" class="anchored" data-anchor-id="lagrange-multiplier-test">
@@ -584,7 +587,7 @@ H_0: \alpha_1 = \dots = \alpha_m = 0.
 SST = \sum_{t=m+1}^T \left( X_t^2 - \overline{X_t^2} \right) ^2,
 \]</span> where <span class="math inline">\(\overline{X_t^2}\)</span> is the sample mean of <span class="math inline">\(X_t^2\)</span>. The sum of squares of the errors <span class="math display">\[
 SSE = \sum_{t=m+1}^T \hat{e}_t^2,
-\]</span> where <span class="math inline">\(\hat{e}_t\)</span> is the least-squares residual of the linear regression (<a href="#eq-LMtregression" class="quarto-xref">Equation&nbsp;<span>6.6</span></a>).</p>
+\]</span> where <span class="math inline">\(\hat{e}_t\)</span> is the least-squares residual of the linear regression (<a href="#eq-LMtregression" class="quarto-xref">Equation&nbsp;<span class="quarto-unresolved-ref">eq-LMtregression</span></a>).</p>
 <p>Then, the test statistic <span id="eq-LMFtest"><span class="math display">\[
 F = \frac{(SST - SSE)/m}{SSE/(T-2m-1)},
 \tag{6.7}\]</span></span> which is asymptotically distributed under the null hypothesis as a <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(m\)</span> degrees of freedom.</p>
@@ -594,14 +597,14 @@ F = \frac{(SST - SSE)/m}{SSE/(T-2m-1)},
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: Testing ARCH effects in USD/CAD log returns
+<span class="screen-reader-only">Note</span>Example: Testing ARCH effects in USD/CAD log returns
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We have seen in <a href="#fig-CADACF" class="quarto-xref">Figure&nbsp;<span>6.2</span></a> the autocorrelation of squared log returns. Now apply the formal LM test.</p>
+<p>We have seen in <a href="#fig-CADACF" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-CADACF</span></a> the autocorrelation of squared log returns. Now apply the formal LM test.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
-<span><span class="fu">FinTS</span><span class="fu">::</span><span class="fu"><a href="https://geobosh.github.io/FinTSDoc/reference/ArchTest.html">ArchTest</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">$</span><span class="va">lnR</span>, lags <span class="op">=</span> <span class="va">m</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
+<span><span class="fu">FinTS</span><span class="fu">::</span><span class="fu"><a href="https://geobosh.github.io/FinTSDoc/reference/ArchTest.html">ArchTest</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">$</span><span class="va">lnR</span>, lags <span class="op">=</span> <span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  ARCH LM-test; Null hypothesis: no ARCH effects
@@ -612,9 +615,9 @@ Example: Testing ARCH effects in USD/CAD log returns
 </div>
 <p>The LM test implemented in the function <code><a href="https://geobosh.github.io/FinTSDoc/reference/ArchTest.html">FinTS::ArchTest()</a></code> detects the presence of ARCH effects (rejects the null hypothesis) when considering 12 lags. In base R, the same results can be obtained by running the <span class="math inline">\(F\)</span> test as follows:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/embed.html">embed</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">$</span><span class="va">lnR</span><span class="op">^</span><span class="fl">2</span>, <span class="va">m</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/embed.html">embed</a></span><span class="op">(</span><span class="va">CAD</span><span class="op">$</span><span class="va">lnR</span><span class="op">^</span><span class="fl">2</span>, <span class="va">m</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">~</span> <span class="va">mat</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Analysis of Variance Table
 #&gt; 
@@ -634,17 +637,17 @@ Example: Testing ARCH effects in USD/CAD log returns
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: GARCH model for USD/CAD log returns
+<span class="screen-reader-only">Note</span>Example: GARCH model for USD/CAD log returns
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Let’s estimate a GARCH(1,1) model for these data, using the conditional ML method. Note that <code>omega</code> in the results below is denoted <span class="math inline">\(a_0\)</span> in our equations (the intercept in the variance model):</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://geobosh.github.io/fGarchDoc/">fGarch</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://geobosh.github.io/fGarchDoc/">fGarch</a></span><span class="op">)</span></span>
 <span><span class="va">garch11</span> <span class="op">&lt;-</span> <span class="fu">fGarch</span><span class="fu">::</span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/garchFit.html">garchFit</a></span><span class="op">(</span><span class="va">lnR</span> <span class="op">~</span> <span class="fu">garch</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, </span>
 <span>                            data <span class="op">=</span> <span class="va">CAD</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">garch11</span><span class="op">@</span><span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"---"</span></span>
-<span><span class="va">garch11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">garch11</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Title:
@@ -662,14 +665,14 @@ Example: GARCH model for USD/CAD log returns
 #&gt; 
 #&gt; Coefficient(s):
 #&gt;          mu        omega       alpha1        beta1  
-#&gt; -4.5264e-05   2.2304e-07   5.6511e-02   9.3805e-01  
+#&gt; -4.5267e-05   2.2304e-07   5.6511e-02   9.3805e-01  
 #&gt; 
 #&gt; Std. Errors:
 #&gt;  based on Hessian 
 #&gt; 
 #&gt; Error Analysis:
 #&gt;          Estimate  Std. Error  t value Pr(&gt;|t|)    
-#&gt; mu     -4.526e-05   9.863e-05   -0.459  0.64630    
+#&gt; mu     -4.527e-05   9.863e-05   -0.459  0.64628    
 #&gt; omega   2.230e-07   6.893e-08    3.236  0.00121 ** 
 #&gt; alpha1  5.651e-02   6.699e-03    8.436  &lt; 2e-16 ***
 #&gt; beta1   9.381e-01   6.846e-03  137.013  &lt; 2e-16 ***
@@ -683,10 +686,10 @@ Example: GARCH model for USD/CAD log returns
 #&gt;  ---</code></pre>
 </div>
 </div>
-<p>Next, we run diagnostics of the fitted model, i.e., whether the residuals <span class="math inline">\(\varepsilon_{t}\)</span> are white noise and are normally distributed. The code <code>plot(garch11)</code> generates scatterplots, histograms, Q-Q plots, and ACF plots of the original data and the obtained residuals (<a href="#fig-garch11QQ" class="quarto-xref">Figure&nbsp;<span>6.4</span></a>). Of course, the analysis can be performed also with separate commands. For example, see the ACFs of the residuals (<a href="#fig-garch11ACF" class="quarto-xref">Figure&nbsp;<span>6.5</span></a>).</p>
+<p>Next, we run diagnostics of the fitted model, i.e., whether the residuals <span class="math inline">\(\varepsilon_{t}\)</span> are white noise and are normally distributed. The code <code>plot(garch11)</code> generates scatterplots, histograms, Q-Q plots, and ACF plots of the original data and the obtained residuals (<a href="#fig-garch11QQ" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-garch11QQ</span></a>). Of course, the analysis can be performed also with separate commands. For example, see the ACFs of the residuals (<a href="#fig-garch11ACF" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-garch11ACF</span></a>).</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-plot.html">plot</a></span><span class="op">(</span><span class="va">garch11</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-plot.html">plot</a></span><span class="op">(</span><span class="va">garch11</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-garch11QQ" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-garch11QQ-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -699,13 +702,13 @@ Figure&nbsp;6.4: Selected diagnostics of the GARCH(1,1) model for the USD/CAD lo
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">et</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-residuals.html">residuals</a></span><span class="op">(</span><span class="va">garch11</span>, standardize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">et</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-residuals.html">residuals</a></span><span class="op">(</span><span class="va">garch11</span>, standardize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">et</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Residuals"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">ggAcf</a></span><span class="op">(</span><span class="va">et</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/bquote.html">bquote</a></span><span class="op">(</span><span class="st">'Residuals'</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-garch11ACF" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-garch11ACF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -717,14 +720,14 @@ Figure&nbsp;6.5: ACF of residuals from the GARCH(1,1) model for the USD/CAD log 
 </div>
 </div>
 </div>
-<p>Based on the plots, autocorrelations were effectively removed, but the assumption of normality is violated – <a href="#fig-garch11QQ" class="quarto-xref">Figure&nbsp;<span>6.4</span></a> shows heavy and almost symmetric tails in the distribution of GARCH residuals.</p>
+<p>Based on the plots, autocorrelations were effectively removed, but the assumption of normality is violated – <a href="#fig-garch11QQ" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-garch11QQ</span></a> shows heavy and almost symmetric tails in the distribution of GARCH residuals.</p>
 <p>To account for the heavy tails, we change the conditional distribution from normal to the standardized Student <span class="math inline">\(t\)</span>-distribution (see <code><a href="https://geobosh.github.io/fGarchDoc/reference/dist-std.html">?fGarch::std</a></code>).</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">garch11t</span> <span class="op">&lt;-</span> <span class="fu">fGarch</span><span class="fu">::</span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/garchFit.html">garchFit</a></span><span class="op">(</span><span class="va">lnR</span> <span class="op">~</span> <span class="fu">garch</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">garch11t</span> <span class="op">&lt;-</span> <span class="fu">fGarch</span><span class="fu">::</span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/garchFit.html">garchFit</a></span><span class="op">(</span><span class="va">lnR</span> <span class="op">~</span> <span class="fu">garch</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                             data <span class="op">=</span> <span class="va">CAD</span>, trace <span class="op">=</span> <span class="cn">FALSE</span>, </span>
 <span>                             cond.dist <span class="op">=</span> <span class="st">"std"</span><span class="op">)</span></span>
 <span><span class="va">garch11t</span><span class="op">@</span><span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"---"</span></span>
-<span><span class="va">garch11t</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">garch11t</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt; Title:
@@ -743,18 +746,18 @@ Figure&nbsp;6.5: ACF of residuals from the GARCH(1,1) model for the USD/CAD log 
 #&gt; 
 #&gt; Coefficient(s):
 #&gt;          mu        omega       alpha1        beta1        shape  
-#&gt; -3.1972e-05   1.8744e-07   5.5352e-02   9.4057e-01   8.6423e+00  
+#&gt; -3.1968e-05   1.8744e-07   5.5352e-02   9.4057e-01   8.6423e+00  
 #&gt; 
 #&gt; Std. Errors:
 #&gt;  based on Hessian 
 #&gt; 
 #&gt; Error Analysis:
 #&gt;          Estimate  Std. Error  t value Pr(&gt;|t|)    
-#&gt; mu     -3.197e-05   9.433e-05   -0.339   0.7346    
+#&gt; mu     -3.197e-05   9.433e-05   -0.339   0.7347    
 #&gt; omega   1.874e-07   8.038e-08    2.332   0.0197 *  
 #&gt; alpha1  5.535e-02   7.765e-03    7.128 1.02e-12 ***
-#&gt; beta1   9.406e-01   7.760e-03  121.209  &lt; 2e-16 ***
-#&gt; shape   8.642e+00   1.420e+00    6.084 1.17e-09 ***
+#&gt; beta1   9.406e-01   7.760e-03  121.210  &lt; 2e-16 ***
+#&gt; shape   8.642e+00   1.421e+00    6.084 1.17e-09 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
@@ -765,11 +768,11 @@ Figure&nbsp;6.5: ACF of residuals from the GARCH(1,1) model for the USD/CAD log 
 #&gt;  ---</code></pre>
 </div>
 </div>
-<p>Verify the diagnostics plots in <a href="#fig-garch11tQQ" class="quarto-xref">Figure&nbsp;<span>6.6</span></a>.</p>
+<p>Verify the diagnostics plots in <a href="#fig-garch11tQQ" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-garch11tQQ</span></a>.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-plot.html">plot</a></span><span class="op">(</span><span class="va">garch11t</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-plot.html">plot</a></span><span class="op">(</span><span class="va">garch11t</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-plot.html">plot</a></span><span class="op">(</span><span class="va">garch11t</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-garch11tQQ" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-garch11tQQ-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -781,7 +784,7 @@ Figure&nbsp;6.6: Selected diagnostics of the GARCH(1,1) model with the standardi
 </div>
 </div>
 </div>
-<p>Now we can use the model for predictions (<a href="#fig-garch11tpred" class="quarto-xref">Figure&nbsp;<span>6.7</span></a>). Few things to note here:</p>
+<p>Now we can use the model for predictions (<a href="#fig-garch11tpred" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-garch11tpred</span></a>). Few things to note here:</p>
 <ul>
 <li>the model is ‘self-contained’ so we can just specify <code>n.ahead</code> for the number of steps to be predicted;</li>
 <li>GARCH models are typically applied to long time series, so the argument <code>nx</code> limits the length of the plotted observed time series (by default only the most recent 25% of observations are plotted);</li>
@@ -789,9 +792,9 @@ Figure&nbsp;6.6: Selected diagnostics of the GARCH(1,1) model with the standardi
 </ul>
 <p>For more details, see <code><a href="https://geobosh.github.io/fGarchDoc/reference/methods-predict.html">?fGarch::predict</a></code>.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-predict.html">predict</a></span><span class="op">(</span><span class="va">garch11t</span>, n.ahead <span class="op">=</span> <span class="fl">30</span>, </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://geobosh.github.io/fGarchDoc/reference/methods-predict.html">predict</a></span><span class="op">(</span><span class="va">garch11t</span>, n.ahead <span class="op">=</span> <span class="fl">30</span>, </span>
 <span>        conf <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>        plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>        plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>#&gt;    meanForecast meanError standardDeviation lowerInterval upperInterval
 #&gt; 1      -3.2e-05   0.00445           0.00445      -0.00892       0.00885
@@ -853,11 +856,11 @@ Figure&nbsp;6.7: Predictions using the GARCH(1,1) model for the USD/CAD log retu
 <li>STARCH – structural ARCH</li>
 <li>…</li>
 </ul>
-<p>Thus, these papers had to appear: <span class="citation" data-cites="Hansen:Lunde:2005">Hansen and Lunde (<a href="references.html#ref-Hansen:Lunde:2005" role="doc-biblioref">2005</a>)</span> and <span class="citation" data-cites="Bollerslev:2009">Bollerslev (<a href="references.html#ref-Bollerslev:2009" role="doc-biblioref">2009</a>)</span>.</p>
+<p>Thus, these papers had to appear: <span class="citation" data-cites="Hansen:Lunde:2005">Hansen and Lunde (<a href="#ref-Hansen:Lunde:2005" role="doc-biblioref">2005</a>)</span> and <span class="citation" data-cites="Bollerslev:2009">Bollerslev (<a href="#ref-Bollerslev:2009" role="doc-biblioref">2009</a>)</span>.</p>
 </section><section id="model-building" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="model-building">
 <span class="header-section-number">6.5</span> Model building</h2>
 <p>We have considered the models for conditional heteroskedasticity, and in the example, we estimated the mean just as a constant (intercept <code>mu</code>), however, in a more general case one might need to model and remove trend and cyclical variability along with autocorrelations (recall the methods of smoothing, ARMA, and ARIMA modeling) before exploring the need to model ARCH.</p>
-<p>Below are the steps for such a more general case of analysis, adapted from Chapter 3.3 in <span class="citation" data-cites="Tsay:2005">Tsay (<a href="references.html#ref-Tsay:2005" role="doc-biblioref">2005</a>)</span>:</p>
+<p>Below are the steps for such a more general case of analysis, adapted from Chapter 3.3 in <span class="citation" data-cites="Tsay:2005">Tsay (<a href="#ref-Tsay:2005" role="doc-biblioref">2005</a>)</span>:</p>
 <ol type="1">
 <li>Specify a mean equation by testing for trend and serial dependence in the data and, if necessary, build a time series model (e.g., an ARMA model) to remove any linear dependence.</li>
 <li>Use the residuals of the mean equation to test for ARCH effects.</li>
@@ -884,7 +887,7 @@ Note
 <p>R packages offering functions for GARCH modeling include (in alphabetic order): <code>bayesforecast</code>, <code>betategarch</code>, <code>fGarch</code> (used here), <code>garchx</code>, <code>rmgarch</code>, <code>rugarch</code>, <code>tseries</code>, and more (see, for example, CRAN Task Views on <a href="https://cran.r-project.org/web/views/Finance.html">Empirical Finance</a>).</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Bollerslev:1986" class="csl-entry" role="listitem">
 Bollerslev T (1986) Generalized autoregressive conditional heteroskedasticity. Journal of Econometrics 31:307–327. <a href="https://doi.org/10.1016/0304-4076(86)90063-1">https://doi.org/10.1016/0304-4076(86)90063-1</a>
 </div>
@@ -970,13 +973,14 @@ Tsay RS (2005) Analysis of financial time series, 2nd edn. John Wiley &amp; Sons
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

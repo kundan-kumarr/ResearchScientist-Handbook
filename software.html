@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -61,14 +61,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="software_files/libs/clipboard/clipboard.min.js"></script>
 <script src="software_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="software_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="software_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="software_files/libs/quarto-html/popper.min.js"></script>
 <script src="software_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="software_files/libs/quarto-html/anchor.min.js"></script>
 <link href="software_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="software_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="software_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="software_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="software_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="software_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="software_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -84,86 +85,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="software" class="level1 unnumbered">
 <h1 class="unnumbered">Software</h1>
-<p>Examples were calculated in R version 4.5.0 (2025-04-11 ucrt) with an effort to use the most recent versions of R packages.</p>
+<p>Examples were calculated in R version 4.5.3 (2026-03-11) with an effort to use the most recent versions of R packages.</p>
 <p>The codes load silently only a few packages:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>All other packages are named before the function as in <code>forecast::ggAcf()</code> (this code calls the function <code>ggAcf()</code> from the package <code>forecast</code>) or called immediately before the necessary function use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fable)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fable)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(Y) <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">model</span>(<span class="fu">ARIMA</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">ic =</span> <span class="st">"bic"</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The R packages used in this book include (in alphabetic order):</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
-<pre><code>Installing packages into 'C:/Users/kkumar/AppData/Local/R/win-library/4.5'
+<pre><code>Installing packages into '/Users/kkumar/Library/R/arm64/4.5/library'
 (as 'lib' is unspecified)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gamlss.util' is not available for this version of R
+<pre><code>Warning: packages 'gamlss.ggplots', 'gamlss.util' are not available for this version of R
 
-A version of this package for your version of R might be available elsewhere,
+Versions of these packages for your version of R might be available elsewhere,
 see the ideas at
 https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>also installing the dependencies 'hts', 'R.oo', 'R.methodsS3', 'gss', 'stabledist', 'gbutils', 'thief', 'brio', 'desc', 'fansi', 'R.utils', 'XML', 'fBasics', 'timeSeries', 'fastICA', 'cvar', 'gamlss.data', 'gamlss.dist', 'gamlss.foreach', 'ggridges', 'ellipse', 'gamlss.inf', 'yaImpute', 'gsw', 'lazyeval', 'crosstalk', 'forecastHybrid'</code></pre>
+<pre><code>also installing the dependencies 'Deriv', 'microbenchmark', 'mnormt', 'GPArotation', 'pbivnorm', 'htmlTable', 'proto', 'shape', 'doBy', 'SparseM', 'MatrixModels', 'coda', 'psych', 'lavaan', 'Hmisc', 'igraph', 'jpeg', 'glasso', 'fdrtool', 'gtools', 'pbapply', 'gsubfn', 'xtable', 'texreg', 'pander', 'fastDummies', 'checkmate', 'glmnet', 'commonmark', 'httpuv', 'sourcetools', 'iterators', 'hts', 'R.oo', 'R.methodsS3', 'minqa', 'nloptr', 'reformulas', 'RcppEigen', 'carData', 'abind', 'Formula', 'pbkrtest', 'quantreg', 'warp', 'gss', 'stabledist', 'gbutils', 'arm', 'qgraph', 'clusterGeneration', 'corpcor', 'MplusAutomation', 'graphicalVAR', 'rbibutils', 'strucchange', 'corrplot', 'shiny', 'doParallel', 'later', 'otel', 'TTR', 'thief', 'foreach', 'brio', 'desc', 'fansi', 'matrixStats', 'png', 'R.utils', 'XML', 'lme4', 'zoo', 'car', 'slider', 'ggtime', 'fBasics', 'timeDate', 'timeSeries', 'fastICA', 'cvar', 'colorspace', 'fracdiff', 'RcppArmadillo', 'dbscan', 'mlVAR', 'Rdpack', 'sandwich', 'vars', 'gamlss.data', 'gamlss.dist', 'ggstats', 'ggrepel', 'ggsci', 'cowplot', 'ggsignif', 'gridExtra', 'polynom', 'rstatix', 'mvtnorm', 'qgam', 'gamm4', 'viridis', 'plyr', 'gsw', 'htmlwidgets', 'lazyeval', 'crosstalk', 'promises', 'quantmod', 'forecastHybrid', 'reshape2', 'xts'</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>package 'hts' successfully unpacked and MD5 sums checked
-package 'R.oo' successfully unpacked and MD5 sums checked
-package 'R.methodsS3' successfully unpacked and MD5 sums checked
-package 'gss' successfully unpacked and MD5 sums checked
-package 'stabledist' successfully unpacked and MD5 sums checked
-package 'gbutils' successfully unpacked and MD5 sums checked
-package 'thief' successfully unpacked and MD5 sums checked
-package 'brio' successfully unpacked and MD5 sums checked
-package 'desc' successfully unpacked and MD5 sums checked
-package 'fansi' successfully unpacked and MD5 sums checked
-package 'R.utils' successfully unpacked and MD5 sums checked
-package 'XML' successfully unpacked and MD5 sums checked
-package 'fBasics' successfully unpacked and MD5 sums checked
-package 'timeSeries' successfully unpacked and MD5 sums checked
-package 'fastICA' successfully unpacked and MD5 sums checked
-package 'cvar' successfully unpacked and MD5 sums checked
-package 'gamlss.data' successfully unpacked and MD5 sums checked
-package 'gamlss.dist' successfully unpacked and MD5 sums checked
-package 'gamlss.foreach' successfully unpacked and MD5 sums checked
-package 'ggridges' successfully unpacked and MD5 sums checked
-package 'ellipse' successfully unpacked and MD5 sums checked
-package 'gamlss.inf' successfully unpacked and MD5 sums checked
-package 'yaImpute' successfully unpacked and MD5 sums checked
-package 'gsw' successfully unpacked and MD5 sums checked
-package 'lazyeval' successfully unpacked and MD5 sums checked
-package 'crosstalk' successfully unpacked and MD5 sums checked
-package 'forecastHybrid' successfully unpacked and MD5 sums checked
-package 'astsa' successfully unpacked and MD5 sums checked
-package 'downlit' successfully unpacked and MD5 sums checked
-package 'dplR' successfully unpacked and MD5 sums checked
-package 'dynlm' successfully unpacked and MD5 sums checked
-package 'Ecdat' successfully unpacked and MD5 sums checked
-package 'fGarch' successfully unpacked and MD5 sums checked
-package 'FinTS' successfully unpacked and MD5 sums checked
-package 'gamlss' successfully unpacked and MD5 sums checked
-package 'gamlss.ggplots' successfully unpacked and MD5 sums checked
-package 'lomb' successfully unpacked and MD5 sums checked
-package 'oce' successfully unpacked and MD5 sums checked
-package 'plotly' successfully unpacked and MD5 sums checked
-package 'signal' successfully unpacked and MD5 sums checked
-package 'TSstudio' successfully unpacked and MD5 sums checked
-
+<pre><code>
 The downloaded binary packages are in
-    C:\Users\kkumar\AppData\Local\Temp\RtmpgVNxzp\downloaded_packages</code></pre>
+    /var/folders/tz/2b9nb9050kd9qqnv46_zsnk80000gq/T//RtmpY5SE9U/downloaded_packages</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in xfun::pkg_bib(..., prefix = prefix): package(s) gamlss.util not
-found</code></pre>
+<pre><code>Warning in xfun::pkg_bib(..., prefix = prefix): package(s) gamlss.ggplots,
+gamlss.util not found</code></pre>
 </div>
 </div>
 <ul>
@@ -262,13 +222,14 @@ found</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

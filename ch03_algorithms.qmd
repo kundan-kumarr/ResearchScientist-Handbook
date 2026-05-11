@@ -1,0 +1,984 @@
+# Algorithms & Coding Patterns {#sec-algorithms}
+
+**Objectives**
+
+After this chapter, you should be able to recognize which algorithmic pattern applies to a problem before writing a single line of code, derive time and space complexity from first principles, and explain the intuition behind every pattern clearly enough to teach it.
+
+**Reading**
+
+- *Introduction to Algorithms* — Cormen, Leiserson, Rivest, Stein (CLRS), Chapters 2–4, 15–16, 22–25
+- *Algorithm Design* — Kleinberg & Tardos
+- *Grokking the Coding Interview* — Design Gurus
+
+---
+
+## Introduction to Coding Patterns {#sec-patterns-intro}
+
+The most important skill in algorithmic problem solving is not memorizing solutions — it is recognizing which *pattern* a problem belongs to before you begin.
+
+Every problem has a signal. A sorted array signals binary search. A contiguous window signals sliding window. Overlapping subproblems signal dynamic programming. Experienced engineers recognize these signals within the first thirty seconds of reading a problem; this chapter is designed to build that recognition from the ground up.
+
+The patterns in this chapter are organized by the structural insight that makes each one work:
+
+| Pattern | Core Insight | Complexity Gain |
+|---------|-------------|-----------------|
+| Two Pointer | Eliminate half the search space per step | O(n²) → O(n) |
+| Prefix Sum | Answer range queries with precomputed sums | O(n) per query → O(1) |
+| Tortoise & Hare | Detect cycles without extra space | O(n) time, O(1) space |
+| Sliding Window | Extend/shrink a window instead of restarting | O(n²) → O(n) |
+| Two Pass | One pass builds state; a second pass uses it | Enables O(n) solutions |
+| Bit Manipulation | Exploit binary representation for O(1) tricks | Constant factor speedups |
+| Cyclic Sort | Use index as identity for in-place placement | O(n) for bounded integers |
+
+Each pattern exists because brute force is too slow. The pattern is the minimal structural insight that eliminates the waste.
+
+---
+
+## Two Pointer {#sec-two-pointer}
+
+### Intuition
+
+Given a sorted array, a naive search for a pair summing to a target takes O(n²) — try every pair. The two-pointer insight is that sorting imposes *order*, and order lets us eliminate candidates without examining them.
+
+Place one pointer at the left (smallest element) and one at the right (largest). Compute their sum:
+
+- **Sum < target**: the left element is too small. Any pair containing it with the current right or anything to its left will also be too small. Move the left pointer right.
+- **Sum > target**: the right element is too large. Move the right pointer left.
+- **Sum = target**: found.
+
+Each step eliminates at least one element from consideration. The two pointers together traverse at most n steps. **O(n²) becomes O(n)**.
+
+### Template
+
+```python
+def two_pointer(arr):
+    arr.sort()              # O(n log n) — prerequisite
+    left, right = 0, len(arr) - 1
+    while left < right:
+        val = f(arr[left], arr[right])
+        if val == target:
+            # record result
+            left += 1; right -= 1
+        elif val < target:
+            left += 1       # need larger value
+        else:
+            right -= 1      # need smaller value
+```
+
+### Worked Example: Three Sum
+
+Find all unique triplets in `nums` that sum to zero. Brute force is O(n³). Two pointers reduce it to O(n²).
+
+Fix one element `nums[i]` with a loop. The problem then reduces to *two sum* on the remaining subarray — exactly what two pointers solve.
+
+```python
+def three_sum(nums):
+    nums.sort()
+    result = []
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue                            # skip duplicates at the fixed element
+        left, right = i + 1, len(nums) - 1
+        while left < right:
+            s = nums[i] + nums[left] + nums[right]
+            if s == 0:
+                result.append([nums[i], nums[left], nums[right]])
+                while left < right and nums[left]  == nums[left + 1]: left += 1
+                while left < right and nums[right] == nums[right - 1]: right -= 1
+                left += 1; right -= 1
+            elif s < 0:
+                left += 1
+            else:
+                right -= 1
+    return result
+```
+
+**Complexity:** O(n log n) for sort + O(n²) for the outer loop × inner two-pointer scan = **O(n²)** overall.
+
+### When to Apply
+
+Recognize two pointers when the input is sorted (or can be sorted) and the problem asks for a *pair*, *triplet*, or *partition* satisfying a condition on values. Also applies to in-place problems like removing duplicates or squaring a sorted array.
+
+---
+
+## Prefix Sum {#sec-prefix-sum}
+
+### Intuition
+
+A *range query* asks: what is the sum (or product, XOR, count) of elements from index `l` to `r`? A naive loop answers each query in O(n). If there are Q queries, that is O(nQ).
+
+The prefix sum insight is that `sum(l, r) = prefix[r+1] - prefix[l]`. By precomputing prefix sums in O(n), every query becomes a single subtraction — **O(1) per query**.
+
+Formally, define:
+
+$$
+P[0] = 0, \quad P[i] = \sum_{k=0}^{i-1} a[k]
+$$
+
+Then $\text{sum}(l, r) = P[r+1] - P[l]$.
+
+### Construction and Query
+
+```python
+def build_prefix(arr):
+    n = len(arr)
+    prefix = [0] * (n + 1)
+    for i in range(n):
+        prefix[i + 1] = prefix[i] + arr[i]
+    return prefix
+
+def range_sum(prefix, l, r):    # inclusive [l, r]
+    return prefix[r + 1] - prefix[l]
+```
+
+### 2D Prefix Sum
+
+The same idea extends to matrices. Define `P[i][j]` as the sum of all elements in the rectangle from (0,0) to (i-1, j-1). An arbitrary rectangle query then requires only four lookups:
+
+$$
+\text{sum}(r_1, c_1, r_2, c_2) = P[r_2+1][c_2+1] - P[r_1][c_2+1] - P[r_2+1][c_1] + P[r_1][c_1]
+$$
+
+This is inclusion-exclusion: add the full rectangle, subtract the two over-excluded strips, add back the doubly-excluded corner.
+
+```python
+def build_prefix_2d(matrix):
+    m, n = len(matrix), len(matrix[0])
+    P = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            P[i][j] = (matrix[i-1][j-1]
+                       + P[i-1][j] + P[i][j-1] - P[i-1][j-1])
+    return P
+```
+
+### When to Apply
+
+Reach for prefix sums whenever you see repeated range queries over a static array. Also look for problems involving "subarray sum equals k" — pairing a prefix sum with a hash map gives an O(n) solution.
+
+```python
+def subarray_sum_k(nums, k):
+    # Count subarrays whose sum equals k
+    count = prefix = 0
+    seen = {0: 1}       # prefix sum → frequency
+    for n in nums:
+        prefix += n
+        count += seen.get(prefix - k, 0)
+        seen[prefix] = seen.get(prefix, 0) + 1
+    return count
+```
+
+---
+
+## Tortoise & Hare {#sec-tortoise-hare}
+
+### Intuition
+
+Floyd's cycle detection algorithm answers: *does a sequence contain a cycle, and if so, where does it begin?* The naive approach uses a visited set — O(n) space. Floyd's algorithm uses two pointers moving at different speeds — **O(n) time, O(1) space**.
+
+The key observation is that in a cyclic sequence, a *fast* pointer (moving two steps at a time) and a *slow* pointer (moving one step) will inevitably meet inside the cycle. When they meet, the distance from the head to the cycle start equals the distance from the meeting point to the cycle start — a geometric fact that can be derived algebraically.
+
+**Derivation.** Let $F$ = distance from head to cycle start, $C$ = cycle length, and $k$ = distance from cycle start to meeting point. When slow has traveled $F + k$ steps, fast has traveled $2(F + k)$ steps. Fast has also traveled an integer number of full cycles beyond where slow is:
+
+$$
+2(F + k) - (F + k) = F + k = nC
+$$
+
+for some integer $n$. Therefore $F = nC - k$: the distance from the head to the cycle start equals $nC - k$, which is the same as the distance from the meeting point back to the cycle start (going forward in the cycle). Moving one pointer to the head and walking both forward at the same speed will find the cycle start.
+
+### Implementation
+
+```python
+def find_cycle_start(head):
+    slow = fast = head
+
+    # Phase 1: detect a cycle
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            break
+    else:
+        return None                 # no cycle
+
+    # Phase 2: find cycle start
+    slow = head
+    while slow is not fast:
+        slow = slow.next
+        fast = fast.next
+    return slow                     # cycle start node
+```
+
+### When to Apply
+
+Any problem involving an implicit sequence (not necessarily a linked list) that might revisit a state. Detecting duplicate numbers in an array where values are bounded by the array length is structurally a linked-list cycle problem in disguise.
+
+---
+
+## Sliding Window {#sec-sliding-window}
+
+### Intuition
+
+Many array and string problems ask for an *optimal contiguous subarray* — longest, shortest, maximum sum, or minimum containing a target set. A brute force approach considers every O(n²) pair (i, j) and recomputes the window sum in O(n), giving O(n³) total. Prefix sums reduce this to O(n²).
+
+The sliding window insight is stronger: maintain the window state *incrementally*. When the right boundary advances by one, update the state by adding one element. When the left boundary advances, remove one element. No recomputation — each element is added and removed at most once, giving **O(n)** total.
+
+Two variants exist:
+
+- **Fixed window:** size k is given. Advance both pointers together.
+- **Variable window:** expand right until a condition is met, then shrink from the left.
+
+### Fixed Window
+
+```python
+def max_sum_subarray_k(arr, k):
+    """Maximum sum of any contiguous subarray of length k."""
+    window_sum = sum(arr[:k])
+    best = window_sum
+    for i in range(k, len(arr)):
+        window_sum += arr[i] - arr[i - k]   # add new, remove old
+        best = max(best, window_sum)
+    return best
+```
+
+### Variable Window
+
+The variable window expands greedily and contracts only when a constraint is violated. The contraction uses a *while* loop, not an *if* — keep contracting until the constraint is restored.
+
+```python
+def longest_substring_k_distinct(s, k):
+    """Longest substring with at most k distinct characters."""
+    from collections import defaultdict
+    freq = defaultdict(int)
+    left = best = 0
+    for right, ch in enumerate(s):
+        freq[ch] += 1
+        while len(freq) > k:                # constraint violated
+            freq[s[left]] -= 1
+            if freq[s[left]] == 0:
+                del freq[s[left]]
+            left += 1
+        best = max(best, right - left + 1)
+    return best
+```
+
+### Minimum Window Substring
+
+A classic hard problem: find the shortest substring of `s` containing all characters of `t`. The key is tracking how many characters still *need* to be matched.
+
+```python
+from collections import Counter
+
+def min_window(s, t):
+    need = Counter(t)
+    missing = len(t)            # characters still needed
+    best = ""
+    left = 0
+    for right, ch in enumerate(s):
+        if need[ch] > 0:
+            missing -= 1
+        need[ch] -= 1
+        if missing == 0:        # window contains all of t
+            while need[s[left]] < 0:    # shrink from left
+                need[s[left]] += 1
+                left += 1
+            if not best or right - left + 1 < len(best):
+                best = s[left:right + 1]
+            need[s[left]] += 1          # release leftmost
+            missing += 1
+            left += 1
+    return best
+```
+
+**Complexity:** O(|s| + |t|). Each character of `s` is processed at most twice — once when `right` passes it, once when `left` passes it.
+
+### When to Apply
+
+The word "contiguous subarray" or "substring" combined with an optimization (longest, shortest, maximum, minimum) almost always signals a sliding window. The fixed variant applies when the window size is given; the variable variant applies when the window size itself is what you are optimizing.
+
+---
+
+## Two Pass {#sec-two-pass}
+
+### Intuition
+
+Some problems require information from *both sides* of each element — for example, the product of all elements to the left and all elements to the right. A single forward pass cannot capture the right-side context. The two-pass pattern solves this by making one pass in each direction, accumulating running state.
+
+The two passes need not be in opposite directions; sometimes both passes are forward, with the second pass using state built by the first.
+
+### Worked Example: Product of Array Except Self
+
+Without division, compute an output array where `output[i]` is the product of all elements of `nums` except `nums[i]`.
+
+- **Pass 1 (left to right):** for each position, store the product of all elements to its left.
+- **Pass 2 (right to left):** multiply by the running product of all elements to its right.
+
+```python
+def product_except_self(nums):
+    n = len(nums)
+    output = [1] * n
+
+    # Pass 1: left products
+    left_product = 1
+    for i in range(n):
+        output[i] = left_product
+        left_product *= nums[i]
+
+    # Pass 2: multiply by right products
+    right_product = 1
+    for i in range(n - 1, -1, -1):
+        output[i] *= right_product
+        right_product *= nums[i]
+
+    return output
+```
+
+**Complexity:** O(n) time, O(1) auxiliary space (the output array is not counted as extra space by convention).
+
+### When to Apply
+
+Look for problems where each element's answer depends on context from *both directions* — trapping rainwater, candy distribution, and histogram-area problems all have this structure. The two-pass pattern cleanly separates left-context accumulation from right-context accumulation.
+
+---
+
+## Bit Manipulation {#sec-bit-manipulation}
+
+### Intuition
+
+Every integer is a sequence of bits. Operations on bits are O(1) and extremely fast at the hardware level. Bit manipulation exploits this to replace loops, auxiliary data structures, or arithmetic with constant-time bitwise operations.
+
+### Essential Operations
+
+| Expression | Meaning | Use |
+|-----------|---------|-----|
+| `x & (x - 1)` | Clear the lowest set bit | Count set bits, power-of-two check |
+| `x & (-x)` | Isolate the lowest set bit | Fenwick tree, LSB extraction |
+| `x ^ x == 0` | XOR with itself cancels | Find the unique element |
+| `1 << k` | The value $2^k$ | Bit masks |
+| `x >> k` | Arithmetic right shift by k | Divide by $2^k$ |
+
+### Core Identities
+
+**XOR cancellation:** $a \oplus a = 0$ and $a \oplus 0 = a$. This means XOR-ing a multiset where every element appears twice except one leaves only the unique element.
+
+```python
+import functools
+
+def single_number(nums):
+    return functools.reduce(lambda a, b: a ^ b, nums)
+```
+
+**Counting set bits — Brian Kernighan's algorithm:** The expression `x & (x - 1)` clears the lowest set bit of x. Repeating this until x becomes zero counts the number of set bits in exactly as many iterations as there are set bits — never more.
+
+```python
+def popcount(n):
+    count = 0
+    while n:
+        n &= n - 1      # remove lowest set bit
+        count += 1
+    return count
+```
+
+**Power of two check:** A power of two has exactly one set bit, so `x & (x - 1) == 0` (and `x > 0`).
+
+**Generating all subsets:** The integers from 0 to $2^n - 1$ enumerate all n-bit masks. Each mask corresponds to a subset.
+
+```python
+def all_subsets(nums):
+    n = len(nums)
+    subsets = []
+    for mask in range(1 << n):          # 0 to 2^n - 1
+        subset = [nums[i] for i in range(n) if mask & (1 << i)]
+        subsets.append(subset)
+    return subsets
+```
+
+### When to Apply
+
+Bit manipulation is a tool, not a pattern in the same sense as sliding window. Reach for it when you see: finding a unique/missing element, checking divisibility by 2, working with sets of boolean flags, or generating subsets. Pair it with XOR to eliminate duplicates.
+
+---
+
+## Cyclic Sort {#sec-cyclic-sort}
+
+### Intuition
+
+Given an array containing integers in the range [1, n], the natural placement for the value `v` is at index `v - 1`. A *cyclic sort* exploits this: iterate through the array; if the current element is not at its correct index, swap it into place. Because each swap places at least one element correctly, the total number of swaps is at most n — giving an **O(n) in-place sort** for bounded integer arrays.
+
+This makes it ideal for problems involving missing numbers, duplicate numbers, or finding all elements in the wrong place.
+
+```python
+def cyclic_sort(nums):
+    i = 0
+    while i < len(nums):
+        correct = nums[i] - 1               # where nums[i] should be
+        if nums[i] != nums[correct]:        # not in place
+            nums[i], nums[correct] = nums[correct], nums[i]
+        else:
+            i += 1                          # already correct, advance
+    return nums
+```
+
+After sorting, a second pass finds all positions where `nums[i] != i + 1` — those are the missing or duplicate values.
+
+```python
+def find_missing_numbers(nums):
+    cyclic_sort(nums)
+    return [i + 1 for i in range(len(nums)) if nums[i] != i + 1]
+```
+
+### When to Apply
+
+The problem involves an array of integers in the range [1, n] or [0, n], and asks for missing, duplicate, or corrupted values in O(n) time and O(1) space. The constraint "values are bounded by array length" is the key signal.
+
+---
+
+## Arrays — Searching & Sorting {#sec-arrays-search}
+
+### Binary Search
+
+Binary search is the canonical divide-and-conquer algorithm for sorted arrays. The invariant is that the target, if present, lies within the current search interval `[lo, hi]`. Each step halves this interval:
+
+$$
+T(n) = T(n/2) + O(1) \implies T(n) = O(\log n)
+$$
+
+The most common implementation error is using `(lo + hi) // 2` when lo and hi are large integers — this can overflow in languages without arbitrary-precision integers. The safe form is `lo + (hi - lo) // 2`.
+
+```python
+def binary_search(arr, target):
+    lo, hi = 0, len(arr) - 1
+    while lo <= hi:
+        mid = lo + (hi - lo) // 2
+        if arr[mid] == target:   return mid
+        elif arr[mid] < target:  lo = mid + 1
+        else:                    hi = mid - 1
+    return -1
+```
+
+**Leftmost occurrence:** When duplicates exist and you need the first index, use `hi = mid` (not `mid - 1`) when `arr[mid] >= target`. The loop runs until `lo == hi`, which is the answer.
+
+**Binary search on the answer:** Many optimization problems have a monotone feasibility function — for some threshold X, all values ≤ X are infeasible and all values > X are feasible (or vice versa). Binary search on X directly without ever sorting the input.
+
+### Sorting Algorithms and Their Lineage
+
+Each sorting algorithm was invented to address a limitation of its predecessor:
+
+- **Insertion sort** is simple and O(n) on nearly-sorted data, but O(n²) in general.
+- **Merge sort** achieves the O(n log n) lower bound with a stable sort, at the cost of O(n) extra space.
+- **Quick sort** avoids the extra space of merge sort and is cache-friendly, but has a O(n²) worst case on sorted input without randomization.
+- **Heap sort** achieves O(n log n) worst case *and* O(1) space, but is not stable and has poor cache behavior.
+- **Counting / Radix sort** breaks the O(n log n) comparison-sort lower bound by exploiting the integer structure of keys — O(n) for bounded integers.
+
+| Algorithm | Best | Average | Worst | Space | Stable |
+|-----------|------|---------|-------|-------|--------|
+| Merge Sort | O(n log n) | O(n log n) | O(n log n) | O(n) | Yes |
+| Quick Sort | O(n log n) | O(n log n) | O(n²) | O(log n) | No |
+| Heap Sort | O(n log n) | O(n log n) | O(n log n) | O(1) | No |
+| Insertion Sort | O(n) | O(n²) | O(n²) | O(1) | Yes |
+| Counting Sort | O(n+k) | O(n+k) | O(n+k) | O(k) | Yes |
+
+The comparison-sort lower bound of $\Omega(n \log n)$ follows from the decision-tree model: a decision tree for sorting n elements has n! leaves, so its height is at least $\log_2(n!) = \Theta(n \log n)$ by Stirling's approximation.
+
+---
+
+## Hash Tables {#sec-hash-tables}
+
+### How Hash Tables Work
+
+A hash table maps arbitrary keys to array indices via a hash function $h(k)$. The ideal hash function distributes keys uniformly, minimizing *collisions* — two keys mapping to the same index. Collisions are resolved by either chaining (linked list at each bucket) or open addressing (probing for the next open slot).
+
+**Load factor** $\alpha = n/m$ (elements/buckets) governs performance. With chaining, expected lookup time is $O(1 + \alpha)$. Python's `dict` maintains $\alpha < 2/3$ by resizing, which keeps operations $O(1)$ in expectation.
+
+### The Hash Map as an Accelerator
+
+The central use of hash maps in algorithms is to replace an O(n) search with an O(1) lookup. This unlocks O(n) solutions to problems that would otherwise be O(n²).
+
+**Two Sum** — the canonical example. For each element, check whether its complement has already been seen:
+
+```python
+def two_sum(nums, target):
+    seen = {}                       # value → index
+    for i, n in enumerate(nums):
+        complement = target - n
+        if complement in seen:
+            return [seen[complement], i]
+        seen[n] = i
+```
+
+**Anagram grouping** — map each word to a canonical key (sorted letters) and group by key:
+
+```python
+from collections import defaultdict
+
+def group_anagrams(words):
+    groups = defaultdict(list)
+    for word in words:
+        key = tuple(sorted(word))
+        groups[key].append(word)
+    return list(groups.values())
+```
+
+### When to Apply
+
+Any time a problem requires O(1) lookup by a computed key — frequency counting, caching previously computed values, detecting duplicates, or inverting a mapping. The signature phrase is "find X such that f(X) = target" — store computed values and look up what you need.
+
+---
+
+## String Manipulation {#sec-strings}
+
+### Strings as Sliding Windows
+
+Many string problems are window problems in disguise. The minimum window substring, longest substring without repeating characters, and find-all-anagrams problems all use the variable sliding window from @sec-sliding-window.
+
+### Pattern Matching — KMP Algorithm
+
+Naive pattern matching is O(nm). The Knuth-Morris-Pratt algorithm achieves O(n + m) by precomputing a *failure function* that tells us, when a mismatch occurs at position j in the pattern, how far back to reset j without re-examining already-matched characters.
+
+The failure function $\pi[j]$ is the length of the longest proper prefix of `pattern[0..j]` that is also a suffix. This is precomputed in O(m):
+
+```python
+def compute_lps(pattern):
+    m = len(pattern)
+    lps = [0] * m
+    length, i = 0, 1
+    while i < m:
+        if pattern[i] == pattern[length]:
+            length += 1
+            lps[i] = length
+            i += 1
+        elif length:
+            length = lps[length - 1]    # don't increment i
+        else:
+            lps[i] = 0
+            i += 1
+    return lps
+```
+
+Searching then uses lps to skip redundant comparisons, running in O(n + m) total.
+
+### Palindromes — Expand Around Center
+
+A palindrome reads the same forwards and backwards. To find the *longest palindromic substring*, the brute-force approach checks all O(n²) substrings in O(n) each — O(n³) total. Expanding around each center is O(n²) and O(1) space. Manacher's algorithm achieves O(n) using previously computed palindrome radii.
+
+```python
+def longest_palindrome(s):
+    best = ""
+    for center in range(len(s)):
+        for odd, even in [(center, center), (center, center + 1)]:
+            lo, hi = odd, even
+            while lo >= 0 and hi < len(s) and s[lo] == s[hi]:
+                lo -= 1; hi += 1
+            if hi - lo - 1 > len(best):
+                best = s[lo + 1:hi]
+    return best
+```
+
+---
+
+## Graphs {#sec-graphs}
+
+### Representations
+
+A graph $G = (V, E)$ can be stored as:
+
+- **Adjacency list:** `{node: [neighbors]}` — O(V + E) space, O(degree) neighbor scan. Best for sparse graphs.
+- **Adjacency matrix:** `matrix[i][j] = weight` — O(V²) space, O(1) edge lookup. Best for dense graphs or Floyd-Warshall.
+
+Most interview graph problems use adjacency lists because real-world graphs are sparse.
+
+### BFS — Shortest Path in Unweighted Graphs
+
+BFS explores vertices in *level order* — all vertices at distance 1, then distance 2, and so on. This guarantees that the first time a vertex is reached, it is reached via the shortest path. BFS is the correct algorithm when all edges have equal weight.
+
+```python
+from collections import deque
+
+def bfs_shortest(graph, source, target):
+    queue = deque([(source, 0)])
+    visited = {source}
+    while queue:
+        node, dist = queue.popleft()
+        if node == target:
+            return dist
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, dist + 1))
+    return -1
+```
+
+**Complexity:** O(V + E) — each vertex and edge is processed at most once.
+
+### DFS — Connectivity, Cycles, Topological Order
+
+DFS explores as deep as possible before backtracking. It is the foundation for: connected components, cycle detection, topological sort, and finding strongly connected components.
+
+**Topological sort** (Kahn's algorithm — BFS-based) linearizes a DAG so that for every directed edge `u → v`, u appears before v. It works by repeatedly removing vertices with in-degree zero:
+
+```python
+from collections import deque, defaultdict
+
+def topological_sort(n, edges):
+    graph = defaultdict(list)
+    indegree = [0] * n
+    for u, v in edges:
+        graph[u].append(v)
+        indegree[v] += 1
+    queue = deque(node for node in range(n) if indegree[node] == 0)
+    order = []
+    while queue:
+        node = queue.popleft()
+        order.append(node)
+        for neighbor in graph[node]:
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                queue.append(neighbor)
+    return order if len(order) == n else []     # empty list means a cycle exists
+```
+
+### Dijkstra — Shortest Path with Non-negative Weights
+
+Dijkstra's algorithm generalizes BFS to weighted graphs by using a *priority queue* instead of a plain queue. The priority queue always expands the vertex with the smallest known distance — a greedy choice that is correct when all edge weights are non-negative.
+
+Each vertex is finalized at most once. With a binary heap, the complexity is $O((V + E) \log V)$.
+
+```python
+import heapq
+
+def dijkstra(graph, source):
+    dist = {node: float('inf') for node in graph}
+    dist[source] = 0
+    heap = [(0, source)]
+    while heap:
+        d, u = heapq.heappop(heap)
+        if d > dist[u]:
+            continue                        # stale entry — discard
+        for v, weight in graph[u]:
+            if dist[u] + weight < dist[v]:
+                dist[v] = dist[u] + weight
+                heapq.heappush(heap, (dist[v], v))
+    return dist
+```
+
+**Why Dijkstra fails on negative edges:** the greedy finalization is incorrect when a later path through a negative edge could produce a shorter distance to an already-finalized vertex. Use Bellman-Ford (O(VE)) in that case.
+
+---
+
+## Trees {#sec-trees}
+
+### Tree Traversals and Their Meaning
+
+A binary tree has three natural recursive traversals. The choice of traversal is determined by *when you need to process the current node relative to its children*:
+
+- **Preorder (root → left → right):** used when you need to process a node before knowing about its subtrees — serialization, cloning a tree, printing a directory structure.
+- **Inorder (left → root → right):** for a BST, produces elements in sorted order — this is the defining property of BSTs.
+- **Postorder (left → right → root):** used when a node's computation depends on its children — computing subtree sizes, deleting a tree, evaluating an expression tree.
+- **Level-order (BFS):** used when you need to process nodes level by level — finding the minimum depth, connecting nodes at the same level, right-side view.
+
+### Recursive Tree Thinking
+
+Most tree problems decompose into: solve for left subtree, solve for right subtree, combine. Define clearly what your function *returns* and what it *does as a side effect*.
+
+```python
+def max_path_sum(root):
+    """
+    Returns the maximum gain from root downward (for parent's use).
+    Updates a global maximum as a side effect.
+    """
+    best = [float('-inf')]
+
+    def dfs(node):
+        if not node: return 0
+        left  = max(dfs(node.left),  0)    # ignore negative branches
+        right = max(dfs(node.right), 0)
+        best[0] = max(best[0], node.val + left + right)   # path through node
+        return node.val + max(left, right)                 # single branch upward
+
+    dfs(root)
+    return best[0]
+```
+
+### Binary Search Trees
+
+A BST maintains the invariant that all keys in the left subtree are strictly less than the root's key, and all keys in the right subtree are strictly greater. This invariant enables O(log n) search, insert, and delete on a *balanced* BST.
+
+A BST degenerates to a linked list (O(n) operations) when elements are inserted in sorted order. Self-balancing BSTs (AVL, Red-Black) prevent this by maintaining a height invariant after every operation.
+
+**Validating a BST** requires propagating valid ranges, not just comparing a node to its immediate children:
+
+```python
+def is_valid_bst(root, lo=float('-inf'), hi=float('inf')):
+    if not root: return True
+    if not (lo < root.val < hi): return False
+    return (is_valid_bst(root.left,  lo,       root.val) and
+            is_valid_bst(root.right, root.val, hi))
+```
+
+---
+
+## Stacks & Queues {#sec-stacks-queues}
+
+### The Monotonic Stack
+
+A plain stack tracks the history of values. A *monotonic* stack maintains an additional invariant — the stack is always sorted (increasing or decreasing). When a new element violates the invariant, we pop until it is restored.
+
+This is the standard tool for the family of "next greater / smaller element" problems. Each element is pushed and popped at most once, so the total work is O(n).
+
+```python
+def next_greater_element(arr):
+    """For each element, find the first element to its right that is larger."""
+    n = len(arr)
+    result = [-1] * n
+    stack = []                      # stores indices; invariant: arr[stack] is decreasing
+    for i in range(n):
+        while stack and arr[stack[-1]] < arr[i]:
+            result[stack.pop()] = arr[i]
+        stack.append(i)
+    return result
+```
+
+**Largest rectangle in histogram** extends this idea: for each bar, find the first shorter bar to its left and right — the current bar is the height of the largest rectangle spanning that range. Two monotonic stack passes (or one combined pass) solve it in O(n).
+
+### Queues for Sliding Window Maximum
+
+The sliding window maximum problem — find the maximum in each window of size k — appears in image processing, financial time series, and streaming analytics. A min-heap gives O(n log k); a *monotonic deque* gives O(n) by discarding elements that can never be the maximum of any future window.
+
+```python
+from collections import deque
+
+def sliding_window_maximum(nums, k):
+    dq = deque()        # stores indices; invariant: nums[dq] is decreasing
+    result = []
+    for i, n in enumerate(nums):
+        while dq and nums[dq[-1]] < n:
+            dq.pop()                            # smaller elements can never be max
+        dq.append(i)
+        if dq[0] == i - k:
+            dq.popleft()                        # front is out of window
+        if i >= k - 1:
+            result.append(nums[dq[0]])          # front is the window maximum
+    return result
+```
+
+---
+
+## Linked Lists {#sec-linked-lists}
+
+### The Dummy Node Technique
+
+Edge cases in linked list problems almost always involve the head: deleting the head, inserting before the head, or an empty list. The *dummy node* technique introduces a sentinel before the head, allowing uniform treatment of all nodes — the head is now just another non-first node from the dummy's perspective.
+
+```python
+def remove_nth_from_end(head, n):
+    dummy = ListNode(0, head)
+    fast = slow = dummy
+    for _ in range(n + 1):      # advance fast n+1 steps ahead
+        fast = fast.next
+    while fast:                 # move both until fast reaches the end
+        fast = fast.next
+        slow = slow.next
+    slow.next = slow.next.next  # remove the nth node from end
+    return dummy.next
+```
+
+### Reversing a Linked List
+
+Reversal is the foundation for many list problems. The iterative version uses three pointers — prev, curr, next — and runs in O(n) with O(1) space.
+
+```python
+def reverse_list(head):
+    prev, curr = None, head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev, curr = curr, nxt
+    return prev
+```
+
+**Reversing a sublist** (from position `m` to `n`) follows the same logic but requires careful pointer bookkeeping at the boundaries — the dummy node again simplifies the head case.
+
+---
+
+## Heaps {#sec-heaps}
+
+### The Heap Property and Its Consequences
+
+A binary heap is a *complete* binary tree satisfying the heap property: for a min-heap, every parent is ≤ its children. Stored as an array, the parent of node `i` is at `(i-1)//2`, and children are at `2i+1` and `2i+2`.
+
+The heap property enables:
+- **O(1) access to the minimum** (root).
+- **O(log n) insertion** (append, then sift up).
+- **O(log n) deletion of minimum** (swap root with last, remove last, sift root down).
+- **O(n) heapification** from an unordered array — not O(n log n) as might be expected, because lower nodes need less sifting. The analysis uses the geometric series $\sum_{h=0}^{\log n} n/2^h \cdot h = O(n)$.
+
+### Top-K Problems
+
+The heap is the canonical data structure for *streaming top-k*: maintain a min-heap of size k; for each new element, if it is larger than the heap minimum, replace the minimum. After all elements, the heap contains the k largest.
+
+```python
+import heapq
+
+def k_largest(stream, k):
+    heap = []
+    for x in stream:
+        heapq.heappush(heap, x)
+        if len(heap) > k:
+            heapq.heappop(heap)             # discard the smallest
+    return sorted(heap, reverse=True)       # k largest elements
+```
+
+This is O(n log k) time and O(k) space — far better than sorting all n elements when k ≪ n.
+
+### K-way Merge
+
+Merging k sorted lists appears in external sorting, distributed systems, and database query processing. A min-heap tracks the current minimum across all k list heads. Each extraction takes O(log k), and there are n total elements, giving **O(n log k)**.
+
+---
+
+## Recursion & Backtracking {#sec-backtracking}
+
+### The Recursion Mindset
+
+Recursion is not a trick — it is a mathematical induction made executable. Every recursive solution embeds a proof: *assume the function works correctly on smaller inputs; show it works on the current input using those results*.
+
+The structure of any recursive solution is:
+
+1. **Base case:** a problem small enough to solve directly.
+2. **Recursive step:** break the problem into smaller subproblems, solve them, and combine.
+
+The call stack stores the state of each recursive invocation. A recursion of depth d uses O(d) stack space — this is the "hidden" space cost of recursive algorithms.
+
+### Backtracking
+
+Backtracking is *systematic exploration with pruning*. It builds a solution incrementally, abandoning (pruning) partial solutions as soon as they are guaranteed to not lead to a valid complete solution.
+
+The generic template:
+
+```python
+def backtrack(state, choices):
+    if is_complete(state):
+        record(state)
+        return
+    for choice in choices:
+        if is_valid(state, choice):
+            apply(state, choice)
+            backtrack(state, remaining_choices(choices, choice))
+            undo(state, choice)             # restore state
+```
+
+The `undo` step is what makes this *backtracking* rather than a greedy algorithm — we explore one branch fully, then restore the state and try another.
+
+### N-Queens
+
+Place n queens on an n×n chessboard such that no two queens attack each other. The key insight is that attacks are determined by column, and two diagonals. Tracking these three sets makes the validity check O(1).
+
+```python
+def solve_n_queens(n):
+    cols = set()
+    diag1 = set()       # row - col is constant along a diagonal
+    diag2 = set()       # row + col is constant along the other diagonal
+    result = []
+
+    def backtrack(row, board):
+        if row == n:
+            result.append(["".join(r) for r in board])
+            return
+        for col in range(n):
+            if col in cols or (row - col) in diag1 or (row + col) in diag2:
+                continue
+            cols.add(col); diag1.add(row - col); diag2.add(row + col)
+            board[row][col] = 'Q'
+            backtrack(row + 1, board)
+            board[row][col] = '.'
+            cols.discard(col); diag1.discard(row - col); diag2.discard(row + col)
+
+    backtrack(0, [['.']*n for _ in range(n)])
+    return result
+```
+
+**Complexity:** O(n!) in the worst case — there are n choices for the first queen, n-1 for the second (after pruning), and so on. In practice, pruning reduces this dramatically.
+
+---
+
+## Dynamic Programming {#sec-dp}
+
+### The Two Conditions
+
+A problem is amenable to dynamic programming if and only if it has:
+
+1. **Optimal substructure:** an optimal solution to the problem contains optimal solutions to its subproblems.
+2. **Overlapping subproblems:** the same subproblems are solved multiple times in a naive recursive solution.
+
+If the subproblems are *independent* (non-overlapping), divide-and-conquer is the right tool, not DP. If the problem has optimal substructure but no overlapping subproblems, greedy may apply.
+
+### Top-Down vs. Bottom-Up
+
+**Top-down (memoization):** write the recursive solution naturally, then cache results. Intuitive but uses O(n) call-stack space.
+
+**Bottom-up (tabulation):** identify the dependency order of subproblems and fill a table iteratively. Eliminates recursion overhead and often allows space optimization.
+
+The two approaches have identical time complexity but different constants. Bottom-up is generally preferred in production.
+
+### The DP Design Process
+
+For every DP problem, explicitly answer four questions before writing code:
+
+1. **State definition:** what is `dp[i]` (or `dp[i][j]`)? Write it as a sentence.
+2. **Transition:** how does `dp[i]` relate to `dp[i-1]` (or other previous states)?
+3. **Base case:** what are the smallest subproblems, and what are their solutions?
+4. **Answer:** which entry in the table is the final answer?
+
+### Canonical Examples
+
+**Coin Change** — unbounded knapsack. `dp[a]` = minimum coins needed to make amount `a`. Transition: for each coin `c`, `dp[a] = min(dp[a], dp[a-c] + 1)`.
+
+```python
+def coin_change(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0                           # base: 0 coins to make amount 0
+    for a in range(1, amount + 1):
+        for c in coins:
+            if c <= a:
+                dp[a] = min(dp[a], dp[a - c] + 1)
+    return dp[amount] if dp[amount] != float('inf') else -1
+```
+
+**Longest Common Subsequence** — `dp[i][j]` = LCS length of `s1[:i]` and `s2[:j]`. The transition branches on whether `s1[i-1] == s2[j-1]`.
+
+```python
+def lcs(s1, s2):
+    m, n = len(s1), len(s2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if s1[i-1] == s2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[m][n]
+```
+
+**Longest Increasing Subsequence (O(n log n))** — the naive DP is O(n²). The optimized version maintains a *tails* array where `tails[i]` is the smallest tail element of any increasing subsequence of length `i+1`. Binary search on `tails` gives O(n log n).
+
+```python
+from bisect import bisect_left
+
+def lis(nums):
+    tails = []
+    for n in nums:
+        pos = bisect_left(tails, n)
+        if pos == len(tails): tails.append(n)
+        else:                 tails[pos] = n
+    return len(tails)
+```
+
+The `tails` array is not the actual LIS, but its *length* is correct. To reconstruct the actual subsequence, track parent pointers.
+
+---
+
+::: {.callout-tip}
+## Interview Focus
+
+**Pattern recognition:** given a new problem, state which pattern applies and *why* before writing any code. **Complexity derivation:** explain why sliding window is O(n) — each element enters and leaves the window at most once. **DP design:** for any DP problem, state your `dp[i]` definition in words, write the transition, and identify the base case before coding. **Tradeoffs:** when would you choose Bellman-Ford over Dijkstra? When does memoization beat tabulation? Know not just *what* each algorithm does but *when* it is the right choice and *why* alternatives fail.
+:::

@@ -1,0 +1,15 @@
+{
+  "hash": "da597a289ef818275a64986cf47faf37",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Time Series Clustering {#sec-tscluster}\n\n\n::: {.cell}\n\n:::\n\n\n## Overview\n\nTime series clustering groups multiple time series based on similarity of their trend dynamics or value profiles. This appendix covers the BICC/CWindowCluster method [@Ciampi:etal:2010] and iterative synchronism testing via the `funtimes` R package.\n\n## Methods\n\n**Slide-level clustering** — For a data domain $[\\alpha, \\beta]$ and $\\delta \\in [0,1]$, the $\\delta$-close measure is:\n\n$$\n\\psi_{\\delta}(x_1, x_2) =\n\\begin{cases}\n1 & \\frac{\\|x_1 - x_2\\|_1}{\\beta - \\alpha} \\leq \\delta \\\\\n0 & \\text{otherwise}\n\\end{cases}\n$$ {#eq-closeness}\n\nTime series buckets $B_u$ and $B_v$ are merged into one cluster when:\n\n$$\n\\sum_{i=1}^{p} \\psi_{\\delta}(B_u[i], B_v[i]) \\geq \\theta \\times p\n$$\n\nwhere $\\theta \\in [0,1]$ controls the homogeneity threshold and $p$ is the number of snapshots per slide.\n\n**Window-level clustering** — Time series are grouped together if they appear in the same slide cluster more than $\\varepsilon \\times w$ times across $w$ slides.\n\n## Example\n\n::: callout-note\nContent to be added. See `funtimes::CWindowCluster()` for implementation.\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

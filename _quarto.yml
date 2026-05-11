@@ -3,50 +3,78 @@ project:
     output-dir: docs
 
 book:
-    title: Research Scientist Guide
-    subtitle: Comprehensive Research Scientist Interview Notes and Guides
-    author: Kundan Kumar
-    # date: today
+    title: "From First Principles"
+    subtitle: "A Research Scientist Interview Guide - 2026 Edition"
+    author:
+        - name: Kundan Kumar
+          url: https://kundan-kumarr.github.io/
+    date: today
     date-format: iso
     favicon: favicon.png
-    cover-image: TSAcov.png
-    repo-url: https://github.com/kundan-kumarr/StatSphere/
-    repo-branch: master
+    cover-image: cover.png
+    description: |
+        A structured preparation curriculum for Research Scientist roles at
+        industrial AI labs, academic research groups, and applied ML organizations.
+        Covers mathematical foundations through modern LLMs, deep RL, and trustworthy AI.
+    repo-url: https://github.com/kundan-kumarr/ResearchScientist-Handbook/
+    repo-branch: main
     repo-actions: [edit, issue]
     downloads: [pdf, epub]
-    sharing: [twitter, facebook]
+    sharing: [twitter, linkedin]
     page-navigation: true
     reader-mode: true
     sidebar:
         search: true
+        title: "First Principles"
     chapters:
         - index.qmd
-        - l01_stat_math.qmd
-        - l02_ds.qmd
-        - l03_algorithm.qmd
-        - l04_data_pipe.qmd
-        - l05_ml.qmd
-        - l06_dl.qmd
-        - l07_time_series.qmd
-        - l08_drl.qmd
-        - l09_model_eval.qmd
-        - l10_llms.qmd
-        - l11_llms_finetuning.qmd
-        - l12_compression.qmd
-        - l13_computervision.qmd
-        - l14_multimodal.qmd
-        - l15_casuality.qmd
-        - l16_secureai.qmd
-        - l17_scalability.qmd
-        - l18_stattesting.qmd
-        #- software.qmd
+        - part: "Module 1 - Mathematical Foundations"
+          chapters:
+              - ch01_statistics_math.qmd
+              - ch18_statistical_testing.qmd
+        - part: "Module 2 - Algorithms & Data Engineering"
+          chapters:
+              - ch02_data_structures.qmd
+              - ch03_algorithms.qmd
+              - ch04_data_pipelines.qmd
+        - part: "Module 3 - Classical Machine Learning"
+          chapters:
+              - ch05_machine_learning.qmd
+              - ch07_time_series.qmd
+        - part: "Module 4 - Deep Learning"
+          chapters:
+              - ch06_deep_learning.qmd
+              - ch13_computer_vision.qmd
+        - part: "Module 5 - Deep Reinforcement Learning"
+          chapters:
+              - ch08_reinforcement_learning.qmd
+        - part: "Module 6 - Large Language Models"
+          chapters:
+              - ch10_large_language_models.qmd
+              - ch11_llm_finetuning.qmd
+        - part: "Module 7 - Model Compression & Deployment"
+          chapters:
+              - ch12_model_compression.qmd
+              - ch17_scalability.qmd
+        - part: "Module 8 - Research Design & Evaluation"
+          chapters:
+              - ch09_model_evaluation.qmd
+        - part: "Module 9 - Trustworthy & Robust AI"
+          chapters:
+              - ch16_trustworthy_ai.qmd
+        - part: "Module 10 - Emerging Topics"
+          chapters:
+              - ch14_multimodal_learning.qmd
+              - ch15_causality.qmd
         - references.qmd
     appendices:
-        - s1_wls.qmd
-        - s2_gls.qmd
-        - s4_trendsync.qmd
-        - s6_extremes.qmd
-        - s_practice.qmd
+        - app01_weighted_least_squares.qmd
+        - app02_generalized_least_squares.qmd
+        - app03_trend_synchrony.qmd
+        - app04_time_series_clustering.qmd
+        - app05_extreme_value_analysis.qmd
+        - app06_practice_exercises.qmd
+        - software.qmd
 
 bibliography:
     - references.bib
@@ -57,11 +85,24 @@ appendix-style: default
 
 format:
     html:
+        theme: cosmo
+        highlight-style: github
         code-fold: true
         code-link: true
-        theme: cosmo
+        code-tools: true
+        toc: true
+        toc-depth: 3
         fig-width: 8
         fig-height: 5
+        fig-align: center
+        number-sections: true
+        crossref:
+            chapters: true
+    pdf:
+        documentclass: scrbook
+        number-sections: true
+    epub:
+        cover-image: cover.png
 
 engine: knitr
 knitr:
@@ -72,6 +113,8 @@ knitr:
         comment: "#>"
         R.options:
             knitr.graphics.auto_pdf: true
+
 execute:
     eval: true
     echo: true
+    freeze: auto

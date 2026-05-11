@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Appendix C — Synchrony of parametric trends – Research Scientist Guide</title>
 <style>
@@ -85,14 +85,15 @@ div.csl-indent {
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -129,7 +130,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -161,7 +162,9 @@ window.Quarto = {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Research Scientist Guide</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -223,80 +226,110 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l01_regression.html" class="sidebar-item-text sidebar-link">
+  <a href="./l01_stat_math.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics &amp; Mathematics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l02_tsintro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures and Algorithms</span></span></a>
+  <a href="./l02_ds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l03_smoothing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Pipeline</span></span></a>
+  <a href="./l03_algorithm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l04_arma.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
+  <a href="./l04_data_pipe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">ML Data Pipelines</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l05_arima.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Deep Learning Models</span></span></a>
+  <a href="./l05_ml.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l06_garch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Time-Series Analysis and Models</span></span></a>
+  <a href="./l06_dl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l07_trendtest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Trend Detection</span></span></a>
+  <a href="./l07_time_series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Time-Series Analysis and Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l08_tsreg1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Time Series Regression with Trends</span></span></a>
+  <a href="./l08_drl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l09_tsreg2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
+  <a href="./l09_model_eval.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l10_causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Analysis Using Time Series</span></span></a>
+  <a href="./l10_llms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Large Language Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l11_panel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Panel Data Analysis</span></span></a>
+  <a href="./l11_llms_finetuning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fine-Tuning and Adaptation of LLMs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l12_forecast.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Evaluation and Forecasting</span></span></a>
+  <a href="./l12_compression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Compression, Deployment, and Efficiency</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l13_spectral.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Analysis</span></span></a>
+  <a href="./l13_computervision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Computer Vision and Visual Intelligence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l14_multimodal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multimodal</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l15_casuality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l16_secureai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l17_scalability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./l18_stattesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -373,12 +406,12 @@ window.Quarto = {
 <p>The extensive research on comparing trend patterns follows two main directions:</p>
 <ol type="1">
 <li>Testing for joint mean functions.</li>
-<li>Analysis of joint stochastic trends, which is closely linked to the cointegration notion by <span class="citation" data-cites="Engle:Granger:1987">Engle and Granger (<a href="references.html#ref-Engle:Granger:1987" role="doc-biblioref">1987</a>)</span> (<a href="l08_tsreg1.html#sec-cointegration" class="quarto-xref"><span>Section 8.3</span></a>).</li>
+<li>Analysis of joint stochastic trends, which is closely linked to the cointegration notion by <span class="citation" data-cites="Engle:Granger:1987">Engle and Granger (<a href="references.html#ref-Engle:Granger:1987" role="doc-biblioref">1987</a>)</span> (<a href="l08_drl.html#sec-cointegration" class="quarto-xref"><span>Section 8.3</span></a>).</li>
 </ol>
 <p>Here we explore the first direction, that is, assess whether several observed time series follow the same hypothesized parametric trend.</p>
 <p>There exist many tests for comparing mean functions, but most of the developed methods assume independent errors. Substantially less is known about testing for joint deterministic trends in a time series framework.</p>
 <p>One of the methods developed for time series is by <span class="citation" data-cites="Degras:etal:2012">Degras et al. (<a href="references.html#ref-Degras:etal:2012" role="doc-biblioref">2012</a>)</span> and <span class="citation" data-cites="Zhang:2013">Zhang (<a href="references.html#ref-Zhang:2013" role="doc-biblioref">2013</a>)</span> who extended the integrated square error (ISE) based approach of <span class="citation" data-cites="VF:GM:2004">Vilar-Fernández and González-Manteiga (<a href="references.html#ref-VF:GM:2004" role="doc-biblioref">2004</a>)</span> to a case of multiple time series with weakly dependent (non)stationary errors. For a comprehensive literature review of available methodology for comparing mean functions embedded into independent errors in a time series framework, see <span class="citation" data-cites="Degras:etal:2012">Degras et al. (<a href="references.html#ref-Degras:etal:2012" role="doc-biblioref">2012</a>)</span> and <span class="citation" data-cites="Park:etal:2014">Park et al. (<a href="references.html#ref-Park:etal:2014" role="doc-biblioref">2014</a>)</span>. Most of these methods, however, either focus on aligning only two curves or require us to select multiple hyperparameters, such as the bandwidth, level of smoothness, and window size for a long-run variance function. As mentioned by <span class="citation" data-cites="Park:etal:2014">Park et al. (<a href="references.html#ref-Park:etal:2014" role="doc-biblioref">2014</a>)</span>, the choice of such <em>multiple nuisance parameters</em> is challenging for a comparison of curves (even under the independent and identically distributed setup) and often leads to inadequate performance, especially in samples of moderate size.</p>
-<p>As an alternative, consider an extension of the WAVK test (<span class="quarto-unresolved-ref">?sec-WAVK</span>) to a case of multiple time series <span class="citation" data-cites="Lyubchich:Gel:2016:synchronism">(<a href="references.html#ref-Lyubchich:Gel:2016:synchronism" role="doc-biblioref">Lyubchich and Gel 2016</a>)</span>. Let us observe <span class="math inline">\(N\)</span> time series <span class="math display">\[
+<p>As an alternative, consider an extension of the WAVK test (<a href="l07_time_series.html#sec-WAVK" class="quarto-xref"><span>Section 7.4.2</span></a>) to a case of multiple time series <span class="citation" data-cites="Lyubchich:Gel:2016:synchronism">(<a href="references.html#ref-Lyubchich:Gel:2016:synchronism" role="doc-biblioref">Lyubchich and Gel 2016</a>)</span>. Let us observe <span class="math inline">\(N\)</span> time series <span class="math display">\[
 Y_{it} = \mu_i(t/T) + \epsilon_{it},
 \]</span> where <span class="math inline">\(i = 1, \dots, N\)</span> (<span class="math inline">\(N\)</span> is the number of time series), <span class="math inline">\(t=1, \dots, T\)</span> (<span class="math inline">\(T\)</span> is the length of the time series), <span class="math inline">\(\mu_i(u)\)</span> (<span class="math inline">\(0&lt;u\leqslant 1\)</span>) are unknown smooth trend functions, and the noise <span class="math inline">\(\epsilon_{it}\)</span> can be represented as a finite-order AR(<span class="math inline">\(p\)</span>) process or infinite-order AR(<span class="math inline">\(\infty\)</span>) process with i.i.d. innovations <span class="math inline">\({e}_{it}\)</span>.</p>
 <p>We are interested in testing whether these <span class="math inline">\(N\)</span> observed time series have the same trend of some pre-specified smooth parametric form <span class="math inline">\(f(\theta, u)\)</span>:</p>
@@ -422,7 +455,7 @@ s_i^2= \frac{\sum_{t=2}^T(\hat{e}_{it}-\hat{e}_{i,t-1})^2}{2(T-1)}.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Example: CMIP5 vs.&nbsp;observations
+<span class="screen-reader-only">Note</span>Example: CMIP5 vs.&nbsp;observations
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -432,19 +465,19 @@ Example: CMIP5 vs.&nbsp;observations
 <li>observed global temperature anomalies relative to the base period of 1981–2010.</li>
 </ul>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/CMIP5.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/CMIP5.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fl">1948</span> <span class="op">&lt;=</span> <span class="va">Year</span> <span class="op">&amp;</span> <span class="va">Year</span> <span class="op">&lt;=</span> <span class="fl">2013</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>    <span class="fu">mutate</span><span class="op">(</span>Temp_CMIP5 <span class="op">=</span> <span class="va">Temp_CMIP5</span> <span class="op">-</span> <span class="fl">273.15</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">mutate</span><span class="op">(</span>Temp_CMIP5 <span class="op">=</span> <span class="va">Temp_CMIP5</span> <span class="op">-</span> <span class="fl">273.15</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>See <a href="#fig-CMIP5" class="quarto-xref">Figure&nbsp;<span>C.1</span></a> showing the time series plots after converting the CMIP data to degrees Celsius.</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">D</span> <span class="op">%&gt;%</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">Temp_CMIP5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">D</span> <span class="op">%&gt;%</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">Temp_CMIP5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">D</span> <span class="op">%&gt;%</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">Temp_obs</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span></span>
-<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu">plot_annotation</span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div id="fig-CMIP5" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-CMIP5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -458,8 +491,8 @@ Figure&nbsp;C.1: Global annual mean temperature (°C) in 1948–2013: CMIP5 mult
 </div>
 <p>Test the synchrony of parametric <em>linear</em> trends in these time series:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span><span class="fu">funtimes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/funtimes/man/sync_test.html">sync_test</a></span><span class="op">(</span><span class="va">D</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Temp_CMIP5"</span>, <span class="st">"Temp_obs"</span><span class="op">)</span><span class="op">]</span> <span class="op">~</span> <span class="va">t</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="fu">funtimes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/funtimes/man/sync_test.html">sync_test</a></span><span class="op">(</span><span class="va">D</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Temp_CMIP5"</span>, <span class="st">"Temp_obs"</span><span class="op">)</span><span class="op">]</span> <span class="op">~</span> <span class="va">t</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Nonparametric test for synchronism of parametric trends
@@ -494,8 +527,8 @@ Figure&nbsp;C.1: Global annual mean temperature (°C) in 1948–2013: CMIP5 mult
 <p>The <span class="math inline">\(p\)</span>-value below the usual significance level <span class="math inline">\(\alpha = 0.05\)</span> allows us to reject the null hypothesis, however, as <span class="citation" data-cites="Lyubchich:2016:trends">Lyubchich (<a href="references.html#ref-Lyubchich:2016:trends" role="doc-biblioref">2016</a>)</span> pointed out, the decision would differ if more confidence is required (e.g., <span class="math inline">\(\alpha = 0.01\)</span>). Note that the <span class="math inline">\(p\)</span>-value of 0.012 reported by <span class="citation" data-cites="Lyubchich:2016:trends">Lyubchich (<a href="references.html#ref-Lyubchich:2016:trends" role="doc-biblioref">2016</a>)</span> differs from the one reported above due to the function settings and randomness due to the bootstrapping. We should save the random number generator state with <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> for replicability (so the test results are exactly the same every time the test is applied), and use a larger number of bootstrap replications <code>B</code> for consistency (so the test leads to the same conclusions when the function <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> is not used).</p>
 <p>Now test the synchrony of parametric <em>quadratic</em> trends in these time series:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
-<span><span class="fu">funtimes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/funtimes/man/sync_test.html">sync_test</a></span><span class="op">(</span><span class="va">D</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Temp_CMIP5"</span>, <span class="st">"Temp_obs"</span><span class="op">)</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">t</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="fu">funtimes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/funtimes/man/sync_test.html">sync_test</a></span><span class="op">(</span><span class="va">D</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Temp_CMIP5"</span>, <span class="st">"Temp_obs"</span><span class="op">)</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html">poly</a></span><span class="op">(</span><span class="va">t</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; 
 #&gt;  Nonparametric test for synchronism of parametric trends
@@ -505,10 +538,10 @@ Figure&nbsp;C.1: Global annual mean temperature (°C) in 1948–2013: CMIP5 mult
 #&gt; alternative hypothesis: common trend is not of the form D[, c("Temp_CMIP5", "Temp_obs")] ~ poly(t, 2).
 #&gt; sample estimates:
 #&gt; $common_trend_estimates
-#&gt;             Estimate Std. Error  t value Pr(&gt;|t|)
-#&gt; (Intercept) 6.72e-16     0.0324 2.07e-14 1.00e+00
-#&gt; poly(t, 2)1 7.27e+00     0.2632 2.76e+01 6.20e-37
-#&gt; poly(t, 2)2 2.28e+00     0.2632 8.65e+00 2.62e-12
+#&gt;              Estimate Std. Error   t value Pr(&gt;|t|)
+#&gt; (Intercept) -1.77e-15     0.0324 -5.45e-14 1.00e+00
+#&gt; poly(t, 2)1  7.27e+00     0.2632  2.76e+01 6.20e-37
+#&gt; poly(t, 2)2  2.28e+00     0.2632  8.65e+00 2.62e-12
 #&gt; 
 #&gt; $ar.order_used
 #&gt;          Temp_CMIP5 Temp_obs
@@ -626,13 +659,14 @@ Zhang T (2013) Clustering high-dimensional time series based on parallelism. Jou
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
