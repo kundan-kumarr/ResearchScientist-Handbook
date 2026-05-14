@@ -31,38 +31,6 @@ Each chapter answers: *why was the next method needed, and what problem did it s
 
 ---
 
-## Curriculum Overview {.unnumbered}
-
-| Module | Theme | Core Topics |
-|--------|-------|-------------|
-| 1 | Mathematical Foundations | Linear algebra, probability, optimization, gradient calculus, statistical testing |
-| 2 | Algorithms & Data Engineering | Data structures, algorithm patterns, ML data pipelines |
-| 3 | Classical Machine Learning | Regression, SVM, trees, ensembles, dimensionality reduction, clustering, time series |
-| 4 | Deep Learning | Perceptrons, CNNs, RNNs, Transformers, computer vision |
-| 5 | Deep Reinforcement Learning | Q-learning, DDPG, PPO, SAC, GRPO, constrained RL, RLHF |
-| 6 | Large Language Models | Transformer theory, attention, fine-tuning, LoRA, RLHF, alignment |
-| 7 | Model Compression & Deployment | Pruning, quantization, distillation, inference optimization, scalability |
-| 8 | Research Design & Evaluation | Ablations, reproducibility, model evaluation, uncertainty quantification |
-| 9 | Trustworthy & Robust AI | Adversarial robustness, fairness, differential privacy, alignment |
-| 10 | Emerging Topics | Diffusion models, neural operators, causal learning, multimodal systems |
-| A | Appendices | Derivations, regression extensions, clustering, practice problems |
-
----
-
-## Interview Preparation Framework {.unnumbered}
-
-| Phase | Weeks | Focus | Key Deliverable |
-|-------|-------|-------|-----------------|
-| Phase 1 — Core Concepts | 1–4 | ML/DL fundamentals, mathematical review | Linear models and neural nets from scratch |
-| Phase 2 — Deep RL | 5–7 | PPO, DDPG, constrained RL | End-to-end DRL implementation with ablation |
-| Phase 3 — LLMs | 8–10 | Pretraining, fine-tuning, LoRA, RLHF | GPT-2 from scratch + LoRA fine-tuning |
-| Phase 4 — Research Communication | 11 | Technical writing, experiment narration | Short technical blog or mini-paper |
-| Phase 5 — Systems & Scalability | 12–13 | Compression, quantization, deployment | Inference profiling report |
-| Phase 6 — Mock Interviews I | 14 | Technical + research + system design | Self-evaluation rubric |
-| Phase 7 — Mock Interviews II | 15 | Full simulation under time constraint | Final preparation checklist |
-
----
-
 ## Prerequisites {.unnumbered}
 
 Readers are expected to have foundational knowledge in:
@@ -82,7 +50,7 @@ Longer notes and weekly write-ups: [kundan-kumarr.github.io/blog](https://kundan
 
 ## Citation {.unnumbered}
 
-Kumar, Kundan. (`r substr(Sys.Date(), 1, 4)`). *From First Principles: A Research Scientist Interview Guide*. `r substr(Sys.Date(), 1, 4)` Edition.
+Kumar, Kundan. (`r substr(Sys.Date(), 1, 4)`). *From First Principles — Research Scientist Interview Guide*. `r substr(Sys.Date(), 1, 4)` Edition.
 
 ## License {.unnumbered}
 

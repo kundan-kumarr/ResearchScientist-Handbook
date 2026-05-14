@@ -69,13 +69,11 @@ where $Y_t \sim$ i.i.d.($0,\sigma^2$).
 This $X_t$ is the simplest example of integrated series. 
 The notation $X_t \sim$ I(1) means $X_t$ is a first-order integrated series. 
 The differences of $X_t$
-$$
 \begin{align}
 (1 - B)X_t &= X_t - BX_t \\
 &= X_t - X_{t-1} \\
 &= Y_t
 \end{align}
-$$
 give us back the uncorrelated series $Y_t$, hence the process $X_t$ is an ARIMA(0,1,0) process.
 
 ::: {.callout-note}

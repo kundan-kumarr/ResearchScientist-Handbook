@@ -1,0 +1,21 @@
+{
+  "hash": "bf4b0f4d96543bdec7023bdc4778c556",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\noutput: html_document\neditor_options: \n    chunk_output_type: console\n---\n\n# Software {.unnumbered}\n\nExamples were calculated in R version 4.5.3 (2026-03-11) with an effort to use the most recent versions of R packages.\n\nThe codes load silently only a few packages:\n\n\n::: {.cell}\n\n```{.r .cell-code  code-fold=\"false\"}\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(patchwork)\ntheme_set(theme_light())\n```\n:::\n\n\nAll other packages are named before the function as in `forecast::ggAcf()` (this code calls the function `ggAcf()` from the package `forecast`) or called immediately before the necessary function use:\n\n\n::: {.cell}\n\n```{.r .cell-code  code-fold=\"false\"}\nlibrary(fable)\nm <- as_tsibble(Y) %>%\n    model(ARIMA(Y ~ 1, ic = \"bic\"))\nreport(m)\n```\n:::\n\n\nThe R packages used in this book include (in alphabetic order):\n\n\n::: {.cell}\n\n:::\n\n\n* `astsa` [@R-astsa]\n* `downlit` [@R-downlit]\n* `dplR` [@R-dplR]\n* `dplyr` [@R-dplyr]\n* `dynlm` [@R-dynlm]\n* `Ecdat` [@R-Ecdat]\n* `fable` [@R-fable]\n* `feasts` [@R-feasts]\n* `fGarch` [@R-fGarch]\n* `FinTS` [@R-FinTS]\n* `fma` [@R-fma]\n* `forecast` [@R-forecast]\n* `funtimes` [@R-funtimes]\n* `gamlss` [@R-gamlss]\n* `gamlss.ggplots` [@R-gamlss.ggplots]\n* `gamlss.util` [@R-gamlss.util]\n* `GGally` [@R-GGally]\n* `ggplot2` [@R-ggplot2]\n* `ggpubr` [@R-ggpubr]\n* `Kendall` [@R-Kendall]\n* `knitr` [@R-knitr]\n* `lawstat` [@R-lawstat]\n* `lmtest` [@R-lmtest]\n* `lomb` [@R-lomb]\n* `mgcv` [@R-mgcv]\n* `mgcViz` [@R-mgcViz]\n* `nlme` [@R-nlme]\n* `oce` [@R-oce]\n* `patchwork` [@R-patchwork]\n* `plotly` [@R-plotly]\n* `pracma` [@R-pracma]\n* `randtests` [@R-randtests]\n* `readr` [@R-readr]\n* `rmarkdown` [@R-rmarkdown]\n* `signal` [@R-signal]\n* `tseries` [@R-tseries]\n* `TSstudio` [@R-TSstudio]\n* `urca` [@R-urca]\n* `xml2` [@R-xml2]\n",
+    "supporting": [
+      "software_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

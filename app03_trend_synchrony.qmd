@@ -64,10 +64,10 @@ $$
 \left\{ \sum_{j=1}^{p_i(T)}{\hat{\phi}_{ij}{Y}_{i,t-j}} - \sum_{j=1}^{p_i(T)}{\hat{\phi}_{ij}f(\hat{\theta},u_{t-j})} \right\}.
 \end{split}
 $$
-1. Construct a sequence of $N$ statistics ${\rm WAVK}_{1}(k_{1}), \dots, {\rm WAVK}_{N}(k_{N})$.
+1. Construct a sequence of $N$ statistics $\mathrm{WAVK}_{1}(k_{1}), \dots, \mathrm{WAVK}_{N}(k_{N})$.
 Then, the synchrony test statistic is
 $$
-S_T = \sum_{i=1}^N k_{i}^{-1/2}{\rm WAVK}_{i}(k_{i}),
+S_T = \sum_{i=1}^N k_{i}^{-1/2}\mathrm{WAVK}_{i}(k_{i}),
 $$
 where $k_{i}$ is the local window size for the WAVK statistic.
 1. Estimate the variance of $\hat{e}_{it}$, e.g., using the robust difference-based estimator by @Rice:1984:
@@ -76,7 +76,7 @@ s_i^2= \frac{\sum_{t=2}^T(\hat{e}_{it}-\hat{e}_{i,t-1})^2}{2(T-1)}.
 $$
 1. Simulate $BN$ times $T$-dimensional vectors $e^*_{iT}$ from the multivariate normal distribution $MVN\left(0, s_i^2\boldsymbol{I}\right)$, where $B$ is the number of bootstrap replications, $\boldsymbol{I}$ is a $T\times T$ identity matrix.
 1. Compute $B$ bootstrapped statistics on $e^*_{iT}$:
-$$S^*_T=\sum_{i=1}^N k^{-1/2}_{i} {\rm WAVK}^*_{i}(k_{i}).$$
+$$S^*_T=\sum_{i=1}^N k^{-1/2}_{i} \mathrm{WAVK}^*_{i}(k_{i}).$$
 1. The bootstrap $p$-value for testing the $H_0$ is the proportion of $|S^*_T|$ that exceed $|S_T|$.
 
 See the application of both the WAVK and synchrony tests in @Lyubchich:2016:trends.

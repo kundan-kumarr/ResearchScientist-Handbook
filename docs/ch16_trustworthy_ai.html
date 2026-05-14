@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="description" content="A curated preparation guide for Research Scientist roles in academia, industry, and applied AI labs — covering statistics, algorithms, machine learning, deep learning, LLMs, computer vision, and more.">
-<title>16&nbsp; Trustworthy &amp; Secure AI – Research Scientist Handbook</title>
+<meta name="description" content="A structured preparation curriculum for Research Scientist roles at industrial AI labs, academic research groups, and applied ML organizations. Covers mathematical foundations through modern LLMs, deep RL, and trustworthy AI.">
+<title>16&nbsp; Trustworthy &amp; Secure AI – Interview Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,8 +81,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ch17_scalability.html" rel="next">
-<link href="./ch15_causality.html" rel="prev">
+<link href="./ch14_multimodal_learning.html" rel="next">
+<link href="./ch09_model_evaluation.html" rel="prev">
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -154,7 +154,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch15_causality.html">Part IV: Advanced Topics</a></li><li class="breadcrumb-item"><a href="./ch16_trustworthy_ai.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch16_trustworthy_ai.html">Module 9 - Trustworthy &amp; Robust AI</a></li><li class="breadcrumb-item"><a href="./ch16_trustworthy_ai.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -167,20 +167,20 @@ window.Quarto = {
       <a href="./index.html" class="sidebar-logo-link">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">RS Handbook</a> 
+      <a href="./">Interview Guide</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Handbook.pdf">
+            <a class="dropdown-item sidebar-tools-main-item" href="./Interview-Guide.pdf">
               <i class="bi bi-file-pdf pe-1"></i>
             Download PDF
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Handbook.epub">
+            <a class="dropdown-item sidebar-tools-main-item" href="./Interview-Guide.epub">
               <i class="bi bi-journal pe-1"></i>
             Download ePub
             </a>
@@ -228,7 +228,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part I: Foundations</span></a>
+ <span class="menu-text">Module 1 - Mathematical Foundations</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -242,20 +242,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch02_data_structures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch03_algorithms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch04_data_pipelines.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">ML Data Pipelines</span></span></a>
+  <a href="./ch18_statistical_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,7 +251,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Part II: Core ML &amp; AI</span></a>
+ <span class="menu-text">Module 2 - Algorithms &amp; Data Engineering</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -271,14 +259,37 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch05_machine_learning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
+  <a href="./ch02_data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch06_deep_learning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
+  <a href="./ch03_algorithms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Algorithms &amp; Coding Patterns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch04_data_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ML Data Pipelines</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 3 - Classical Machine Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch05_machine_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,65 +298,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Time-Series Analysis and Models</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch08_reinforcement_learning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch09_model_evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Part III: Language &amp; Vision</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch10_large_language_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Large Language Models</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch11_llm_finetuning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fine-Tuning and Adaptation of LLMs</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch12_model_compression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Compression, Deployment, and Efficiency</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch13_computer_vision.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Computer Vision and Visual Intelligence</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch14_multimodal_learning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multimodal</span></span></a>
-  </div>
-</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Part IV: Advanced Topics</span></a>
+ <span class="menu-text">Module 4 - Deep Learning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -353,26 +311,134 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch15_causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
+  <a href="./ch06_deep_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch16_trustworthy_ai.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></span></a>
+  <a href="./ch13_computer_vision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Computer Vision and Visual Intelligence</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 5 - Deep Reinforcement Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch08_reinforcement_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 6 - Large Language Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch10_large_language_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Large Language Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch11_llm_finetuning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Fine-Tuning and Adaptation of LLMs</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 7 - Model Compression &amp; Deployment</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch12_model_compression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Compression, Deployment, and Efficiency</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch17_scalability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 8 - Research Design &amp; Evaluation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch09_model_evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 9 - Trustworthy &amp; Robust AI</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch16_trustworthy_ai.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 10 - Emerging Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch14_multimodal_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Multimodal</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch18_statistical_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span></a>
+  <a href="./ch15_causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
   </div>
 </li>
       </ul>
@@ -385,13 +451,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./app01_weighted_least_squares.html" class="sidebar-item-text sidebar-link">
@@ -455,10 +521,10 @@ window.Quarto = {
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/edit/main/ch16_trustworthy_ai.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch15_causality.html">Part IV: Advanced Topics</a></li><li class="breadcrumb-item"><a href="./ch16_trustworthy_ai.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></a></li></ol></nav><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch16_trustworthy_ai.html">Module 9 - Trustworthy &amp; Robust AI</a></li><li class="breadcrumb-item"><a href="./ch16_trustworthy_ai.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title">
 <span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span>
-</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</h1>
 </div>
 
 
@@ -518,7 +584,7 @@ Note
 <p>Consider monthly data that exhibit a 12-month seasonality. Hence, the period <span class="math inline">\(2\pi / \omega = 12\)</span>, which implies the angular frequency <span class="math inline">\(\omega = \pi / 6\)</span>. The frequency, measured in cycles per time unit, is given by the inverse <span class="math display">\[
 \frac{\omega}{2\pi} = \frac{1}{12} \approx 0.08.
 \]</span></p>
-<p>The formulas to estimate parameters of regression in <a href="ch18_statistical_testing.html#eq-regr" class="quarto-xref">Equation&nbsp;<span>18.1</span></a> take a much simpler form if <span class="math inline">\(\omega\)</span> is one of the Fourier frequencies, defined by <span class="math display">\[
+<p>The formulas to estimate parameters of regression in <a href="ch15_causality.html#eq-regr" class="quarto-xref">Equation&nbsp;<span>18.1</span></a> take a much simpler form if <span class="math inline">\(\omega\)</span> is one of the Fourier frequencies, defined by <span class="math display">\[
 \omega_j=\frac{2\pi j}{T}, \quad  j=0,\dots, \frac{T}{2},
 \]</span> then <span class="math display">\[
 \begin{split}
@@ -655,7 +721,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall the airline passenger time series (<a href="ch03_algorithms.html#fig-airpassangers" class="quarto-xref">Figure&nbsp;<span>3.12</span></a>) that has an increasing trend and strong multiplicative seasonality.</p>
+<p>Recall the airline passenger time series (<span class="quarto-unresolved-ref">?fig-airpassangers</span>) that has an increasing trend and strong multiplicative seasonality.</p>
 <p>The series should be detrended before a spectral analysis. For demonstration purposes, compute periodogram for the raw data and log-transformed and detrended.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fit a quadratic trend to log-transformed data</span></span>
@@ -669,7 +735,7 @@ Note
 <span><span class="va">spec_log_detrend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/spec.pgram.html">spec.pgram</a></span><span class="op">(</span><span class="va">res</span>, detrend <span class="op">=</span> <span class="cn">FALSE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <span class="math inline">\(x\)</span>-axes of the periodograms correspond to <span class="math inline">\(\omega / (2\pi)\)</span> or the number of cycles per the time series period specified in the <code>ts</code> object (12 months). If the frequency of 12 was not specified for this time series, the <span class="math inline">\(x\)</span>-axes would be different, and the first spectrum peak would correspond to <span class="math inline">\(\approx 0.08\)</span>.</p>
-<p><a href="ch18_statistical_testing.html#fig-airpassangersFFT" class="quarto-xref">Figure&nbsp;<span>18.1</span></a> B shows that the spectrum of the raw data is dominated by low frequencies (trend). After detrending the data (<a href="ch18_statistical_testing.html#fig-airpassangersFFT" class="quarto-xref">Figure&nbsp;<span>18.1</span></a> C), the spectrum at frequency 1 (meaning one cycle per year) is the dominant one.</p>
+<p><a href="ch15_causality.html#fig-airpassangersFFT" class="quarto-xref">Figure&nbsp;<span>18.1</span></a> B shows that the spectrum of the raw data is dominated by low frequencies (trend). After detrending the data (<a href="ch15_causality.html#fig-airpassangersFFT" class="quarto-xref">Figure&nbsp;<span>18.1</span></a> C), the spectrum at frequency 1 (meaning one cycle per year) is the dominant one.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pAirPassengers</span> <span class="op">&lt;-</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">AirPassengers</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Year"</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -704,7 +770,7 @@ Figure&nbsp;16.1: Monthly <code>AirPassengers</code> time series, log-transforme
 </div>
 </div>
 </div>
-<p>Note that the function <code><a href="https://rdrr.io/r/stats/spec.pgram.html">spec.pgram()</a></code> has the option of removing a simpler (linear) trend and showing the results as a base-R plot. The confidence band in the upper right corner of this plot helps to identify the statistical significance of the peaks (<a href="ch18_statistical_testing.html#fig-airpassangersFFTsm" class="quarto-xref">Figure&nbsp;<span>18.2</span></a>).</p>
+<p>Note that the function <code><a href="https://rdrr.io/r/stats/spec.pgram.html">spec.pgram()</a></code> has the option of removing a simpler (linear) trend and showing the results as a base-R plot. The confidence band in the upper right corner of this plot helps to identify the statistical significance of the peaks (<a href="ch15_causality.html#fig-airpassangersFFTsm" class="quarto-xref">Figure&nbsp;<span>18.2</span></a>).</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/spec.pgram.html">spec.pgram</a></span><span class="op">(</span><span class="va">res</span>, spans <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
@@ -723,7 +789,7 @@ Figure&nbsp;16.2: Smoothed periodograms of monthly log-transformed and detrended
 </div>
 </div>
 <p>Another method of testing the reality of a peak is to look at its harmonics. It is extremely unlikely that a true cycle will be shaped perfectly as a sine curve, hence at least a few of the first harmonics will show up as well. For example, in monthly data with annual seasonality (period of 12 months), we often observe peaks at 6, 4, and 3 months. This is exactly the pattern that we see in the figures above.</p>
-<p>We can also approximate our data with an AR model and then plot the approximating periodogram of the AR model (<a href="ch18_statistical_testing.html#fig-airpassangersFFTar" class="quarto-xref">Figure&nbsp;<span>18.3</span></a>).</p>
+<p>We can also approximate our data with an AR model and then plot the approximating periodogram of the AR model (<a href="ch15_causality.html#fig-airpassangersFFTar" class="quarto-xref">Figure&nbsp;<span>18.3</span></a>).</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/spectrum.html">spectrum</a></span><span class="op">(</span><span class="va">res</span>, method <span class="op">=</span> <span class="st">"ar"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
@@ -752,7 +818,7 @@ Figure&nbsp;16.3: Periodogram of AR process approximating the monthly log-transf
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For example, consider a time series <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/tsNH4.html">imputeTS::tsNH4</a></code> of ammonium (NH<span class="math inline">\(_4\)</span>) concentration in a wastewater system (<a href="ch18_statistical_testing.html#fig-NH4" class="quarto-xref">Figure&nbsp;<span>18.4</span></a>). This time series contains observations from regular 10-minute intervals, but some of the observations are missing.</p>
+<p>For example, consider a time series <code><a href="https://SteffenMoritz.github.io/imputeTS/reference/tsNH4.html">imputeTS::tsNH4</a></code> of ammonium (NH<span class="math inline">\(_4\)</span>) concentration in a wastewater system (<a href="ch15_causality.html#fig-NH4" class="quarto-xref">Figure&nbsp;<span>18.4</span></a>). This time series contains observations from regular 10-minute intervals, but some of the observations are missing.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="fu">imputeTS</span><span class="fu">::</span><span class="va"><a href="https://SteffenMoritz.github.io/imputeTS/reference/tsNH4.html">tsNH4</a></span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Day"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -774,7 +840,7 @@ Figure&nbsp;16.4: Time series of ammonium concentration in a wastewater system.
 <span>                Time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="fu">imputeTS</span><span class="fu">::</span><span class="va"><a href="https://SteffenMoritz.github.io/imputeTS/reference/tsNH4.html">tsNH4</a></span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If needed, <code>na.omit(D)</code> can be used to remove the rows with missing values.</p>
-<p><a href="ch18_statistical_testing.html#fig-NH4lombf" class="quarto-xref">Figure&nbsp;<span>18.5</span></a> and <a href="ch18_statistical_testing.html#fig-NH4lombp" class="quarto-xref">Figure&nbsp;<span>18.6</span></a> show periodograms calculated based on these data. Note that the function <code><a href="https://rdrr.io/pkg/lomb/man/lsp.html">lomb::lsp()</a></code> has arguments adjusting the span of the frequencies and significance level.</p>
+<p><a href="ch15_causality.html#fig-NH4lombf" class="quarto-xref">Figure&nbsp;<span>18.5</span></a> and <a href="ch15_causality.html#fig-NH4lombp" class="quarto-xref">Figure&nbsp;<span>18.6</span></a> show periodograms calculated based on these data. Note that the function <code><a href="https://rdrr.io/pkg/lomb/man/lsp.html">lomb::lsp()</a></code> has arguments adjusting the span of the frequencies and significance level.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">lomb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lomb/man/lsp.html">lsp</a></span><span class="op">(</span><span class="va">D</span><span class="op">$</span><span class="va">NH4</span>, times <span class="op">=</span> <span class="va">D</span><span class="op">$</span><span class="va">Time</span>, type <span class="op">=</span> <span class="st">"frequency"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -821,7 +887,7 @@ F_N = \frac{F_s}{2},
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Consider a long time series of the North Atlantic Oscillation (NAO) index obtained from an ensemble of 100 model-constrained NAO reconstructions (<a href="ch18_statistical_testing.html#fig-NAO" class="quarto-xref">Figure&nbsp;<span>18.7</span></a>).</p>
+<p>Consider a long time series of the North Atlantic Oscillation (NAO) index obtained from an ensemble of 100 model-constrained NAO reconstructions (<a href="ch15_causality.html#fig-NAO" class="quarto-xref">Figure&nbsp;<span>18.7</span></a>).</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">NAOdf</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/NAO.csv"</span>, skip <span class="op">=</span> <span class="fl">12</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
 <span>    <span class="fu">rename</span><span class="op">(</span>NAOproxy <span class="op">=</span> <span class="va">nao_mc_mean</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
@@ -876,7 +942,7 @@ Figure&nbsp;16.7: North Atlantic Oscillation (NAO) winter index (December, Janua
 <span>                       overlap <span class="op">=</span> <span class="va">window_size</span><span class="op">/</span><span class="fl">3</span>,</span>
 <span>                       Fs <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>See the spectrograms in <a href="ch18_statistical_testing.html#fig-NAOspect" class="quarto-xref">Figure&nbsp;<span>18.8</span></a> and compare them with the time series plot in <a href="ch18_statistical_testing.html#fig-NAO" class="quarto-xref">Figure&nbsp;<span>18.7</span></a> A.</p>
+<p>See the spectrograms in <a href="ch15_causality.html#fig-NAOspect" class="quarto-xref">Figure&nbsp;<span>18.8</span></a> and compare them with the time series plot in <a href="ch15_causality.html#fig-NAO" class="quarto-xref">Figure&nbsp;<span>18.7</span></a> A.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -924,7 +990,7 @@ Figure&nbsp;16.8: Spectrograms for North Atlantic Oscillation (NAO) winter index
 <span class="header-section-number">16.8</span> Appendix</h2>
 <p><strong>Wavelet analysis</strong></p>
 <p>An alternative to the windowed FFT is the wavelet analysis, which also estimates the strength of time series variations for different frequencies and times. <em>Wavelet</em> is a ‘small wave’ or function <span class="math inline">\(\psi(t)\)</span> approximating the variations. Popular wavelet functions are Meyer, Morlet, and Mexican hat.</p>
-<p><a href="ch18_statistical_testing.html#fig-NAOwv" class="quarto-xref">Figure&nbsp;<span>18.9</span></a> shows the results of using the Morlet wavelet to process the NAO time series.</p>
+<p><a href="ch15_causality.html#fig-NAOwv" class="quarto-xref">Figure&nbsp;<span>18.9</span></a> shows the results of using the Morlet wavelet to process the NAO time series.</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/OpenDendro/dplR">dplR</a></span><span class="op">)</span></span>
 <span><span class="va">wv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dplR/man/morlet.html">morlet</a></span><span class="op">(</span>y1 <span class="op">=</span> <span class="va">NAOdf</span><span class="op">$</span><span class="va">NAOproxy</span>, x1 <span class="op">=</span> <span class="va">NAOdf</span><span class="op">$</span><span class="va">Year</span><span class="op">)</span></span>
@@ -942,8 +1008,6 @@ Figure&nbsp;16.9: Wavelet analysis of the North Atlantic Oscillation (NAO) winte
 </div>
 </div>
 
-
-<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-Campos:etal:2008" class="csl-entry" role="listitem">
@@ -1038,57 +1102,6 @@ Siskey MR, Lyubchich V, Liang D, et al (2016) Periodicity of <span class="nocase
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1419,527 +1432,16 @@ Siskey MR, Lyubchich V, Liang D, et al (2016) Periodicity of <span class="nocase
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./ch15_causality.html" class="pagination-link" aria-label="Causality">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Causality</span></span>
+      <a href="./ch09_model_evaluation.html" class="pagination-link" aria-label="Model Evaluation and Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch17_scalability.html" class="pagination-link" aria-label="Scalability &amp; Optimization">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch14_multimodal_learning.html" class="pagination-link" aria-label="Multimodal">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Multimodal</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Trustworthy &amp; Secure AI</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>The goal of this lecture is to learn how to view time series from the frequency perspective. </span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>You should be able to recognize features of time series from a periodogram similar to how we did it using plots of the autocorrelation function (ACF).</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>**Objectives**</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Describe the mechanics of Fourier transform for time series.</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Present results of spectrum calculations using a periodogram or spectrogram.</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Give examples of smoothed periodograms.</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Demonstrate the use of the Lomb--Scargle periodogram for analysis of unequally-spaced time series.</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>**Reading materials**</span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Chapter 4 in @Shumway<span class="sc">:Stoffer:</span>2017</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>@Nason:2008 on wavelet analysis</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>By now, we have been working in the *time domain*, such that our analysis could be seen as a regression of the present on the past (for example, ARIMA models). </span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>We have been using many time series plots with time on the $x$-axis.</span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>An alternative approach is to analyze time series in a *spectral domain*, such that use a regression of present on a linear combination of sine and cosine functions. </span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>In this type of analysis, we often use periodogram plots, with frequency or period on the $x$-axis.</span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regression on sinusoidal components</span></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>The simplest form of spectral analysis consists of regression on a periodic component:</span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>Y_t = A\cos \omega t + B \sin \omega t + C + \epsilon_t,</span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>$$ {#eq-regr}</span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>where $t =1,\dots,T$ and $\epsilon_t \sim \mathrm{WN}(0, \sigma^2)$. </span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>Without loss of generality, we assume $0 \leqslant \omega \leqslant \pi$. </span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>In fact, for discrete data, frequencies outside this range are aliased into this range. </span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>For example, suppose that $-\pi &lt; (\omega = \pi - \delta) &lt; 0$, then</span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>\begin{split}</span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>\cos(\omega t) &amp;= \cos((\pi - \delta)t) <span class="sc">\\</span></span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>&amp; = \cos(\pi t) \cos(\delta t) + \sin(\pi t) \sin(\delta t) <span class="sc">\\</span></span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>&amp; = \cos(\delta t).</span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>\end{split}</span>
-<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>Hence, a sampled sinusoid with a frequency smaller than 0 appears to coincide with a sinusoid with frequency in the interval $<span class="co">[</span><span class="ot">0, \pi</span><span class="co">]</span>$.</span>
-<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a>The term $A\cos \omega t + B \sin \omega t$ is a periodic function with the period $2\pi / \omega$. </span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>The period $2\pi / \omega$ represents the number of time units that it takes for the function to take the same value again, i.e., to complete a cycle. </span>
-<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a>The frequency, measured in cycles per time unit, is given by the inverse $\omega / (2 \pi)$. </span>
-<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a>The angular frequency, measured in radians per time unit, is given by $\omega$. </span>
-<span id="cb22-61"><a href="#cb22-61" aria-hidden="true" tabindex="-1"></a>Because of its convenience, the angular frequency $\omega$ will be used to describe the periodicity of the function, and its name is shortened to frequency when there is no danger of confusion.</span>
-<span id="cb22-62"><a href="#cb22-62" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-64"><a href="#cb22-64" aria-hidden="true" tabindex="-1"></a>Consider monthly data that exhibit a 12-month seasonality.</span>
-<span id="cb22-65"><a href="#cb22-65" aria-hidden="true" tabindex="-1"></a>Hence, the period $2\pi / \omega = 12$, which implies the angular frequency $\omega = \pi / 6$.</span>
-<span id="cb22-66"><a href="#cb22-66" aria-hidden="true" tabindex="-1"></a>The frequency, measured in cycles per time unit, is given by the inverse </span>
-<span id="cb22-67"><a href="#cb22-67" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-68"><a href="#cb22-68" aria-hidden="true" tabindex="-1"></a>\frac{\omega}{2\pi} = \frac{1}{12} \approx 0.08.</span>
-<span id="cb22-69"><a href="#cb22-69" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-70"><a href="#cb22-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-71"><a href="#cb22-71" aria-hidden="true" tabindex="-1"></a>The formulas to estimate parameters of regression in @eq-regr take a much simpler form if $\omega$ is one of the Fourier frequencies, defined by</span>
-<span id="cb22-72"><a href="#cb22-72" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-73"><a href="#cb22-73" aria-hidden="true" tabindex="-1"></a>\omega_j=\frac{2\pi j}{T}, \quad  j=0,\dots, \frac{T}{2},</span>
-<span id="cb22-74"><a href="#cb22-74" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-75"><a href="#cb22-75" aria-hidden="true" tabindex="-1"></a>then</span>
-<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-77"><a href="#cb22-77" aria-hidden="true" tabindex="-1"></a>\begin{split}</span>
-<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a>\hat{A}&amp;=\frac{2}{T}\sum_t Y_t\cos \omega_jt,<span class="sc">\\</span></span>
-<span id="cb22-79"><a href="#cb22-79" aria-hidden="true" tabindex="-1"></a>\hat{B}&amp;=\frac{2}{T}\sum_t Y_t\sin \omega_jt,<span class="sc">\\</span></span>
-<span id="cb22-80"><a href="#cb22-80" aria-hidden="true" tabindex="-1"></a>\hat{C}&amp;=\overline{Y}=\frac{1}{T}\sum_tY_t.</span>
-<span id="cb22-81"><a href="#cb22-81" aria-hidden="true" tabindex="-1"></a>\end{split}</span>
-<span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-84"><a href="#cb22-84" aria-hidden="true" tabindex="-1"></a>A suitable way of testing the significance of the sinusoidal component with frequency $\omega_j$ is using its contribution to the sum of squares</span>
-<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-86"><a href="#cb22-86" aria-hidden="true" tabindex="-1"></a>R_T(\omega_j)=\frac{T}{2}\left( \hat{A}^2+\hat{B}^2 \right).</span>
-<span id="cb22-87"><a href="#cb22-87" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a>If the $\epsilon_t \sim N(0, \sigma^2)$, then it follows that $\hat{A}$ and $\hat{B}$ are also independent normal, each with the variance $2\sigma^2/T$, so under the null hypothesis of $A = B = 0$ we find that $$\frac{R_T(\omega_j)}{\sigma^2}\sim \chi_2^2$$ or equivalently that $R_T(\omega_j)/(2\sigma^2)$ has an exponential distribution with mean 1.</span>
-<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a>The above theory can be extended to the simultaneous estimation of several periodic components.</span>
-<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Periodogram</span></span>
-<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a>The *Fourier transform* uses Fourier series, such as the pairs of sines and cosines with different periods, to describe the frequencies present in the original time series. </span>
-<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a>The Fourier transform applied to an equally-spaced time series $Y_t$ (where $t = 1,\dots,T$) is also called the *discrete Fourier transform* (DFT) because the time is discrete (not the values $Y_t$).</span>
-<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a>To reduce the computational complexity of DFT and speed up the computations, one of the *fast Fourier transform* (FFT) algorithms is typically used. </span>
-<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a>The results of the Fourier transform are shown in a periodogram that describes the spectral properties of the signal.</span>
-<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a>The periodogram is defined as</span>
-<span id="cb22-103"><a href="#cb22-103" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-104"><a href="#cb22-104" aria-hidden="true" tabindex="-1"></a>I_T(\omega) = \frac{1}{2\pi T}\left| \sum_{t=1}^T Y_te^{i\omega t} \right|^2,</span>
-<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a>which is an approximately unbiased estimator of the spectral density $f$.</span>
-<span id="cb22-107"><a href="#cb22-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-108"><a href="#cb22-108" aria-hidden="true" tabindex="-1"></a>Some undesirable features of the periodogram:</span>
-<span id="cb22-109"><a href="#cb22-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-110"><a href="#cb22-110" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$I_T(\omega)$ for fixed $\omega$ is not a consistent estimate of $f(\omega)$, since</span>
-<span id="cb22-111"><a href="#cb22-111" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-112"><a href="#cb22-112" aria-hidden="true" tabindex="-1"></a>I_T(\omega_j) \sim \frac{f(\omega_j)}{2} \chi^2_2.</span>
-<span id="cb22-113"><a href="#cb22-113" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-114"><a href="#cb22-114" aria-hidden="true" tabindex="-1"></a>Therefore, the variance of $f^2(\omega)$ does not tend to 0 as $T \rightarrow \infty$.</span>
-<span id="cb22-115"><a href="#cb22-115" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The independence of periodogram ordinates at different Fourier frequencies suggests that the sample periodogram plotted as a function of $\omega$ will be extremely irregular.</span>
-<span id="cb22-116"><a href="#cb22-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-117"><a href="#cb22-117" aria-hidden="true" tabindex="-1"></a>Suppose that $\gamma(h)$ is the autocovariance function of a stationary process and that $f(\omega)$ is the spectral density for the same process ($h$ is the time lag and $\omega$ is the frequency).</span>
-<span id="cb22-118"><a href="#cb22-118" aria-hidden="true" tabindex="-1"></a>The autocovariance $\gamma(h)$ and the spectral density $f(\omega)$ are related:</span>
-<span id="cb22-119"><a href="#cb22-119" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-120"><a href="#cb22-120" aria-hidden="true" tabindex="-1"></a>\gamma(h) = \int_{-1/2}^{1/2} e^{2\pi i \omega h} f(\omega) d \omega,</span>
-<span id="cb22-121"><a href="#cb22-121" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-122"><a href="#cb22-122" aria-hidden="true" tabindex="-1"></a>and</span>
-<span id="cb22-123"><a href="#cb22-123" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-124"><a href="#cb22-124" aria-hidden="true" tabindex="-1"></a>f(\omega) = \sum_{h=-\infty}^{+\infty} \gamma(h) e^{-2\pi i \omega h}.</span>
-<span id="cb22-125"><a href="#cb22-125" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-126"><a href="#cb22-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-127"><a href="#cb22-127" aria-hidden="true" tabindex="-1"></a>In the language of advanced calculus, the autocovariance and spectral density are Fourier transform pairs.</span>
-<span id="cb22-128"><a href="#cb22-128" aria-hidden="true" tabindex="-1"></a>These Fourier transform equations show that there is a direct link between the time domain representation and the frequency domain representation of a time series.</span>
-<span id="cb22-129"><a href="#cb22-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-130"><a href="#cb22-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-131"><a href="#cb22-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Smoothing</span></span>
-<span id="cb22-132"><a href="#cb22-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-133"><a href="#cb22-133" aria-hidden="true" tabindex="-1"></a>The idea behind smoothing is to take weighted averages over neighboring frequencies to reduce the variability associated with individual periodogram values. </span>
-<span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a>However, such an operation necessarily introduces some bias into the estimation procedure. </span>
-<span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a>Theoretical studies focus on the amount of smoothing that is required to obtain an optimum trade-off between bias and variance. </span>
-<span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a>In practice, this usually means that the choice of a kernel and amount of smoothing is somewhat subjective.</span>
-<span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a>The main form of a smoothed estimator is given by</span>
-<span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a>\hat{f}(\lambda) = \int^{\pi}_{-\pi}\frac{1}{h}K\left( \frac{\omega-\lambda}{h}\right)I_T(\omega)d\omega,</span>
-<span id="cb22-141"><a href="#cb22-141" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-142"><a href="#cb22-142" aria-hidden="true" tabindex="-1"></a>where $I_T(\cdot)$ is the periodogram based on $T$ observations, $K(\cdot)$ is a kernel function, and $h$ is the bandwidth. </span>
-<span id="cb22-143"><a href="#cb22-143" aria-hidden="true" tabindex="-1"></a>We usually take $K(\cdot)$ to be a nonnegative function, symmetric about 0 and integrating to 1. </span>
-<span id="cb22-144"><a href="#cb22-144" aria-hidden="true" tabindex="-1"></a>Thus, any symmetric density, such as the normal density, will work. </span>
-<span id="cb22-145"><a href="#cb22-145" aria-hidden="true" tabindex="-1"></a>In practice, however, it is more usual to take a kernel of finite range, such as the *Epanechnikov kernel*</span>
-<span id="cb22-146"><a href="#cb22-146" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-147"><a href="#cb22-147" aria-hidden="true" tabindex="-1"></a>K(x)=\frac{3}{4\sqrt{5}}\left(1-\frac{x^2}{5} \right), \quad -\sqrt{5}\leqslant x \leqslant \sqrt{5},</span>
-<span id="cb22-148"><a href="#cb22-148" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-149"><a href="#cb22-149" aria-hidden="true" tabindex="-1"></a>which is 0 outside the interval $<span class="co">[</span><span class="ot">-\sqrt{5}, \sqrt{5}</span><span class="co">]</span>$. </span>
-<span id="cb22-150"><a href="#cb22-150" aria-hidden="true" tabindex="-1"></a>This choice of kernel function has some optimality properties. </span>
-<span id="cb22-151"><a href="#cb22-151" aria-hidden="true" tabindex="-1"></a>However, in practice, this optimality is less important than the choice of bandwidth $h$, which effectively controls the range over which the periodogram is smoothed.</span>
-<span id="cb22-152"><a href="#cb22-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-153"><a href="#cb22-153" aria-hidden="true" tabindex="-1"></a>There are some additional difficulties with the performance of the sample periodogram in the presence of a sinusoidal variation whose frequency is not one of the Fourier frequencies. </span>
-<span id="cb22-154"><a href="#cb22-154" aria-hidden="true" tabindex="-1"></a>This effect is known as *leakage*. </span>
-<span id="cb22-155"><a href="#cb22-155" aria-hidden="true" tabindex="-1"></a>The reason of leakage is that we always consider a truncated periodogram. </span>
-<span id="cb22-156"><a href="#cb22-156" aria-hidden="true" tabindex="-1"></a>Truncation implicitly assumes that the time series is periodic with a period $T$, which, of course, is not always true. </span>
-<span id="cb22-157"><a href="#cb22-157" aria-hidden="true" tabindex="-1"></a>So we artificially introduce non-existent periodicities into the estimated spectrum, i.e., cause 'leakage' of the spectrum. </span>
-<span id="cb22-158"><a href="#cb22-158" aria-hidden="true" tabindex="-1"></a>(If the time series is perfectly periodic over $T$ then there is no leakage.) </span>
-<span id="cb22-159"><a href="#cb22-159" aria-hidden="true" tabindex="-1"></a>The leakage can be treated using an operation of tapering on the periodogram, i.e., by choosing appropriate periodogram windows.</span>
-<span id="cb22-160"><a href="#cb22-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-161"><a href="#cb22-161" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb22-162"><a href="#cb22-162" aria-hidden="true" tabindex="-1"></a>When we work with periodograms, we lose all phase (relative location/time origin) information: the periodogram will be the same if all the data were circularly rotated to a new time origin, i.e., the observed data are treated as perfectly periodic.</span>
-<span id="cb22-163"><a href="#cb22-163" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb22-164"><a href="#cb22-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-165"><a href="#cb22-165" aria-hidden="true" tabindex="-1"></a>Another popular choice to smooth a periodogram is the *Daniell kernel* (with parameter $m$).</span>
-<span id="cb22-166"><a href="#cb22-166" aria-hidden="true" tabindex="-1"></a>For a time series, it is a centered moving average of values between the times $t - m$ and $t  + m$ (inclusive). </span>
-<span id="cb22-167"><a href="#cb22-167" aria-hidden="true" tabindex="-1"></a>For example, the smoothing formula for a Daniell kernel with $m = 2$ is</span>
-<span id="cb22-168"><a href="#cb22-168" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-169"><a href="#cb22-169" aria-hidden="true" tabindex="-1"></a>\begin{split}</span>
-<span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a>\hat{x}_t &amp;= \frac{x_{t-2}+x_{t-1}+x_t + x_{t+1}+x_{t+2}}{5} <span class="sc">\\</span></span>
-<span id="cb22-171"><a href="#cb22-171" aria-hidden="true" tabindex="-1"></a>&amp;= 0.2x_{t-2} + 0.2x_{t-1} +0.2x_t + 0.2x_{t+1} +0.2x_{t+2}.</span>
-<span id="cb22-172"><a href="#cb22-172" aria-hidden="true" tabindex="-1"></a>\end{split}</span>
-<span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-174"><a href="#cb22-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-175"><a href="#cb22-175" aria-hidden="true" tabindex="-1"></a>The weighting coefficients for a Daniell kernel with $m = 2$ can be checked using the function <span class="in">`kernel()`</span>. </span>
-<span id="cb22-176"><a href="#cb22-176" aria-hidden="true" tabindex="-1"></a>In the output, the indices in <span class="in">`coef[ ]`</span> refer to the time difference from the center of the average at the time $t$.</span>
-<span id="cb22-177"><a href="#cb22-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-180"><a href="#cb22-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-181"><a href="#cb22-181" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb22-182"><a href="#cb22-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-183"><a href="#cb22-183" aria-hidden="true" tabindex="-1"></a><span class="fu">kernel</span>(<span class="st">"daniell"</span>, <span class="at">m =</span> <span class="dv">2</span>)</span>
-<span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-185"><a href="#cb22-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-186"><a href="#cb22-186" aria-hidden="true" tabindex="-1"></a>The modified Daniell kernel is such that the two endpoints in the averaging receive half the weight that the interior points do. </span>
-<span id="cb22-187"><a href="#cb22-187" aria-hidden="true" tabindex="-1"></a>For a modified Daniell kernel with $m = 2$, the smoothing is</span>
-<span id="cb22-188"><a href="#cb22-188" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-189"><a href="#cb22-189" aria-hidden="true" tabindex="-1"></a>\begin{split}</span>
-<span id="cb22-190"><a href="#cb22-190" aria-hidden="true" tabindex="-1"></a>\hat{x}_t &amp;= \frac{x_{t-2}+2x_{t-1}+2x_t + 2x_{t+1} + x_{t+2}}{8} <span class="sc">\\</span></span>
-<span id="cb22-191"><a href="#cb22-191" aria-hidden="true" tabindex="-1"></a>&amp; = 0.125x_{t-2} +0.25x_{t-1}+0.25x_t+0.25x_{t+1}+0.125x_{t+2}</span>
-<span id="cb22-192"><a href="#cb22-192" aria-hidden="true" tabindex="-1"></a>\end{split}</span>
-<span id="cb22-193"><a href="#cb22-193" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-194"><a href="#cb22-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-195"><a href="#cb22-195" aria-hidden="true" tabindex="-1"></a>List the weighting coefficients:</span>
-<span id="cb22-196"><a href="#cb22-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-199"><a href="#cb22-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-200"><a href="#cb22-200" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb22-201"><a href="#cb22-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-202"><a href="#cb22-202" aria-hidden="true" tabindex="-1"></a><span class="fu">kernel</span>(<span class="st">"modified.daniell"</span>, <span class="at">m =</span> <span class="dv">2</span>)</span>
-<span id="cb22-203"><a href="#cb22-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-204"><a href="#cb22-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-205"><a href="#cb22-205" aria-hidden="true" tabindex="-1"></a>Either the Daniell kernel or the modified Daniell kernel can be convoluted (repeated) so that the smoothing is applied again to the smoothed values. </span>
-<span id="cb22-206"><a href="#cb22-206" aria-hidden="true" tabindex="-1"></a>This produces a more extensive smoothing by averaging over a wider time interval. </span>
-<span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a>For instance, to repeat a Daniell kernel with $m = 2$ on the smoothed values that resulted from a Daniell kernel with $m = 2$, the formula would be</span>
-<span id="cb22-208"><a href="#cb22-208" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-209"><a href="#cb22-209" aria-hidden="true" tabindex="-1"></a>\hat{\hat{x}}_t = \frac{\hat{x}_{t-2}+\hat{x}_{t-1}+\hat{x}_t +\hat{x}_{t+1}+\hat{x}_{t+2}}{5}.</span>
-<span id="cb22-210"><a href="#cb22-210" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-211"><a href="#cb22-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-212"><a href="#cb22-212" aria-hidden="true" tabindex="-1"></a>The weights for averaging the original data for convoluted Daniell kernels with $m = 2$ in both smooths will be</span>
-<span id="cb22-213"><a href="#cb22-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-216"><a href="#cb22-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-217"><a href="#cb22-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb22-218"><a href="#cb22-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-219"><a href="#cb22-219" aria-hidden="true" tabindex="-1"></a><span class="fu">kernel</span>(<span class="st">"daniell"</span>, <span class="at">m =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb22-220"><a href="#cb22-220" aria-hidden="true" tabindex="-1"></a><span class="fu">kernel</span>(<span class="st">"modified.daniell"</span>, <span class="at">m =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb22-221"><a href="#cb22-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-222"><a href="#cb22-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-223"><a href="#cb22-223" aria-hidden="true" tabindex="-1"></a>The center values are weighted slightly more heavily in the modified Daniell kernel than in the unmodified one.</span>
-<span id="cb22-224"><a href="#cb22-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-225"><a href="#cb22-225" aria-hidden="true" tabindex="-1"></a>When we smooth a periodogram, we are smoothing *across frequencies* rather than across times.</span>
-<span id="cb22-226"><a href="#cb22-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-227"><a href="#cb22-227" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false}</span>
-<span id="cb22-228"><a href="#cb22-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-229"><a href="#cb22-229" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example: Spectral analysis of the airline passenger data</span></span>
-<span id="cb22-230"><a href="#cb22-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-231"><a href="#cb22-231" aria-hidden="true" tabindex="-1"></a>Recall the airline passenger time series (@fig-airpassangers) that has an increasing trend and strong multiplicative seasonality. </span>
-<span id="cb22-232"><a href="#cb22-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-233"><a href="#cb22-233" aria-hidden="true" tabindex="-1"></a>The series should be detrended before a spectral analysis. </span>
-<span id="cb22-234"><a href="#cb22-234" aria-hidden="true" tabindex="-1"></a>For demonstration purposes, compute periodogram for the raw data and log-transformed and detrended.</span>
-<span id="cb22-235"><a href="#cb22-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-238"><a href="#cb22-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-239"><a href="#cb22-239" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb22-240"><a href="#cb22-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-241"><a href="#cb22-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a quadratic trend to log-transformed data</span></span>
-<span id="cb22-242"><a href="#cb22-242" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">time</span>(AirPassengers))</span>
-<span id="cb22-243"><a href="#cb22-243" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log10</span>(AirPassengers) <span class="sc">~</span> <span class="fu">poly</span>(t, <span class="at">degree =</span> <span class="dv">2</span>))</span>
-<span id="cb22-244"><a href="#cb22-244" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">ts</span>(mod<span class="sc">$</span>residuals)</span>
-<span id="cb22-245"><a href="#cb22-245" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(res) <span class="ot">&lt;-</span> <span class="fu">attributes</span>(AirPassengers)</span>
-<span id="cb22-246"><a href="#cb22-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-247"><a href="#cb22-247" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute spectra</span></span>
-<span id="cb22-248"><a href="#cb22-248" aria-hidden="true" tabindex="-1"></a>spec_raw <span class="ot">&lt;-</span> <span class="fu">spec.pgram</span>(AirPassengers, <span class="at">detrend =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-249"><a href="#cb22-249" aria-hidden="true" tabindex="-1"></a>spec_log_detrend <span class="ot">&lt;-</span> <span class="fu">spec.pgram</span>(res, <span class="at">detrend =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-250"><a href="#cb22-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-251"><a href="#cb22-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-252"><a href="#cb22-252" aria-hidden="true" tabindex="-1"></a>The $x$-axes of the periodograms correspond to $\omega / (2\pi)$ or the number of cycles per the time series period specified in the <span class="in">`ts`</span> object (12 months). </span>
-<span id="cb22-253"><a href="#cb22-253" aria-hidden="true" tabindex="-1"></a>If the frequency of 12 was not specified for this time series, the $x$-axes would be different, and the first spectrum peak would correspond to $\approx 0.08$.</span>
-<span id="cb22-254"><a href="#cb22-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-255"><a href="#cb22-255" aria-hidden="true" tabindex="-1"></a>@fig-airpassangersFFT B shows that the spectrum of the raw data is dominated by low frequencies (trend). </span>
-<span id="cb22-256"><a href="#cb22-256" aria-hidden="true" tabindex="-1"></a>After detrending the data (@fig-airpassangersFFT C), the spectrum at frequency 1 (meaning one cycle per year) is the dominant one.</span>
-<span id="cb22-257"><a href="#cb22-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-260"><a href="#cb22-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-261"><a href="#cb22-261" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-airpassangersFFT</span></span>
-<span id="cb22-262"><a href="#cb22-262" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Monthly `AirPassengers` time series, log-transformed and detrended, and the corresponding fast Fourier transforms."</span></span>
-<span id="cb22-263"><a href="#cb22-263" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
-<span id="cb22-264"><a href="#cb22-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-265"><a href="#cb22-265" aria-hidden="true" tabindex="-1"></a>pAirPassengers <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">autoplot</span>(AirPassengers, <span class="at">col =</span> <span class="st">"grey50"</span>) <span class="sc">+</span> </span>
-<span id="cb22-266"><a href="#cb22-266" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span> </span>
-<span id="cb22-267"><a href="#cb22-267" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Airline passengers (thousand)"</span>) <span class="sc">+</span></span>
-<span id="cb22-268"><a href="#cb22-268" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Raw series"</span>)</span>
-<span id="cb22-269"><a href="#cb22-269" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Spectrum =</span> spec_raw<span class="sc">$</span>spec, </span>
-<span id="cb22-270"><a href="#cb22-270" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Frequency =</span> spec_raw<span class="sc">$</span>freq) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-271"><a href="#cb22-271" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Frequency, <span class="at">y =</span> Spectrum)) <span class="sc">+</span></span>
-<span id="cb22-272"><a href="#cb22-272" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">'log10'</span>) <span class="sc">+</span></span>
-<span id="cb22-273"><a href="#cb22-273" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb22-274"><a href="#cb22-274" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
-<span id="cb22-275"><a href="#cb22-275" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">autoplot</span>(res, <span class="at">col =</span> <span class="st">"grey50"</span>) <span class="sc">+</span> </span>
-<span id="cb22-276"><a href="#cb22-276" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span> </span>
-<span id="cb22-277"><a href="#cb22-277" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Airline passengers residuals (lg[thousand])"</span>) <span class="sc">+</span> </span>
-<span id="cb22-278"><a href="#cb22-278" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Detrended and log-transformed series"</span>)</span>
-<span id="cb22-279"><a href="#cb22-279" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Spectrum =</span> spec_log_detrend<span class="sc">$</span>spec, </span>
-<span id="cb22-280"><a href="#cb22-280" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Frequency =</span> spec_log_detrend<span class="sc">$</span>freq) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-281"><a href="#cb22-281" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Frequency, <span class="at">y =</span> Spectrum)) <span class="sc">+</span></span>
-<span id="cb22-282"><a href="#cb22-282" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">'log10'</span>) <span class="sc">+</span></span>
-<span id="cb22-283"><a href="#cb22-283" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb22-284"><a href="#cb22-284" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
-<span id="cb22-285"><a href="#cb22-285" aria-hidden="true" tabindex="-1"></a>(pAirPassengers <span class="sc">+</span> p2) <span class="sc">/</span> (p3 <span class="sc">+</span> p4) <span class="sc">+</span></span>
-<span id="cb22-286"><a href="#cb22-286" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>)</span>
-<span id="cb22-287"><a href="#cb22-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-288"><a href="#cb22-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-289"><a href="#cb22-289" aria-hidden="true" tabindex="-1"></a>Note that the function <span class="in">`spec.pgram()`</span> has the option of removing a simpler (linear) trend and showing the results as a base-R plot. </span>
-<span id="cb22-290"><a href="#cb22-290" aria-hidden="true" tabindex="-1"></a>The confidence band in the upper right corner of this plot helps to identify the statistical significance of the peaks (@fig-airpassangersFFTsm).</span>
-<span id="cb22-291"><a href="#cb22-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-294"><a href="#cb22-294" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-295"><a href="#cb22-295" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-airpassangersFFTsm</span></span>
-<span id="cb22-296"><a href="#cb22-296" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Smoothed periodograms of monthly log-transformed and detrended `AirPassengers` time series."</span></span>
-<span id="cb22-297"><a href="#cb22-297" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
-<span id="cb22-298"><a href="#cb22-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-299"><a href="#cb22-299" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb22-300"><a href="#cb22-300" aria-hidden="true" tabindex="-1"></a><span class="fu">spec.pgram</span>(res, <span class="at">spans =</span> <span class="fu">c</span>(<span class="dv">3</span>))</span>
-<span id="cb22-301"><a href="#cb22-301" aria-hidden="true" tabindex="-1"></a><span class="fu">spec.pgram</span>(res, <span class="at">spans =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb22-302"><a href="#cb22-302" aria-hidden="true" tabindex="-1"></a><span class="fu">spec.pgram</span>(res, <span class="at">spans =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
-<span id="cb22-303"><a href="#cb22-303" aria-hidden="true" tabindex="-1"></a><span class="fu">spec.pgram</span>(res, <span class="at">spans =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">11</span>))</span>
-<span id="cb22-304"><a href="#cb22-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-305"><a href="#cb22-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-306"><a href="#cb22-306" aria-hidden="true" tabindex="-1"></a>Another method of testing the reality of a peak is to look at its harmonics. </span>
-<span id="cb22-307"><a href="#cb22-307" aria-hidden="true" tabindex="-1"></a>It is extremely unlikely that a true cycle will be shaped perfectly as a sine curve, hence at least a few of the first harmonics will show up as well. </span>
-<span id="cb22-308"><a href="#cb22-308" aria-hidden="true" tabindex="-1"></a>For example, in monthly data with annual seasonality (period of 12 months), we often observe peaks at 6, 4, and 3 months.</span>
-<span id="cb22-309"><a href="#cb22-309" aria-hidden="true" tabindex="-1"></a>This is exactly the pattern that we see in the figures above.</span>
-<span id="cb22-310"><a href="#cb22-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-311"><a href="#cb22-311" aria-hidden="true" tabindex="-1"></a>We can also approximate our data with an AR model and then plot the approximating periodogram of the AR model (@fig-airpassangersFFTar).</span>
-<span id="cb22-312"><a href="#cb22-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-315"><a href="#cb22-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-316"><a href="#cb22-316" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-airpassangersFFTar</span></span>
-<span id="cb22-317"><a href="#cb22-317" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Periodogram of AR process approximating the monthly log-transformed and detrended `AirPassengers` time series."</span></span>
-<span id="cb22-318"><a href="#cb22-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-319"><a href="#cb22-319" aria-hidden="true" tabindex="-1"></a><span class="fu">spectrum</span>(res, <span class="at">method =</span> <span class="st">"ar"</span>)</span>
-<span id="cb22-320"><a href="#cb22-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-321"><a href="#cb22-321" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb22-322"><a href="#cb22-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-323"><a href="#cb22-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-324"><a href="#cb22-324" aria-hidden="true" tabindex="-1"></a><span class="fu">## Periodogram for unequally-spaced time series</span></span>
-<span id="cb22-325"><a href="#cb22-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-326"><a href="#cb22-326" aria-hidden="true" tabindex="-1"></a>Unequally/unevenly-spaced time series or gaps in observations (missing data) can be handled with the Lomb--Scargle periodogram calculation. </span>
-<span id="cb22-327"><a href="#cb22-327" aria-hidden="true" tabindex="-1"></a>This method was originally developed for the analysis of unevenly-spaced astronomical signals <span class="co">[</span><span class="ot">@Lomb:1976;@Scargle:1982</span><span class="co">]</span> but found application in many other domains, including environmental science <span class="co">[</span><span class="ot">e.g., @Ruf:1999;@Campos:etal:2008;@Siskey:etal:2016:periodicity</span><span class="co">]</span>.</span>
-<span id="cb22-328"><a href="#cb22-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-329"><a href="#cb22-329" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false}</span>
-<span id="cb22-330"><a href="#cb22-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-331"><a href="#cb22-331" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example: Ammonium concentration in wastewater system</span></span>
-<span id="cb22-332"><a href="#cb22-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-333"><a href="#cb22-333" aria-hidden="true" tabindex="-1"></a>For example, consider a time series <span class="in">`imputeTS::tsNH4`</span> of ammonium (NH$_4$) concentration in a wastewater system (@fig-NH4). </span>
-<span id="cb22-334"><a href="#cb22-334" aria-hidden="true" tabindex="-1"></a>This time series contains observations from regular 10-minute intervals, but some of the observations are missing. </span>
-<span id="cb22-335"><a href="#cb22-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-338"><a href="#cb22-338" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-339"><a href="#cb22-339" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-NH4</span></span>
-<span id="cb22-340"><a href="#cb22-340" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Time series of ammonium concentration in a wastewater system."</span></span>
-<span id="cb22-341"><a href="#cb22-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-342"><a href="#cb22-342" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">autoplot</span>(imputeTS<span class="sc">::</span>tsNH4) <span class="sc">+</span></span>
-<span id="cb22-343"><a href="#cb22-343" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Day"</span>) <span class="sc">+</span></span>
-<span id="cb22-344"><a href="#cb22-344" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="fu">bquote</span>(NH[<span class="dv">4</span>]<span class="sc">~</span>concentration))</span>
-<span id="cb22-345"><a href="#cb22-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-346"><a href="#cb22-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-347"><a href="#cb22-347" aria-hidden="true" tabindex="-1"></a>Save the data in a format acceptable by the Lomb--Scargle function. </span>
-<span id="cb22-348"><a href="#cb22-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-351"><a href="#cb22-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-352"><a href="#cb22-352" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb22-353"><a href="#cb22-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-354"><a href="#cb22-354" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">NH4 =</span> <span class="fu">as.vector</span>(imputeTS<span class="sc">::</span>tsNH4),</span>
-<span id="cb22-355"><a href="#cb22-355" aria-hidden="true" tabindex="-1"></a>                <span class="at">Time =</span> <span class="fu">as.vector</span>(<span class="fu">time</span>(imputeTS<span class="sc">::</span>tsNH4)))</span>
-<span id="cb22-356"><a href="#cb22-356" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-357"><a href="#cb22-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-358"><a href="#cb22-358" aria-hidden="true" tabindex="-1"></a>If needed, <span class="in">`na.omit(D)`</span> can be used to remove the rows with missing values.</span>
-<span id="cb22-359"><a href="#cb22-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-360"><a href="#cb22-360" aria-hidden="true" tabindex="-1"></a>@fig-NH4lombf and @fig-NH4lombp show periodograms calculated based on these data. </span>
-<span id="cb22-361"><a href="#cb22-361" aria-hidden="true" tabindex="-1"></a>Note that the function <span class="in">`lomb::lsp()`</span> has arguments adjusting the span of the frequencies and significance level.</span>
-<span id="cb22-362"><a href="#cb22-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-365"><a href="#cb22-365" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-366"><a href="#cb22-366" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-NH4lombf</span></span>
-<span id="cb22-367"><a href="#cb22-367" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Lomb--Scargle periodograms computed for the unequally-spaced time series of ammonium concentration."</span></span>
-<span id="cb22-368"><a href="#cb22-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-369"><a href="#cb22-369" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb22-370"><a href="#cb22-370" aria-hidden="true" tabindex="-1"></a>lomb<span class="sc">::</span><span class="fu">lsp</span>(D<span class="sc">$</span>NH4, <span class="at">times =</span> D<span class="sc">$</span>Time, <span class="at">type =</span> <span class="st">"frequency"</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">main =</span> <span class="st">""</span>)</span>
-<span id="cb22-371"><a href="#cb22-371" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-372"><a href="#cb22-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-375"><a href="#cb22-375" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-376"><a href="#cb22-376" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-NH4lombp</span></span>
-<span id="cb22-377"><a href="#cb22-377" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Lomb--Scargle periodograms computed for the unequally-spaced time series of ammonium concentration."</span></span>
-<span id="cb22-378"><a href="#cb22-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-379"><a href="#cb22-379" aria-hidden="true" tabindex="-1"></a>lomb<span class="sc">::</span><span class="fu">lsp</span>(D<span class="sc">$</span>NH4, <span class="at">times =</span> D<span class="sc">$</span>Time, <span class="at">type =</span> <span class="st">"period"</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">main =</span> <span class="st">""</span>)</span>
-<span id="cb22-380"><a href="#cb22-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-381"><a href="#cb22-381" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb22-382"><a href="#cb22-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-383"><a href="#cb22-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-384"><a href="#cb22-384" aria-hidden="true" tabindex="-1"></a><span class="fu">## Frequency estimation in time</span></span>
-<span id="cb22-385"><a href="#cb22-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-386"><a href="#cb22-386" aria-hidden="true" tabindex="-1"></a>The assumption of a whole time series having a constant spectrum might be very limiting for the analysis of long time series. </span>
-<span id="cb22-387"><a href="#cb22-387" aria-hidden="true" tabindex="-1"></a>An estimation of frequencies locally in time allows us to study how the spectrum changes in time, and also detect smaller (short-lived) signals that would be averaged out otherwise. </span>
-<span id="cb22-388"><a href="#cb22-388" aria-hidden="true" tabindex="-1"></a>A straightforward solution is to separate the time series into windows (sub-periods) and estimate a spectrum in each such window. </span>
-<span id="cb22-389"><a href="#cb22-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-390"><a href="#cb22-390" aria-hidden="true" tabindex="-1"></a>The windowed analysis makes sense when in each window we have enough observations to estimate the frequencies. </span>
-<span id="cb22-391"><a href="#cb22-391" aria-hidden="true" tabindex="-1"></a>As a guide, we should have at least two observations per period to be able to represent the signal in the discrete Fourier transform. </span>
-<span id="cb22-392"><a href="#cb22-392" aria-hidden="true" tabindex="-1"></a>For example, we cannot estimate the seasonality if we sample once per year -- this is our *sampling rate* or *sampling frequency* $F_s$. </span>
-<span id="cb22-393"><a href="#cb22-393" aria-hidden="true" tabindex="-1"></a>To start identifying seasonal periodicity, our sampling rate should be at least 2 samples per year. </span>
-<span id="cb22-394"><a href="#cb22-394" aria-hidden="true" tabindex="-1"></a>The highest frequency we can work with is limited by the *Nyquist frequency*</span>
-<span id="cb22-395"><a href="#cb22-395" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-396"><a href="#cb22-396" aria-hidden="true" tabindex="-1"></a>F_N = \frac{F_s}{2},</span>
-<span id="cb22-397"><a href="#cb22-397" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-398"><a href="#cb22-398" aria-hidden="true" tabindex="-1"></a>which is half of the sampling frequency.</span>
-<span id="cb22-399"><a href="#cb22-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-400"><a href="#cb22-400" aria-hidden="true" tabindex="-1"></a>After applying the FFT in each window, the results can be visualized in a *spectrogram*.</span>
-<span id="cb22-401"><a href="#cb22-401" aria-hidden="true" tabindex="-1"></a>The spectrogram combines information from multiple periodograms: it shows time on the $x$-axis, frequency on the $y$-axis, and the corresponding spectrum power as the color.</span>
-<span id="cb22-402"><a href="#cb22-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-403"><a href="#cb22-403" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false}</span>
-<span id="cb22-404"><a href="#cb22-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-405"><a href="#cb22-405" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example: Spectrograms for the NAO</span></span>
-<span id="cb22-406"><a href="#cb22-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-407"><a href="#cb22-407" aria-hidden="true" tabindex="-1"></a>Consider a long time series of the North Atlantic Oscillation (NAO) index obtained from an ensemble of 100 model-constrained NAO reconstructions (@fig-NAO).</span>
-<span id="cb22-408"><a href="#cb22-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-411"><a href="#cb22-411" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-412"><a href="#cb22-412" aria-hidden="true" tabindex="-1"></a>NAOdf <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/NAO.csv"</span>, <span class="at">skip =</span> <span class="dv">12</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-413"><a href="#cb22-413" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">NAOproxy =</span> nao_mc_mean) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-414"><a href="#cb22-414" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Year, NAOproxy) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-415"><a href="#cb22-415" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(Year)</span>
-<span id="cb22-416"><a href="#cb22-416" aria-hidden="true" tabindex="-1"></a>NAO <span class="ot">&lt;-</span> <span class="fu">ts</span>(NAOdf<span class="sc">$</span>NAOproxy, <span class="at">start =</span> NAOdf<span class="sc">$</span>Year[<span class="dv">1</span>])</span>
-<span id="cb22-417"><a href="#cb22-417" aria-hidden="true" tabindex="-1"></a>spec_raw <span class="ot">&lt;-</span> <span class="fu">spec.pgram</span>(NAO, <span class="at">detrend =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>, <span class="at">spans =</span> <span class="dv">3</span>)</span>
-<span id="cb22-418"><a href="#cb22-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-419"><a href="#cb22-419" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the frequency with the max power</span></span>
-<span id="cb22-420"><a href="#cb22-420" aria-hidden="true" tabindex="-1"></a>fmax <span class="ot">&lt;-</span> spec_raw<span class="sc">$</span>freq[<span class="fu">which.max</span>(spec_raw<span class="sc">$</span>spec)]</span>
-<span id="cb22-421"><a href="#cb22-421" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-422"><a href="#cb22-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-425"><a href="#cb22-425" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-426"><a href="#cb22-426" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-NAO</span></span>
-<span id="cb22-427"><a href="#cb22-427" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "North Atlantic Oscillation (NAO) winter index (December, January, and February) calculated as the mean of 100 model-constrained NAO reconstructions, along with its smoothed periodograms. The dashed lines denote the maximal magnitude of the spectrum."</span></span>
-<span id="cb22-428"><a href="#cb22-428" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
-<span id="cb22-429"><a href="#cb22-429" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-430"><a href="#cb22-430" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">autoplot</span>(NAO) <span class="sc">+</span></span>
-<span id="cb22-431"><a href="#cb22-431" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span></span>
-<span id="cb22-432"><a href="#cb22-432" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"NAO"</span>)</span>
-<span id="cb22-433"><a href="#cb22-433" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Spectrum =</span> spec_raw<span class="sc">$</span>spec, </span>
-<span id="cb22-434"><a href="#cb22-434" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Frequency =</span> spec_raw<span class="sc">$</span>freq) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-435"><a href="#cb22-435" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Frequency, <span class="at">y =</span> Spectrum)) <span class="sc">+</span></span>
-<span id="cb22-436"><a href="#cb22-436" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">'log10'</span>) <span class="sc">+</span></span>
-<span id="cb22-437"><a href="#cb22-437" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> fmax, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb22-438"><a href="#cb22-438" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb22-439"><a href="#cb22-439" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
-<span id="cb22-440"><a href="#cb22-440" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Spectrum =</span> spec_raw<span class="sc">$</span>spec, </span>
-<span id="cb22-441"><a href="#cb22-441" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Period =</span> <span class="dv">1</span><span class="sc">/</span>spec_raw<span class="sc">$</span>freq) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-442"><a href="#cb22-442" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Period, <span class="at">y =</span> Spectrum)) <span class="sc">+</span></span>
-<span id="cb22-443"><a href="#cb22-443" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">'log10'</span>) <span class="sc">+</span></span>
-<span id="cb22-444"><a href="#cb22-444" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span><span class="sc">/</span>fmax, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb22-445"><a href="#cb22-445" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb22-446"><a href="#cb22-446" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">""</span>)</span>
-<span id="cb22-447"><a href="#cb22-447" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span> (p2 <span class="sc">+</span> p3) <span class="sc">+</span> </span>
-<span id="cb22-448"><a href="#cb22-448" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>)</span>
-<span id="cb22-449"><a href="#cb22-449" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-450"><a href="#cb22-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-451"><a href="#cb22-451" aria-hidden="true" tabindex="-1"></a>This is an annual time series, hence the sampling frequency $F_s = 1$. </span>
-<span id="cb22-452"><a href="#cb22-452" aria-hidden="true" tabindex="-1"></a>From the global FFT results, the frequency with the maximal power is <span class="in">`r fmax`</span> year$^{-1}$, which is equivalent to the period of about <span class="in">`r round(1/fmax, 1)`</span> years.</span>
-<span id="cb22-453"><a href="#cb22-453" aria-hidden="true" tabindex="-1"></a>We will set the window for the FFT and calculate the spectrogram.</span>
-<span id="cb22-454"><a href="#cb22-454" aria-hidden="true" tabindex="-1"></a>Note that we can use overlapping windows for a smoother picture.</span>
-<span id="cb22-455"><a href="#cb22-455" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-458"><a href="#cb22-458" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-459"><a href="#cb22-459" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb22-460"><a href="#cb22-460" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-461"><a href="#cb22-461" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the window size (years), for applying the FFT in each window</span></span>
-<span id="cb22-462"><a href="#cb22-462" aria-hidden="true" tabindex="-1"></a>window_size <span class="ot">=</span> <span class="dv">30</span></span>
-<span id="cb22-463"><a href="#cb22-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-464"><a href="#cb22-464" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the spectrogram</span></span>
-<span id="cb22-465"><a href="#cb22-465" aria-hidden="true" tabindex="-1"></a>SP <span class="ot">&lt;-</span> signal<span class="sc">::</span><span class="fu">specgram</span>(<span class="at">x =</span> NAO,</span>
-<span id="cb22-466"><a href="#cb22-466" aria-hidden="true" tabindex="-1"></a>                       <span class="at">n =</span> window_size,</span>
-<span id="cb22-467"><a href="#cb22-467" aria-hidden="true" tabindex="-1"></a>                       <span class="at">overlap =</span> window_size<span class="sc">/</span><span class="dv">3</span>,</span>
-<span id="cb22-468"><a href="#cb22-468" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Fs =</span> <span class="dv">1</span>)</span>
-<span id="cb22-469"><a href="#cb22-469" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-470"><a href="#cb22-470" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-471"><a href="#cb22-471" aria-hidden="true" tabindex="-1"></a>See the spectrograms in @fig-NAOspect and compare them with the time series plot in @fig-NAO A.</span>
-<span id="cb22-472"><a href="#cb22-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-475"><a href="#cb22-475" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-476"><a href="#cb22-476" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-NAOspect</span></span>
-<span id="cb22-477"><a href="#cb22-477" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Spectrograms for North Atlantic Oscillation (NAO) winter index."</span></span>
-<span id="cb22-478"><a href="#cb22-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-479"><a href="#cb22-479" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb22-480"><a href="#cb22-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-481"><a href="#cb22-481" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the spectrogram without decorations</span></span>
-<span id="cb22-482"><a href="#cb22-482" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(SP, <span class="at">main =</span> <span class="st">"A) Raw results"</span>)</span>
-<span id="cb22-483"><a href="#cb22-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-484"><a href="#cb22-484" aria-hidden="true" tabindex="-1"></a><span class="co"># Discard phase information</span></span>
-<span id="cb22-485"><a href="#cb22-485" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">abs</span>(SP<span class="sc">$</span>S)</span>
-<span id="cb22-486"><a href="#cb22-486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-487"><a href="#cb22-487" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the spectrum to the range [0, 1]</span></span>
-<span id="cb22-488"><a href="#cb22-488" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> P <span class="sc">-</span> <span class="fu">min</span>(P)</span>
-<span id="cb22-489"><a href="#cb22-489" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> P<span class="sc">/</span><span class="fu">max</span>(P)</span>
-<span id="cb22-490"><a href="#cb22-490" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-491"><a href="#cb22-491" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract time</span></span>
-<span id="cb22-492"><a href="#cb22-492" aria-hidden="true" tabindex="-1"></a>Years <span class="ot">&lt;-</span> <span class="fu">time</span>(NAO)[SP<span class="sc">$</span>t]</span>
-<span id="cb22-493"><a href="#cb22-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-494"><a href="#cb22-494" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the spectrogram after processing</span></span>
-<span id="cb22-495"><a href="#cb22-495" aria-hidden="true" tabindex="-1"></a>oce<span class="sc">::</span><span class="fu">imagep</span>(<span class="at">x =</span> Years,</span>
-<span id="cb22-496"><a href="#cb22-496" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> SP<span class="sc">$</span>f,</span>
-<span id="cb22-497"><a href="#cb22-497" aria-hidden="true" tabindex="-1"></a>            <span class="at">z =</span> <span class="fu">t</span>(P),</span>
-<span id="cb22-498"><a href="#cb22-498" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> oce<span class="sc">::</span>oce.colorsViridis,</span>
-<span id="cb22-499"><a href="#cb22-499" aria-hidden="true" tabindex="-1"></a>            <span class="at">ylab =</span> <span class="fu">expression</span>(Frequency<span class="sc">~</span>(y<span class="sc">^-</span><span class="dv">1</span> )),</span>
-<span id="cb22-500"><a href="#cb22-500" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="st">"Year"</span>,</span>
-<span id="cb22-501"><a href="#cb22-501" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"B) After normalization and adding colors"</span>,</span>
-<span id="cb22-502"><a href="#cb22-502" aria-hidden="true" tabindex="-1"></a>            <span class="at">drawPalette =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-503"><a href="#cb22-503" aria-hidden="true" tabindex="-1"></a>            <span class="at">decimate =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-504"><a href="#cb22-504" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-505"><a href="#cb22-505" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb22-506"><a href="#cb22-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-507"><a href="#cb22-507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-508"><a href="#cb22-508" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion</span></span>
-<span id="cb22-509"><a href="#cb22-509" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-510"><a href="#cb22-510" aria-hidden="true" tabindex="-1"></a>For challenging problems, smoothing, multitapering, linear filtering, (repeated) pre-whitening, and Lomb--Scargle can be used together. </span>
-<span id="cb22-511"><a href="#cb22-511" aria-hidden="true" tabindex="-1"></a>Beware that aperiodic but autoregressive processes produce peaks in spectral densities. </span>
-<span id="cb22-512"><a href="#cb22-512" aria-hidden="true" tabindex="-1"></a>Harmonic analysis is a complicated art rather than a straightforward procedure.</span>
-<span id="cb22-513"><a href="#cb22-513" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-514"><a href="#cb22-514" aria-hidden="true" tabindex="-1"></a>It is extremely difficult to derive the significance of a weak periodicity from harmonic analysis. </span>
-<span id="cb22-515"><a href="#cb22-515" aria-hidden="true" tabindex="-1"></a>Do not believe analytical estimates (e.g., exponential probability), as they rarely apply to real data. </span>
-<span id="cb22-516"><a href="#cb22-516" aria-hidden="true" tabindex="-1"></a>It is essential to make simulations, typically permuting or bootstrapping the data keeping the observing times fixed. </span>
-<span id="cb22-517"><a href="#cb22-517" aria-hidden="true" tabindex="-1"></a>Simulations of the final model with the observation times are also advised.</span>
-<span id="cb22-518"><a href="#cb22-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-519"><a href="#cb22-519" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-520"><a href="#cb22-520" aria-hidden="true" tabindex="-1"></a><span class="fu">## Appendix</span></span>
-<span id="cb22-521"><a href="#cb22-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-522"><a href="#cb22-522" aria-hidden="true" tabindex="-1"></a>**Wavelet analysis**</span>
-<span id="cb22-523"><a href="#cb22-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-524"><a href="#cb22-524" aria-hidden="true" tabindex="-1"></a>An alternative to the windowed FFT is the wavelet analysis, which also estimates the strength of time series variations for different frequencies and times.</span>
-<span id="cb22-525"><a href="#cb22-525" aria-hidden="true" tabindex="-1"></a>*Wavelet* is a 'small wave' or function $\psi(t)$ approximating the variations. </span>
-<span id="cb22-526"><a href="#cb22-526" aria-hidden="true" tabindex="-1"></a>Popular wavelet functions are Meyer, Morlet, and Mexican hat.</span>
-<span id="cb22-527"><a href="#cb22-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-528"><a href="#cb22-528" aria-hidden="true" tabindex="-1"></a>@fig-NAOwv shows the results of using the Morlet wavelet to process the NAO time series.</span>
-<span id="cb22-529"><a href="#cb22-529" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-532"><a href="#cb22-532" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-533"><a href="#cb22-533" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-NAOwv</span></span>
-<span id="cb22-534"><a href="#cb22-534" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Wavelet analysis of the North Atlantic Oscillation (NAO) winter index."</span></span>
-<span id="cb22-535"><a href="#cb22-535" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 9</span></span>
-<span id="cb22-536"><a href="#cb22-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-537"><a href="#cb22-537" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplR)</span>
-<span id="cb22-538"><a href="#cb22-538" aria-hidden="true" tabindex="-1"></a>wv <span class="ot">&lt;-</span> <span class="fu">morlet</span>(<span class="at">y1 =</span> NAOdf<span class="sc">$</span>NAOproxy, <span class="at">x1 =</span> NAOdf<span class="sc">$</span>Year)</span>
-<span id="cb22-539"><a href="#cb22-539" aria-hidden="true" tabindex="-1"></a>levs <span class="ot">&lt;-</span> <span class="fu">quantile</span>(wv<span class="sc">$</span>Power, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">0.9</span>, <span class="fl">0.95</span>, <span class="dv">1</span>))</span>
-<span id="cb22-540"><a href="#cb22-540" aria-hidden="true" tabindex="-1"></a><span class="fu">wavelet.plot</span>(wv, <span class="at">wavelet.levels =</span> levs)</span>
-<span id="cb22-541"><a href="#cb22-541" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 

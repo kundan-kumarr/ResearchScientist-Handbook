@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>software</title>
+<meta name="description" content="A structured preparation curriculum for Research Scientist roles at industrial AI labs, academic research groups, and applied ML organizations. Covers mathematical foundations through modern LLMs, deep RL, and trustworthy AI.">
+<title>Software – Interview Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -55,123 +53,704 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
-
-<script src="software_files/libs/clipboard/clipboard.min.js"></script>
-<script src="software_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="software_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="software_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="software_files/libs/quarto-html/popper.min.js"></script>
-<script src="software_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="software_files/libs/quarto-html/anchor.min.js"></script>
-<link href="software_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="software_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="software_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="software_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="software_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-
-
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./app06_practice_exercises.html" rel="prev">
+<link href="./favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-25a4e8620ae17d49cd0c3861fdf92567.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 </head>
+<body class="nav-sidebar floating quarto-light">
 
-<body class="fullcontent quarto-light">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./app01_weighted_least_squares.html">Appendices</a></li><li class="breadcrumb-item"><a href="./software.html">Software</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Interview Guide</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Interview-Guide.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Interview-Guide.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+</div>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 1 - Mathematical Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch01_statistics_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics &amp; Mathematics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch18_statistical_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 2 - Algorithms &amp; Data Engineering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch02_data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch03_algorithms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Algorithms &amp; Coding Patterns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch04_data_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ML Data Pipelines</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 3 - Classical Machine Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch05_machine_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch07_time_series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Time-Series Analysis and Models</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 4 - Deep Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch06_deep_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch13_computer_vision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Computer Vision and Visual Intelligence</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 5 - Deep Reinforcement Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch08_reinforcement_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 6 - Large Language Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch10_large_language_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Large Language Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch11_llm_finetuning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Fine-Tuning and Adaptation of LLMs</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 7 - Model Compression &amp; Deployment</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch12_model_compression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Compression, Deployment, and Efficiency</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch17_scalability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 8 - Research Design &amp; Evaluation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch09_model_evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 9 - Trustworthy &amp; Robust AI</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch16_trustworthy_ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 10 - Emerging Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch14_multimodal_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Multimodal</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch15_causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app01_weighted_least_squares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Weighted least squares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app02_generalized_least_squares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Generalized least squares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app03_trend_synchrony.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Synchrony of parametric trends</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app04_time_series_clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Time Series Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app05_extreme_value_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Analysis of precipitation extremes and climate projections</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app06_practice_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Practice exercises</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./software.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Software</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./app01_weighted_least_squares.html">Appendices</a></li><li class="breadcrumb-item"><a href="./software.html">Software</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Software</h1>
+</div>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
-<main class="content" id="quarto-document-content">
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="software" class="level1 unnumbered">
-<h1 class="unnumbered">Software</h1>
-<p>Examples were calculated in R version 4.5.3 (2026-03-11) with an effort to use the most recent versions of R packages.</p>
+</header><p>Examples were calculated in R version 4.5.3 (2026-03-11) with an effort to use the most recent versions of R packages.</p>
 <p>The codes load silently only a few packages:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_light</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>All other packages are named before the function as in <code>forecast::ggAcf()</code> (this code calls the function <code>ggAcf()</code> from the package <code>forecast</code>) or called immediately before the necessary function use:</p>
+<p>All other packages are named before the function as in <code><a href="https://pkg.robjhyndman.com/forecast/reference/autoplot.acf.html">forecast::ggAcf()</a></code> (this code calls the function <code>ggAcf()</code> from the package <code>forecast</code>) or called immediately before the necessary function use:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fable)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(Y) <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">model</span>(<span class="fu">ARIMA</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">ic =</span> <span class="st">"bic"</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://fable.tidyverts.org">fable</a></span><span class="op">)</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tsibble.tidyverts.org/reference/as-tsibble.html">as_tsibble</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://fabletools.tidyverts.org/reference/model.html">model</a></span><span class="op">(</span><span class="fu"><a href="https://fable.tidyverts.org/reference/ARIMA.html">ARIMA</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="fl">1</span>, ic <span class="op">=</span> <span class="st">"bic"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://fabletools.tidyverts.org/reference/report.html">report</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The R packages used in this book include (in alphabetic order):</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Installing packages into '/Users/kkumar/Library/R/arm64/4.5/library'
-(as 'lib' is unspecified)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: packages 'gamlss.ggplots', 'gamlss.util' are not available for this version of R
-
-Versions of these packages for your version of R might be available elsewhere,
-see the ideas at
-https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>also installing the dependencies 'Deriv', 'microbenchmark', 'mnormt', 'GPArotation', 'pbivnorm', 'htmlTable', 'proto', 'shape', 'doBy', 'SparseM', 'MatrixModels', 'coda', 'psych', 'lavaan', 'Hmisc', 'igraph', 'jpeg', 'glasso', 'fdrtool', 'gtools', 'pbapply', 'gsubfn', 'xtable', 'texreg', 'pander', 'fastDummies', 'checkmate', 'glmnet', 'commonmark', 'httpuv', 'sourcetools', 'iterators', 'hts', 'R.oo', 'R.methodsS3', 'minqa', 'nloptr', 'reformulas', 'RcppEigen', 'carData', 'abind', 'Formula', 'pbkrtest', 'quantreg', 'warp', 'gss', 'stabledist', 'gbutils', 'arm', 'qgraph', 'clusterGeneration', 'corpcor', 'MplusAutomation', 'graphicalVAR', 'rbibutils', 'strucchange', 'corrplot', 'shiny', 'doParallel', 'later', 'otel', 'TTR', 'thief', 'foreach', 'brio', 'desc', 'fansi', 'matrixStats', 'png', 'R.utils', 'XML', 'lme4', 'zoo', 'car', 'slider', 'ggtime', 'fBasics', 'timeDate', 'timeSeries', 'fastICA', 'cvar', 'colorspace', 'fracdiff', 'RcppArmadillo', 'dbscan', 'mlVAR', 'Rdpack', 'sandwich', 'vars', 'gamlss.data', 'gamlss.dist', 'ggstats', 'ggrepel', 'ggsci', 'cowplot', 'ggsignif', 'gridExtra', 'polynom', 'rstatix', 'mvtnorm', 'qgam', 'gamm4', 'viridis', 'plyr', 'gsw', 'htmlwidgets', 'lazyeval', 'crosstalk', 'promises', 'quantmod', 'forecastHybrid', 'reshape2', 'xts'</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-The downloaded binary packages are in
-    /var/folders/tz/2b9nb9050kd9qqnv46_zsnk80000gq/T//RtmpY5SE9U/downloaded_packages</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in xfun::pkg_bib(..., prefix = prefix): package(s) gamlss.ggplots,
-gamlss.util not found</code></pre>
-</div>
-</div>
 <ul>
-<li><code>astsa</code> <span class="citation" data-cites="R-astsa">[@R-astsa]</span></li>
-<li><code>downlit</code> <span class="citation" data-cites="R-downlit">[@R-downlit]</span></li>
-<li><code>dplR</code> <span class="citation" data-cites="R-dplR">[@R-dplR]</span></li>
-<li><code>dplyr</code> <span class="citation" data-cites="R-dplyr">[@R-dplyr]</span></li>
-<li><code>dynlm</code> <span class="citation" data-cites="R-dynlm">[@R-dynlm]</span></li>
-<li><code>Ecdat</code> <span class="citation" data-cites="R-Ecdat">[@R-Ecdat]</span></li>
-<li><code>fable</code> <span class="citation" data-cites="R-fable">[@R-fable]</span></li>
-<li><code>feasts</code> <span class="citation" data-cites="R-feasts">[@R-feasts]</span></li>
-<li><code>fGarch</code> <span class="citation" data-cites="R-fGarch">[@R-fGarch]</span></li>
-<li><code>FinTS</code> <span class="citation" data-cites="R-FinTS">[@R-FinTS]</span></li>
-<li><code>fma</code> <span class="citation" data-cites="R-fma">[@R-fma]</span></li>
-<li><code>forecast</code> <span class="citation" data-cites="R-forecast">[@R-forecast]</span></li>
-<li><code>funtimes</code> <span class="citation" data-cites="R-funtimes">[@R-funtimes]</span></li>
-<li><code>gamlss</code> <span class="citation" data-cites="R-gamlss">[@R-gamlss]</span></li>
-<li><code>gamlss.ggplots</code> <span class="citation" data-cites="R-gamlss.ggplots">[@R-gamlss.ggplots]</span></li>
-<li><code>gamlss.util</code> <span class="citation" data-cites="R-gamlss.util">[@R-gamlss.util]</span></li>
-<li><code>GGally</code> <span class="citation" data-cites="R-GGally">[@R-GGally]</span></li>
-<li><code>ggplot2</code> <span class="citation" data-cites="R-ggplot2">[@R-ggplot2]</span></li>
-<li><code>ggpubr</code> <span class="citation" data-cites="R-ggpubr">[@R-ggpubr]</span></li>
-<li><code>Kendall</code> <span class="citation" data-cites="R-Kendall">[@R-Kendall]</span></li>
-<li><code>knitr</code> <span class="citation" data-cites="R-knitr">[@R-knitr]</span></li>
-<li><code>lawstat</code> <span class="citation" data-cites="R-lawstat">[@R-lawstat]</span></li>
-<li><code>lmtest</code> <span class="citation" data-cites="R-lmtest">[@R-lmtest]</span></li>
-<li><code>lomb</code> <span class="citation" data-cites="R-lomb">[@R-lomb]</span></li>
-<li><code>mgcv</code> <span class="citation" data-cites="R-mgcv">[@R-mgcv]</span></li>
-<li><code>mgcViz</code> <span class="citation" data-cites="R-mgcViz">[@R-mgcViz]</span></li>
-<li><code>nlme</code> <span class="citation" data-cites="R-nlme">[@R-nlme]</span></li>
-<li><code>oce</code> <span class="citation" data-cites="R-oce">[@R-oce]</span></li>
-<li><code>patchwork</code> <span class="citation" data-cites="R-patchwork">[@R-patchwork]</span></li>
-<li><code>plotly</code> <span class="citation" data-cites="R-plotly">[@R-plotly]</span></li>
-<li><code>pracma</code> <span class="citation" data-cites="R-pracma">[@R-pracma]</span></li>
-<li><code>randtests</code> <span class="citation" data-cites="R-randtests">[@R-randtests]</span></li>
-<li><code>readr</code> <span class="citation" data-cites="R-readr">[@R-readr]</span></li>
-<li><code>rmarkdown</code> <span class="citation" data-cites="R-rmarkdown">[@R-rmarkdown]</span></li>
-<li><code>signal</code> <span class="citation" data-cites="R-signal">[@R-signal]</span></li>
-<li><code>tseries</code> <span class="citation" data-cites="R-tseries">[@R-tseries]</span></li>
-<li><code>TSstudio</code> <span class="citation" data-cites="R-TSstudio">[@R-TSstudio]</span></li>
-<li><code>urca</code> <span class="citation" data-cites="R-urca">[@R-urca]</span></li>
-<li><code>xml2</code> <span class="citation" data-cites="R-xml2">[@R-xml2]</span></li>
+<li>
+<code>astsa</code> <span class="citation" data-cites="R-astsa">(<a href="references.html#ref-R-astsa" role="doc-biblioref">Stoffer 2026</a>)</span>
+</li>
+<li>
+<code>downlit</code> <span class="citation" data-cites="R-downlit">(<a href="references.html#ref-R-downlit" role="doc-biblioref">Wickham 2025</a>)</span>
+</li>
+<li>
+<code>dplR</code> <span class="citation" data-cites="R-dplR">(<a href="references.html#ref-R-dplR" role="doc-biblioref">Bunn et al. 2025</a>)</span>
+</li>
+<li>
+<code>dplyr</code> <span class="citation" data-cites="R-dplyr">(<a href="references.html#ref-R-dplyr" role="doc-biblioref">Wickham et al. 2026b</a>)</span>
+</li>
+<li>
+<code>dynlm</code> <span class="citation" data-cites="R-dynlm">(<a href="references.html#ref-R-dynlm" role="doc-biblioref">Zeileis 2019</a>)</span>
+</li>
+<li>
+<code>Ecdat</code> <span class="citation" data-cites="R-Ecdat">(<a href="references.html#ref-R-Ecdat" role="doc-biblioref">Croissant and Graves 2025</a>)</span>
+</li>
+<li>
+<code>fable</code> <span class="citation" data-cites="R-fable">(<a href="references.html#ref-R-fable" role="doc-biblioref">O’Hara-Wild et al. 2026a</a>)</span>
+</li>
+<li>
+<code>feasts</code> <span class="citation" data-cites="R-feasts">(<a href="references.html#ref-R-feasts" role="doc-biblioref">O’Hara-Wild et al. 2026b</a>)</span>
+</li>
+<li>
+<code>fGarch</code> <span class="citation" data-cites="R-fGarch">(<a href="references.html#ref-R-fGarch" role="doc-biblioref">Wuertz et al. 2025</a>)</span>
+</li>
+<li>
+<code>FinTS</code> <span class="citation" data-cites="R-FinTS">(<a href="references.html#ref-R-FinTS" role="doc-biblioref">Graves 2024</a>)</span>
+</li>
+<li>
+<code>fma</code> <span class="citation" data-cites="R-fma">(<a href="references.html#ref-R-fma" role="doc-biblioref">Hyndman 2023</a>)</span>
+</li>
+<li>
+<code>forecast</code> <span class="citation" data-cites="R-forecast">(<a href="references.html#ref-R-forecast" role="doc-biblioref">Hyndman et al. 2026</a>)</span>
+</li>
+<li>
+<code>funtimes</code> <span class="citation" data-cites="R-funtimes">(<a href="references.html#ref-R-funtimes" role="doc-biblioref">Lyubchich et al. 2025</a>)</span>
+</li>
+<li>
+<code>gamlss</code> <span class="citation" data-cites="R-gamlss">(<a href="references.html#ref-R-gamlss" role="doc-biblioref">Stasinopoulos and Rigby 2025</a>)</span>
+</li>
+<li>
+<code>gamlss.ggplots</code> <span class="citation" data-cites="R-gamlss.ggplots">(<a href="references.html#ref-R-gamlss.ggplots" role="doc-biblioref"><strong>R-gamlss.ggplots?</strong></a>)</span>
+</li>
+<li>
+<code>gamlss.util</code> <span class="citation" data-cites="R-gamlss.util">(<a href="references.html#ref-R-gamlss.util" role="doc-biblioref"><strong>R-gamlss.util?</strong></a>)</span>
+</li>
+<li>
+<code>GGally</code> <span class="citation" data-cites="R-GGally">(<a href="references.html#ref-R-GGally" role="doc-biblioref">Schloerke et al. 2025</a>)</span>
+</li>
+<li>
+<code>ggplot2</code> <span class="citation" data-cites="R-ggplot2">(<a href="references.html#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2026a</a>)</span>
+</li>
+<li>
+<code>ggpubr</code> <span class="citation" data-cites="R-ggpubr">(<a href="references.html#ref-R-ggpubr" role="doc-biblioref">Kassambara 2026</a>)</span>
+</li>
+<li>
+<code>Kendall</code> <span class="citation" data-cites="R-Kendall">(<a href="references.html#ref-R-Kendall" role="doc-biblioref">McLeod 2025</a>)</span>
+</li>
+<li>
+<code>knitr</code> <span class="citation" data-cites="R-knitr">(<a href="references.html#ref-R-knitr" role="doc-biblioref">Xie 2025</a>)</span>
+</li>
+<li>
+<code>lawstat</code> <span class="citation" data-cites="R-lawstat">(<a href="references.html#ref-R-lawstat" role="doc-biblioref">Gastwirth et al. 2023</a>)</span>
+</li>
+<li>
+<code>lmtest</code> <span class="citation" data-cites="R-lmtest">(<a href="references.html#ref-R-lmtest" role="doc-biblioref">Hothorn et al. 2022</a>)</span>
+</li>
+<li>
+<code>lomb</code> <span class="citation" data-cites="R-lomb">(<a href="references.html#ref-R-lomb" role="doc-biblioref">Ruf 2024</a>)</span>
+</li>
+<li>
+<code>mgcv</code> <span class="citation" data-cites="R-mgcv">(<a href="references.html#ref-R-mgcv" role="doc-biblioref">Wood 2025</a>)</span>
+</li>
+<li>
+<code>mgcViz</code> <span class="citation" data-cites="R-mgcViz">(<a href="references.html#ref-R-mgcViz" role="doc-biblioref">Fasiolo and Nedellec 2025</a>)</span>
+</li>
+<li>
+<code>nlme</code> <span class="citation" data-cites="R-nlme">(<a href="references.html#ref-R-nlme" role="doc-biblioref">Pinheiro et al. 2025</a>)</span>
+</li>
+<li>
+<code>oce</code> <span class="citation" data-cites="R-oce">(<a href="references.html#ref-R-oce" role="doc-biblioref">Kelley and Richards 2024</a>)</span>
+</li>
+<li>
+<code>patchwork</code> <span class="citation" data-cites="R-patchwork">(<a href="references.html#ref-R-patchwork" role="doc-biblioref">Pedersen 2025</a>)</span>
+</li>
+<li>
+<code>plotly</code> <span class="citation" data-cites="R-plotly">(<a href="references.html#ref-R-plotly" role="doc-biblioref">Sievert et al. 2026</a>)</span>
+</li>
+<li>
+<code>pracma</code> <span class="citation" data-cites="R-pracma">(<a href="references.html#ref-R-pracma" role="doc-biblioref">Borchers 2025</a>)</span>
+</li>
+<li>
+<code>randtests</code> <span class="citation" data-cites="R-randtests">(<a href="references.html#ref-R-randtests" role="doc-biblioref">Caeiro and Mateus 2024</a>)</span>
+</li>
+<li>
+<code>readr</code> <span class="citation" data-cites="R-readr">(<a href="references.html#ref-R-readr" role="doc-biblioref">Wickham et al. 2026c</a>)</span>
+</li>
+<li>
+<code>rmarkdown</code> <span class="citation" data-cites="R-rmarkdown">(<a href="references.html#ref-R-rmarkdown" role="doc-biblioref">Allaire et al. 2026</a>)</span>
+</li>
+<li>
+<code>signal</code> <span class="citation" data-cites="R-signal">(<a href="references.html#ref-R-signal" role="doc-biblioref">Ligges et al. 2024</a>)</span>
+</li>
+<li>
+<code>tseries</code> <span class="citation" data-cites="R-tseries">(<a href="references.html#ref-R-tseries" role="doc-biblioref">Trapletti and Hornik 2026</a>)</span>
+</li>
+<li>
+<code>TSstudio</code> <span class="citation" data-cites="R-TSstudio">(<a href="references.html#ref-R-TSstudio" role="doc-biblioref">Krispin 2023</a>)</span>
+</li>
+<li>
+<code>urca</code> <span class="citation" data-cites="R-urca">(<a href="references.html#ref-R-urca" role="doc-biblioref">Pfaff 2024</a>)</span>
+</li>
+<li>
+<code>xml2</code> <span class="citation" data-cites="R-xml2">(<a href="references.html#ref-R-xml2" role="doc-biblioref">Wickham et al. 2026d</a>)</span>
+</li>
 </ul>
-</section>
 
-</main>
-<!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-R-rmarkdown" class="csl-entry" role="listitem">
+Allaire J, Xie Y, Dervieux C, et al (2026) Rmarkdown: Dynamic documents for r. R package version 2.31, <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>
+</div>
+<div id="ref-R-pracma" class="csl-entry" role="listitem">
+Borchers HW (2025) Pracma: Practical numerical math functions. R package version 2.4.6, <a href="https://CRAN.R-project.org/package=pracma">https://CRAN.R-project.org/package=pracma</a>
+</div>
+<div id="ref-R-dplR" class="csl-entry" role="listitem">
+Bunn A, Korpela M, Biondi F, et al (2025) dplR: Dendrochronology program library in r. R package version 1.7.8, <a href="https://github.com/OpenDendro/dplR">https://github.com/OpenDendro/dplR</a>
+</div>
+<div id="ref-R-randtests" class="csl-entry" role="listitem">
+Caeiro F, Mateus A (2024) Randtests: Testing randomness in r. R package version 1.0.2, <a href="https://CRAN.R-project.org/package=randtests">https://CRAN.R-project.org/package=randtests</a>
+</div>
+<div id="ref-R-Ecdat" class="csl-entry" role="listitem">
+Croissant Y, Graves S (2025) Ecdat: Data sets for econometrics. R package version 0.4.7, <a href="https://www.r-project.org">https://www.r-project.org</a>
+</div>
+<div id="ref-R-mgcViz" class="csl-entry" role="listitem">
+Fasiolo M, Nedellec R (2025) mgcViz: Visualisations for generalized additive models. R package version 0.2.1, <a href="https://github.com/mfasiolo/mgcViz">https://github.com/mfasiolo/mgcViz</a>
+</div>
+<div id="ref-R-lawstat" class="csl-entry" role="listitem">
+Gastwirth JL, Gel YR, Hui WLW, et al (2023) Lawstat: Tools for biostatistics, public policy, and law. R package version 3.6, <a href="https://CRAN.R-project.org/package=lawstat">https://CRAN.R-project.org/package=lawstat</a>
+</div>
+<div id="ref-R-FinTS" class="csl-entry" role="listitem">
+Graves S (2024) FinTS: Companion to tsay (2005) analysis of financial time series. R package version 0.4-9, <a href="https://geobosh.github.io/FinTSDoc/">https://geobosh.github.io/FinTSDoc/</a>
+</div>
+<div id="ref-R-lmtest" class="csl-entry" role="listitem">
+Hothorn T, Zeileis A, Farebrother RW, Cummins C (2022) Lmtest: Testing linear regression models. R package version 0.9-40, <a href="https://CRAN.R-project.org/package=lmtest">https://CRAN.R-project.org/package=lmtest</a>
+</div>
+<div id="ref-R-fma" class="csl-entry" role="listitem">
+Hyndman R (2023) Fma: Data sets from "forecasting: Methods and applications" by makridakis, wheelwright &amp; hyndman (1998). R package version 2.5, <a href="https://pkg.robjhyndman.com/fma/">https://pkg.robjhyndman.com/fma/</a>
+</div>
+<div id="ref-R-forecast" class="csl-entry" role="listitem">
+Hyndman R, Athanasopoulos G, Bergmeir C, et al (2026) Forecast: Forecasting functions for time series and linear models. R package version 9.0.2, <a href="https://pkg.robjhyndman.com/forecast/">https://pkg.robjhyndman.com/forecast/</a>
+</div>
+<div id="ref-R-ggpubr" class="csl-entry" role="listitem">
+Kassambara A (2026) Ggpubr: ggplot2 based publication ready plots. R package version 0.6.3, <a href="https://rpkgs.datanovia.com/ggpubr/">https://rpkgs.datanovia.com/ggpubr/</a>
+</div>
+<div id="ref-R-oce" class="csl-entry" role="listitem">
+Kelley D, Richards C (2024) Oce: Analysis of oceanographic data. R package version 1.8-3, <a href="https://dankelley.github.io/oce/">https://dankelley.github.io/oce/</a>
+</div>
+<div id="ref-R-TSstudio" class="csl-entry" role="listitem">
+Krispin R (2023) TSstudio: Functions for time series analysis and forecasting. R package version 0.1.7, <a href="https://github.com/RamiKrispin/TSstudio">https://github.com/RamiKrispin/TSstudio</a>
+</div>
+<div id="ref-R-signal" class="csl-entry" role="listitem">
+Ligges U, Short T, Kienzle P (2024) Signal: Signal processing. R package version 1.8-1, <a href="https://signal.R-forge.R-project.org">https://signal.R-forge.R-project.org</a>
+</div>
+<div id="ref-R-funtimes" class="csl-entry" role="listitem">
+Lyubchich V, Gel YR, Vishwakarma S (2025) Funtimes: Functions for time series analysis. R package version 10.0, <a href="https://CRAN.R-project.org/package=funtimes">https://CRAN.R-project.org/package=funtimes</a>
+</div>
+<div id="ref-R-Kendall" class="csl-entry" role="listitem">
+McLeod AI (2025) Kendall: Kendall rank correlation and mann-kendall trend test. R package version 2.2.2, <a href="http://www.stats.uwo.ca/faculty/aim">http://www.stats.uwo.ca/faculty/aim</a>
+</div>
+<div id="ref-R-fable" class="csl-entry" role="listitem">
+O’Hara-Wild M, Hyndman R, Wang E (2026a) Fable: Forecasting models for tidy time series. R package version 0.5.0, <a href="https://fable.tidyverts.org">https://fable.tidyverts.org</a>
+</div>
+<div id="ref-R-feasts" class="csl-entry" role="listitem">
+O’Hara-Wild M, Hyndman R, Wang E (2026b) Feasts: Feature extraction and statistics for time series. R package version 0.5.0, <a href="http://feasts.tidyverts.org/">http://feasts.tidyverts.org/</a>
+</div>
+<div id="ref-R-patchwork" class="csl-entry" role="listitem">
+Pedersen TL (2025) Patchwork: The composer of plots. R package version 1.3.2, <a href="https://patchwork.data-imaginist.com">https://patchwork.data-imaginist.com</a>
+</div>
+<div id="ref-R-urca" class="csl-entry" role="listitem">
+Pfaff B (2024) Urca: Unit root and cointegration tests for time series data. R package version 1.3-4, <a href="https://CRAN.R-project.org/package=urca">https://CRAN.R-project.org/package=urca</a>
+</div>
+<div id="ref-R-nlme" class="csl-entry" role="listitem">
+Pinheiro J, Bates D, R Core Team (2025) Nlme: Linear and nonlinear mixed effects models. R package version 3.1-168, <a href="https://svn.r-project.org/R-packages/trunk/nlme/">https://svn.r-project.org/R-packages/trunk/nlme/</a>
+</div>
+<div id="ref-R-lomb" class="csl-entry" role="listitem">
+Ruf T (2024) Lomb: Lomb-scargle periodogram. R package version 2.5.0, <a href="https://CRAN.R-project.org/package=lomb">https://CRAN.R-project.org/package=lomb</a>
+</div>
+<div id="ref-R-GGally" class="csl-entry" role="listitem">
+Schloerke B, Cook D, Larmarange J, et al (2025) GGally: Extension to ggplot2. R package version 2.4.0, <a href="https://ggobi.github.io/ggally/">https://ggobi.github.io/ggally/</a>
+</div>
+<div id="ref-R-plotly" class="csl-entry" role="listitem">
+Sievert C, Parmer C, Hocking T, et al (2026) Plotly: Create interactive web graphics via plotly.js. R package version 4.12.0, <a href="https://plotly-r.com">https://plotly-r.com</a>
+</div>
+<div id="ref-R-gamlss" class="csl-entry" role="listitem">
+Stasinopoulos M, Rigby R (2025) Gamlss: Generalized additive models for location scale and shape. R package version 5.5-0, <a href="https://www.gamlss.com/">https://www.gamlss.com/</a>
+</div>
+<div id="ref-R-astsa" class="csl-entry" role="listitem">
+Stoffer D (2026) Astsa: Applied statistical time series analysis. R package version 2.5, <a href="https://dsstoffer.github.io/">https://dsstoffer.github.io/</a>
+</div>
+<div id="ref-R-tseries" class="csl-entry" role="listitem">
+Trapletti A, Hornik K (2026) Tseries: Time series analysis and computational finance. R package version 0.10-61, <a href="https://CRAN.R-project.org/package=tseries">https://CRAN.R-project.org/package=tseries</a>
+</div>
+<div id="ref-R-downlit" class="csl-entry" role="listitem">
+Wickham H (2025) Downlit: Syntax highlighting and automatic linking. R package version 0.4.5, <a href="https://downlit.r-lib.org/">https://downlit.r-lib.org/</a>
+</div>
+<div id="ref-R-ggplot2" class="csl-entry" role="listitem">
+Wickham H, Chang W, Henry L, et al (2026a) ggplot2: Create elegant data visualisations using the grammar of graphics. R package version 4.0.3, <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>
+</div>
+<div id="ref-R-dplyr" class="csl-entry" role="listitem">
+Wickham H, François R, Henry L, et al (2026b) Dplyr: A grammar of data manipulation. R package version 1.2.1, <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>
+</div>
+<div id="ref-R-readr" class="csl-entry" role="listitem">
+Wickham H, Hester J, Bryan J (2026c) Readr: Read rectangular text data. R package version 2.2.0, <a href="https://readr.tidyverse.org">https://readr.tidyverse.org</a>
+</div>
+<div id="ref-R-xml2" class="csl-entry" role="listitem">
+Wickham H, Hester J, Ooms J (2026d) xml2: Parse XML. R package version 1.5.2, <a href="https://xml2.r-lib.org">https://xml2.r-lib.org</a>
+</div>
+<div id="ref-R-mgcv" class="csl-entry" role="listitem">
+Wood S (2025) Mgcv: Mixed GAM computation vehicle with automatic smoothness estimation. R package version 1.9-4, <a href="https://CRAN.R-project.org/package=mgcv">https://CRAN.R-project.org/package=mgcv</a>
+</div>
+<div id="ref-R-fGarch" class="csl-entry" role="listitem">
+Wuertz D, Chalabi Y, Setz T, et al (2025) fGarch: Rmetrics - autoregressive conditional heteroskedastic modelling. R package version 4052.93, <a href="https://geobosh.github.io/fGarchDoc/">https://geobosh.github.io/fGarchDoc/</a>
+</div>
+<div id="ref-R-knitr" class="csl-entry" role="listitem">
+Xie Y (2025) Knitr: A general-purpose package for dynamic report generation in r. R package version 1.51, <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>
+</div>
+<div id="ref-R-dynlm" class="csl-entry" role="listitem">
+Zeileis A (2019) Dynlm: Dynamic linear regression. R package version 0.3-6, <a href="https://CRAN.R-project.org/package=dynlm">https://CRAN.R-project.org/package=dynlm</a>
+</div>
+</div>
+
+</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -570,10 +1149,16 @@ gamlss.util not found</code></pre>
       }
     }
   });
-  </script>
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./app06_practice_exercises.html" class="pagination-link" aria-label="Practice exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Practice exercises</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
 
-
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/edit/main/software.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

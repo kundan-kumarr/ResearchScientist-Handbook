@@ -166,12 +166,10 @@ For example, see Section 5.2 in @Chatterjee:Simonoff:2013 for more details.
 A widely used test for examining whether the residuals in a regression model are correlated is the Durbin--Watson test. 
 This test is based on the AR(1) model for $\epsilon_{t}$. 
 The one-tail test alternatives are
-$$
 \begin{align}
 H_{0}{:} ~ \rho = 0 & ~~ vs. ~~ H_{1}{:} ~ \rho > 0,\\
 H_{0}{:} ~ \rho = 0 & ~~ vs. ~~ H_{1}{:} ~ \rho < 0,
 \end{align}
-$$
 and the two-tail test is
 $$
 H_{0}{:} ~ \rho = 0 ~~ vs. ~~ H_{1}{:} ~ \rho \neq 0.\\
@@ -529,9 +527,9 @@ H_{1}{:} ~ \beta_{j} &\neq 0 ~~~ \mbox{for at least one} ~~~ j \in \{1, \dots, p
 \end{split}
 $$
 
-Formally, $F_{\rm{obs}} = \rm{MSR/MSE}$ (the ratio of the mean square due to regression and the mean square due to stochastic errors).
+Formally, $F_{\mathrm{obs}} = \mathrm{MSR/MSE}$ (the ratio of the mean square due to regression and the mean square due to stochastic errors).
 
-We reject $H_{0}$ when $F_{\rm{obs}}$ is too large relative to a cut-off point determined by the degrees of freedom of the $F$-distribution. 
+We reject $H_{0}$ when $F_{\mathrm{obs}}$ is too large relative to a cut-off point determined by the degrees of freedom of the $F$-distribution. 
 The $p$-value for this $F$-test is provided in the `lm()` output. 
 Rejecting $H_{0}$ is equivalent to stating that the model has some explanatory value within the range of the data set, meaning that changes in at least some of the explanatory $X$-variables correlate to changes in the average value of $Y$.
 
@@ -544,12 +542,12 @@ $$
 $$
 and, hence,
 $$
-\rm{SSR}=\rm{SST}-\rm{SSE}.
+\mathrm{SSR}=\mathrm{SST}-\mathrm{SSE}.
 $$
 
 To conclude that the model has a reasonable fit, however, we would additionally like to see a high $R^{2}$ value, where
 $$
-R^{2} = \rm{SSR/SST}
+R^{2} = \mathrm{SSR/SST}
 $$
 is the proportion of the total sum of squares explained by the regression.
 

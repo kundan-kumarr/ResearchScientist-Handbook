@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="A structured preparation curriculum for Research Scientist roles at industrial AI labs, academic research groups, and applied ML organizations. Covers mathematical foundations through modern LLMs, deep RL, and trustworthy AI.">
 
-<title>References – Research Scientist Guide</title>
+<title>References – Interview Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,8 +50,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./s1_wls.html" rel="next">
-<link href="./l18_stattesting.html" rel="prev">
+<link href="./app01_weighted_least_squares.html" rel="next">
+<link href="./ch15_causality.html" rel="prev">
 <link href="./favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -59,10 +60,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-25a4e8620ae17d49cd0c3861fdf92567.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -120,20 +121,20 @@ div.csl-indent {
       <a href="./index.html" class="sidebar-logo-link">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Research Scientist Guide</a> 
+      <a href="./">Interview Guide</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/kundan-kumarr/StatSphere/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Guide.pdf">
+            <a class="dropdown-item sidebar-tools-main-item" href="./Interview-Guide.pdf">
               <i class="bi bi-file-pdf pe-1"></i>
             Download PDF
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Research-Scientist-Guide.epub">
+            <a class="dropdown-item sidebar-tools-main-item" href="./Interview-Guide.epub">
               <i class="bi bi-journal pe-1"></i>
             Download ePub
             </a>
@@ -150,9 +151,9 @@ div.csl-indent {
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-facebook pe-1"></i>
-            Facebook
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
             </a>
           </li>
       </ul>
@@ -178,114 +179,224 @@ div.csl-indent {
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 1 - Mathematical Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l01_stat_math.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch01_statistics_math.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics &amp; Mathematics</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l02_ds.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
+  <a href="./ch18_statistical_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 2 - Algorithms &amp; Data Engineering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l03_algorithm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Algorithms Coding Patterns</span></span></a>
+  <a href="./ch02_data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Structures with Python</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l04_data_pipe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">ML Data Pipelines</span></span></a>
+  <a href="./ch03_algorithms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Algorithms &amp; Coding Patterns</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l05_ml.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
+  <a href="./ch04_data_pipelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ML Data Pipelines</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 3 - Classical Machine Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l06_dl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
+  <a href="./ch05_machine_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Machine Learning Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l07_time_series.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch07_time_series.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Time-Series Analysis and Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 4 - Deep Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l08_drl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
+  <a href="./ch06_deep_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Neural Network</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l09_model_eval.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span></a>
+  <a href="./ch13_computer_vision.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Computer Vision and Visual Intelligence</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 5 - Deep Reinforcement Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l10_llms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Large Language Models</span></span></a>
+  <a href="./ch08_reinforcement_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Deep Reinforcement Learning</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 6 - Large Language Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l11_llms_finetuning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fine-Tuning and Adaptation of LLMs</span></span></a>
+  <a href="./ch10_large_language_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Large Language Models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l12_compression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Compression, Deployment, and Efficiency</span></span></a>
+  <a href="./ch11_llm_finetuning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Fine-Tuning and Adaptation of LLMs</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 7 - Model Compression &amp; Deployment</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l13_computervision.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Computer Vision and Visual Intelligence</span></span></a>
+  <a href="./ch12_model_compression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Compression, Deployment, and Efficiency</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l14_multimodal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Multimodal</span></span></a>
+  <a href="./ch17_scalability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 8 - Research Design &amp; Evaluation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l15_casuality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
+  <a href="./ch09_model_evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Model Evaluation and Analysis</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 9 - Trustworthy &amp; Robust AI</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l16_secureai.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch16_trustworthy_ai.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Trustworthy &amp; Secure AI</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Module 10 - Emerging Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l17_scalability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Scalability &amp; Optimization</span></span></a>
+  <a href="./ch14_multimodal_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Multimodal</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./l18_stattesting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span></a>
+  <a href="./ch15_causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Causality</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link active">
@@ -294,41 +405,53 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./s1_wls.html" class="sidebar-item-text sidebar-link">
+  <a href="./app01_weighted_least_squares.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Weighted least squares</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./s2_gls.html" class="sidebar-item-text sidebar-link">
+  <a href="./app02_generalized_least_squares.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Generalized least squares</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./s4_trendsync.html" class="sidebar-item-text sidebar-link">
+  <a href="./app03_trend_synchrony.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Synchrony of parametric trends</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./s6_extremes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Analysis of precipitation extremes and climate projections</span></span></a>
+  <a href="./app04_time_series_clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Time Series Clustering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./s_practice.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Practice exercises</span></span></a>
+  <a href="./app05_extreme_value_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Analysis of precipitation extremes and climate projections</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app06_practice_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Practice exercises</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software</span></a>
   </div>
 </li>
       </ul>
@@ -364,14 +487,14 @@ div.csl-indent {
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-R-rmarkdown" class="csl-entry" role="listitem">
+Allaire J, Xie Y, Dervieux C, et al (2026) Rmarkdown: Dynamic documents
+for r. R package version 2.31, <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>
+</div>
 <div id="ref-Benson:etal:2020" class="csl-entry" role="listitem">
 Benson B, Magnuson J, Sharma S (2020) <a href="https://doi.org/10.7265/N5W66HP8">Global lake and river ice
 phenology database. <span>Version 1 (G01377)</span></a>. <span>National
 Snow and Ice Data Center</span>, Boulder, CO, USA
-</div>
-<div id="ref-Berk:2016" class="csl-entry" role="listitem">
-Berk RA (2016) <a href="https://doi.org/10.1007/978-3-319-44048-4">Statistical learning
-from a regression perspective</a>, 2nd edn. Springer, Switzerland
 </div>
 <div id="ref-Bickel:etal:1997" class="csl-entry" role="listitem">
 Bickel PJ, Götze F, Zwet WR van (1997) Resampling fewer than <span class="math inline"><em>n</em></span> observations: Gains, losses, and
@@ -386,6 +509,10 @@ Bollerslev T (2009) <a href="https://doi.org/10.2139/ssrn.1263250">Glossary to
 <span>ARCH</span> <span>(GARCH)</span></a>. In: Volatility and time
 series econometrics: Essays in honour of <span>Robert F. Engle</span>.
 SSRN
+</div>
+<div id="ref-R-pracma" class="csl-entry" role="listitem">
+Borchers HW (2025) Pracma: Practical numerical math functions. R package
+version 2.4.6, <a href="https://CRAN.R-project.org/package=pracma">https://CRAN.R-project.org/package=pracma</a>
 </div>
 <div id="ref-Box:Jenkins:1976" class="csl-entry" role="listitem">
 Box GEP, Jenkins GM (1976) Time series analysis: Forecasting and
@@ -403,9 +530,17 @@ model selection. The European Journal of Finance 9:557–580. <a href="https://d
 Bühlmann P (2002) Bootstraps for time series. Statistical Science
 17:52–72. <a href="https://doi.org/10.1214/ss/1023798998">https://doi.org/10.1214/ss/1023798998</a>
 </div>
+<div id="ref-R-dplR" class="csl-entry" role="listitem">
+Bunn A, Korpela M, Biondi F, et al (2025) dplR: Dendrochronology program
+library in r. R package version 1.7.8, <a href="https://github.com/OpenDendro/dplR">https://github.com/OpenDendro/dplR</a>
+</div>
 <div id="ref-Cabilio:etal:2013" class="csl-entry" role="listitem">
 Cabilio P, Zhang Y, Chen X (2013) Bootstrap rank tests for trend in time
 series. Environmetrics 24:537–549. <a href="https://doi.org/10.1002/env.2250">https://doi.org/10.1002/env.2250</a>
+</div>
+<div id="ref-R-randtests" class="csl-entry" role="listitem">
+Caeiro F, Mateus A (2024) Randtests: Testing randomness in r. R package
+version 1.0.2, <a href="https://CRAN.R-project.org/package=randtests">https://CRAN.R-project.org/package=randtests</a>
 </div>
 <div id="ref-Campbell:Diebold:2005" class="csl-entry" role="listitem">
 Campbell SD, Diebold FX (2005) Weather forecasting for weather
@@ -430,11 +565,6 @@ John Wiley &amp; Sons, Hoboken, NJ, USA
 Chatterjee S, Simonoff JS (2013) Handbook of regression analysis. John
 Wiley &amp; Sons, Hoboken, NJ, USA
 </div>
-<div id="ref-Cleveland:1979" class="csl-entry" role="listitem">
-Cleveland WS (1979) Robust locally weighted regression and smoothing
-scatterplots. Journal of the American Statistical Association
-74:829–836. <a href="https://doi.org/10.1080/01621459.1979.10481038">https://doi.org/10.1080/01621459.1979.10481038</a>
-</div>
 <div id="ref-Cochrane:Orcutt:1949" class="csl-entry" role="listitem">
 Cochrane D, Orcutt GH (1949) Application of least squares regression to
 relationships containing auto-correlated error terms. Journal of the
@@ -444,6 +574,10 @@ American Statistical Association 44:32–61. <a href="https://doi.org/10.2307/22
 Cripps E, Dunsmuir WTM (2003) Modeling the variability of
 <span>Sydney</span> <span>Harbor</span> wind measurements. Journal of
 Applied Meteorology 42:1131–1138. <a href="https://doi.org/10.1175/1520-0450(2003)042<1131:MTVOSH>2.0.CO;2">https://doi.org/10.1175/1520-0450(2003)042&lt;1131:MTVOSH&gt;2.0.CO;2</a>
+</div>
+<div id="ref-R-Ecdat" class="csl-entry" role="listitem">
+Croissant Y, Graves S (2025) Ecdat: Data sets for econometrics. R
+package version 0.4.7, <a href="https://www.r-project.org">https://www.r-project.org</a>
 </div>
 <div id="ref-Davison:Hinkley:1997" class="csl-entry" role="listitem">
 Davison AC, Hinkley DV (1997) Bootstrap methods and their application.
@@ -486,11 +620,17 @@ Processes 10:127–149. <a href="https://doi.org/10.1002/(SICI)1099-1085(199602)
 Eun CS, Lee J (2010) Mean-variance convergence around the world. Journal
 of Banking &amp; Finance 34:856–870. <a href="https://doi.org/10.1016/j.jbankfin.2009.09.016">https://doi.org/10.1016/j.jbankfin.2009.09.016</a>
 </div>
-<div id="ref-Hall:VanKeilegom:2003" class="csl-entry" role="listitem">
-Hall P, Van Keilegom I (2003) Using difference-based methods for
-inference in nonparametric regression with time series errors. Journal
-of the Royal Statistical Society: Series B (Statistical Methodology)
-65:443–456. <a href="https://doi.org/10.1111/1467-9868.00395">https://doi.org/10.1111/1467-9868.00395</a>
+<div id="ref-R-mgcViz" class="csl-entry" role="listitem">
+Fasiolo M, Nedellec R (2025) mgcViz: Visualisations for generalized
+additive models. R package version 0.2.1, <a href="https://github.com/mfasiolo/mgcViz">https://github.com/mfasiolo/mgcViz</a>
+</div>
+<div id="ref-R-lawstat" class="csl-entry" role="listitem">
+Gastwirth JL, Gel YR, Hui WLW, et al (2023) Lawstat: Tools for
+biostatistics, public policy, and law. R package version 3.6, <a href="https://CRAN.R-project.org/package=lawstat">https://CRAN.R-project.org/package=lawstat</a>
+</div>
+<div id="ref-R-FinTS" class="csl-entry" role="listitem">
+Graves S (2024) FinTS: Companion to tsay (2005) analysis of financial
+time series. R package version 0.4-9, <a href="https://geobosh.github.io/FinTSDoc/">https://geobosh.github.io/FinTSDoc/</a>
 </div>
 <div id="ref-Hansen:Lunde:2005" class="csl-entry" role="listitem">
 Hansen PR, Lunde A (2005) A comparison of volatility models: Does
@@ -510,6 +650,28 @@ edn. Springer, New York, NY, USA
 Hirsch RM, Slack JR, Smith RA (1982) Techniques of trend analysis for
 monthly water quality data. Water Resources Research 18:107–121. <a href="https://doi.org/10.1029/WR018i001p00107">https://doi.org/10.1029/WR018i001p00107</a>
 </div>
+<div id="ref-R-lmtest" class="csl-entry" role="listitem">
+Hothorn T, Zeileis A, Farebrother RW, Cummins C (2022) Lmtest: Testing
+linear regression models. R package version 0.9-40, <a href="https://CRAN.R-project.org/package=lmtest">https://CRAN.R-project.org/package=lmtest</a>
+</div>
+<div id="ref-R-fma" class="csl-entry" role="listitem">
+Hyndman R (2023) Fma: Data sets from "forecasting: Methods and
+applications" by makridakis, wheelwright &amp; hyndman (1998). R package
+version 2.5, <a href="https://pkg.robjhyndman.com/fma/">https://pkg.robjhyndman.com/fma/</a>
+</div>
+<div id="ref-R-forecast" class="csl-entry" role="listitem">
+Hyndman R, Athanasopoulos G, Bergmeir C, et al (2026) Forecast:
+Forecasting functions for time series and linear models. R package
+version 9.0.2, <a href="https://pkg.robjhyndman.com/forecast/">https://pkg.robjhyndman.com/forecast/</a>
+</div>
+<div id="ref-R-ggpubr" class="csl-entry" role="listitem">
+Kassambara A (2026) Ggpubr: ggplot2 based publication ready plots. R
+package version 0.6.3, <a href="https://rpkgs.datanovia.com/ggpubr/">https://rpkgs.datanovia.com/ggpubr/</a>
+</div>
+<div id="ref-R-oce" class="csl-entry" role="listitem">
+Kelley D, Richards C (2024) Oce: Analysis of oceanographic data. R
+package version 1.8-3, <a href="https://dankelley.github.io/oce/">https://dankelley.github.io/oce/</a>
+</div>
 <div id="ref-Kendall:1975" class="csl-entry" role="listitem">
 Kendall MG (1975) Rank correlation methods, 4th edn. Charles Griffin,
 London, UK
@@ -518,21 +680,23 @@ London, UK
 Kirchgässner G, Wolters J (2007) <a href="https://doi.org/10.1007/978-3-540-73291-4">Introduction to modern
 time series analysis</a>. Springer-Verlag, Berlin, Germany
 </div>
-<div id="ref-Kohn:etal:2000" class="csl-entry" role="listitem">
-Kohn R, Schimek MG, Smith M (2000) <a href="https://doi.org/10.1002/9781118150658.ch6">Spline and kernel
-regression for dependent data</a>. In: Schimek MG (ed) Smoothing and
-regression: Approaches, computation, and application. John Wiley &amp;
-Sons, Inc., New York, pp 135–158
-</div>
 <div id="ref-Kreiss:etal:2011" class="csl-entry" role="listitem">
 Kreiss J-P, Paparoditis E, Politis DN (2011) On the range of validity of
 the autoregressive sieve bootstrap. Annals of Statistics 39:2103–2130.
 <a href="https://doi.org/10.1214/11-AOS900">https://doi.org/10.1214/11-AOS900</a>
 </div>
+<div id="ref-R-TSstudio" class="csl-entry" role="listitem">
+Krispin R (2023) TSstudio: Functions for time series analysis and
+forecasting. R package version 0.1.7, <a href="https://github.com/RamiKrispin/TSstudio">https://github.com/RamiKrispin/TSstudio</a>
+</div>
 <div id="ref-Latifovic:Pouliot:2007" class="csl-entry" role="listitem">
 Latifovic R, Pouliot D (2007) Analysis of climate change impacts on lake
 ice phenology in <span>Canada</span> using the historical satellite data
 record. Remote Sensing of Environment 106:492–507. <a href="https://doi.org/10.1016/j.rse.2006.09.015">https://doi.org/10.1016/j.rse.2006.09.015</a>
+</div>
+<div id="ref-R-signal" class="csl-entry" role="listitem">
+Ligges U, Short T, Kienzle P (2024) Signal: Signal processing. R package
+version 1.8-1, <a href="https://signal.R-forge.R-project.org">https://signal.R-forge.R-project.org</a>
 </div>
 <div id="ref-Lomb:1976" class="csl-entry" role="listitem">
 Lomb NR (1976) Least-squares frequency analysis of unequally spaced
@@ -553,6 +717,10 @@ Lyubchich V, Gel YR, El‐Shaarawi A (2013) On detecting non‐monotonic
 trends in environmental time series: A fusion of local regression and
 bootstrap. Environmetrics 24:209–226. <a href="https://doi.org/10.1002/env.2212">https://doi.org/10.1002/env.2212</a>
 </div>
+<div id="ref-R-funtimes" class="csl-entry" role="listitem">
+Lyubchich V, Gel YR, Vishwakarma S (2025) Funtimes: Functions for time
+series analysis. R package version 10.0, <a href="https://CRAN.R-project.org/package=funtimes">https://CRAN.R-project.org/package=funtimes</a>
+</div>
 <div id="ref-Lyubchich:etal:2016:symmetry" class="csl-entry" role="listitem">
 Lyubchich V, Wang X, Heyes A, Gel YR (2016) A distribution-free <span class="math inline"><em>m</em></span>-out-of-<span class="math inline"><em>n</em></span> bootstrap approach to testing
 symmetry about an unknown median. Computational Statistics &amp; Data
@@ -563,6 +731,10 @@ Marinova D, McAleer M (2003) Modelling trends and volatility in
 ecological patents in the <span>USA</span>. Environmental Modelling
 &amp; Software 18:195–203. <a href="https://doi.org/10.1016/S1364-8152(02)00079-8">https://doi.org/10.1016/S1364-8152(02)00079-8</a>
 </div>
+<div id="ref-R-Kendall" class="csl-entry" role="listitem">
+McLeod AI (2025) Kendall: Kendall rank correlation and mann-kendall
+trend test. R package version 2.2.2, <a href="http://www.stats.uwo.ca/faculty/aim">http://www.stats.uwo.ca/faculty/aim</a>
+</div>
 <div id="ref-Nason:2008" class="csl-entry" role="listitem">
 Nason GP (2008) <a href="https://doi.org/10.1007/978-0-387-75961-6_2">Wavelet methods in
 statistics with <span>R</span></a>. Springer, New York, NY, USA
@@ -571,6 +743,14 @@ statistics with <span>R</span></a>. Springer, New York, NY, USA
 Noguchi K, Gel YR, Duguay CR (2011) Bootstrap-based tests for trends in
 hydrological time series, with application to ice phenology data.
 Journal of Hydrology 410:150–161. <a href="https://doi.org/10.1016/j.jhydrol.2011.09.008">https://doi.org/10.1016/j.jhydrol.2011.09.008</a>
+</div>
+<div id="ref-R-fable" class="csl-entry" role="listitem">
+O’Hara-Wild M, Hyndman R, Wang E (2026a) Fable: Forecasting models for
+tidy time series. R package version 0.5.0, <a href="https://fable.tidyverts.org">https://fable.tidyverts.org</a>
+</div>
+<div id="ref-R-feasts" class="csl-entry" role="listitem">
+O’Hara-Wild M, Hyndman R, Wang E (2026b) Feasts: Feature extraction and
+statistics for time series. R package version 0.5.0, <a href="http://feasts.tidyverts.org/">http://feasts.tidyverts.org/</a>
 </div>
 <div id="ref-Park:etal:2014" class="csl-entry" role="listitem">
 Park C, Hannig J, Kang K-H (2014) Nonparametric comparison of multiple
@@ -581,6 +761,18 @@ Statistics 23:657–677. <a href="https://doi.org/10.1080/10618600.2013.822816">
 Park C, Vaughan A, Hannig J, Kang K-H (2009) Si<span>Z</span>er analysis
 for the comparison of time series. Journal of Statistical Planning and
 Inference 139:3974–3988. <a href="https://doi.org/10.1016/j.jspi.2009.05.003">https://doi.org/10.1016/j.jspi.2009.05.003</a>
+</div>
+<div id="ref-R-patchwork" class="csl-entry" role="listitem">
+Pedersen TL (2025) Patchwork: The composer of plots. R package version
+1.3.2, <a href="https://patchwork.data-imaginist.com">https://patchwork.data-imaginist.com</a>
+</div>
+<div id="ref-R-urca" class="csl-entry" role="listitem">
+Pfaff B (2024) Urca: Unit root and cointegration tests for time series
+data. R package version 1.3-4, <a href="https://CRAN.R-project.org/package=urca">https://CRAN.R-project.org/package=urca</a>
+</div>
+<div id="ref-R-nlme" class="csl-entry" role="listitem">
+Pinheiro J, Bates D, R Core Team (2025) Nlme: Linear and nonlinear mixed
+effects models. R package version 3.1-168, <a href="https://svn.r-project.org/R-packages/trunk/nlme/">https://svn.r-project.org/R-packages/trunk/nlme/</a>
 </div>
 <div id="ref-Powell:Xu:2011" class="csl-entry" role="listitem">
 Powell AM, Xu J (2011) Abrupt climate regime shifts, their potential
@@ -595,6 +787,9 @@ Ruf T (1999) The <span>Lomb–Scargle</span> periodogram in biological
 rhythm research: Analysis of incomplete and unequally spaced
 time-series. Biological Rhythm Research 30:178–201. <a href="https://doi.org/10.1076/brhm.30.2.178.1422">https://doi.org/10.1076/brhm.30.2.178.1422</a>
 </div>
+<div id="ref-R-lomb" class="csl-entry" role="listitem">
+Ruf T (2024) Lomb: Lomb-scargle periodogram. R package version 2.5.0, <a href="https://CRAN.R-project.org/package=lomb">https://CRAN.R-project.org/package=lomb</a>
+</div>
 <div id="ref-Rydberg:2000" class="csl-entry" role="listitem">
 Rydberg TH (2000) Realistic statistical modelling of financial data.
 International Statistical Review 68:233–258. <a href="https://doi.org/10.2307/1403412">https://doi.org/10.2307/1403412</a>
@@ -604,29 +799,45 @@ Scargle JD (1982) Studies in astronomical time series analysis.
 <span>II</span> – statistical aspects of spectral analysis of unevenly
 spaced data. Astrophysical Journal 263:835–853. <a href="https://doi.org/10.1086/160554">https://doi.org/10.1086/160554</a>
 </div>
+<div id="ref-R-GGally" class="csl-entry" role="listitem">
+Schloerke B, Cook D, Larmarange J, et al (2025) GGally: Extension to
+ggplot2. R package version 2.4.0, <a href="https://ggobi.github.io/ggally/">https://ggobi.github.io/ggally/</a>
+</div>
 <div id="ref-Seidel:etal:2004" class="csl-entry" role="listitem">
 Seidel DJ, Lanzante JR (2004) An assessment of three alternatives to
 linear trends for characterizing global atmospheric temperature changes.
 Journal of Geophysical Research: Atmospheres 109: <a href="https://doi.org/10.1029/2003JD004414">https://doi.org/10.1029/2003JD004414</a>
-</div>
-<div id="ref-Shumway:Stoffer:2014" class="csl-entry" role="listitem">
-Shumway RH, Stoffer DS (2014) Time series analysis and its applications
-with <span>R</span> examples, 3-EZ. Free Texts in Statistics
 </div>
 <div id="ref-Shumway:Stoffer:2017" class="csl-entry" role="listitem">
 Shumway RH, Stoffer DS (2017) <a href="https://doi.org/10.1007/978-3-319-52452-8">Time series analysis
 and its applications with <span>R</span> examples</a>, 4th edn.
 Springer, New York, NY, USA
 </div>
+<div id="ref-R-plotly" class="csl-entry" role="listitem">
+Sievert C, Parmer C, Hocking T, et al (2026) Plotly: Create interactive
+web graphics via plotly.js. R package version 4.12.0, <a href="https://plotly-r.com">https://plotly-r.com</a>
+</div>
 <div id="ref-Siskey:etal:2016:periodicity" class="csl-entry" role="listitem">
 Siskey MR, Lyubchich V, Liang D, et al (2016) Periodicity of <span class="nocase">strontium:calcium</span> across annuli further validates
 otolith-ageing for <span>Atlantic</span> bluefin tuna
 (<span>Thunnus</span> thynnus). Fisheries Research 177:13–17. <a href="https://doi.org/10.1016/j.fishres.2016.01.004">https://doi.org/10.1016/j.fishres.2016.01.004</a>
 </div>
+<div id="ref-R-gamlss" class="csl-entry" role="listitem">
+Stasinopoulos M, Rigby R (2025) Gamlss: Generalized additive models for
+location scale and shape. R package version 5.5-0, <a href="https://www.gamlss.com/">https://www.gamlss.com/</a>
+</div>
+<div id="ref-R-astsa" class="csl-entry" role="listitem">
+Stoffer D (2026) Astsa: Applied statistical time series analysis. R
+package version 2.5, <a href="https://dsstoffer.github.io/">https://dsstoffer.github.io/</a>
+</div>
 <div id="ref-Taylor:Buizza:2004" class="csl-entry" role="listitem">
 Taylor JW, Buizza R (2004) A comparison of temperature density forecasts
 from <span>GARCH</span> and atmospheric models. Journal of Forecasting
 23:337–355. <a href="https://doi.org/10.1002/for.917">https://doi.org/10.1002/for.917</a>
+</div>
+<div id="ref-R-tseries" class="csl-entry" role="listitem">
+Trapletti A, Hornik K (2026) Tseries: Time series analysis and
+computational finance. R package version 0.10-61, <a href="https://CRAN.R-project.org/package=tseries">https://CRAN.R-project.org/package=tseries</a>
 </div>
 <div id="ref-Tsay:2005" class="csl-entry" role="listitem">
 Tsay RS (2005) Analysis of financial time series, 2nd edn. John Wiley
@@ -645,13 +856,47 @@ Wang L, Akritas MG, Van Keilegom I (2008) An <span>ANOVA</span>-type
 nonparametric diagnostic test for heteroscedastic regression models.
 Journal of Nonparametric Statistics 20:365–382. <a href="https://doi.org/10.1080/10485250802066112">https://doi.org/10.1080/10485250802066112</a>
 </div>
-<div id="ref-Wood:2006book" class="csl-entry" role="listitem">
-Wood SN (2006) Generalized additive models: An introduction with r.
-Chapman; Hall/CRC, New York, NY, USA
+<div id="ref-R-downlit" class="csl-entry" role="listitem">
+Wickham H (2025) Downlit: Syntax highlighting and automatic linking. R
+package version 0.4.5, <a href="https://downlit.r-lib.org/">https://downlit.r-lib.org/</a>
+</div>
+<div id="ref-R-ggplot2" class="csl-entry" role="listitem">
+Wickham H, Chang W, Henry L, et al (2026a) ggplot2: Create elegant data
+visualisations using the grammar of graphics. R package version 4.0.3,
+<a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>
+</div>
+<div id="ref-R-dplyr" class="csl-entry" role="listitem">
+Wickham H, François R, Henry L, et al (2026b) Dplyr: A grammar of data
+manipulation. R package version 1.2.1, <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>
+</div>
+<div id="ref-R-readr" class="csl-entry" role="listitem">
+Wickham H, Hester J, Bryan J (2026c) Readr: Read rectangular text data.
+R package version 2.2.0, <a href="https://readr.tidyverse.org">https://readr.tidyverse.org</a>
+</div>
+<div id="ref-R-xml2" class="csl-entry" role="listitem">
+Wickham H, Hester J, Ooms J (2026d) xml2: Parse XML. R package version
+1.5.2, <a href="https://xml2.r-lib.org">https://xml2.r-lib.org</a>
+</div>
+<div id="ref-R-mgcv" class="csl-entry" role="listitem">
+Wood S (2025) Mgcv: Mixed GAM computation vehicle with automatic
+smoothness estimation. R package version 1.9-4, <a href="https://CRAN.R-project.org/package=mgcv">https://CRAN.R-project.org/package=mgcv</a>
 </div>
 <div id="ref-Wooldridge:2013" class="csl-entry" role="listitem">
 Wooldridge JM (2013) Introductory econometrics: A modern approach, 5th
 edn. Cengage Learning, Mason, OH, USA
+</div>
+<div id="ref-R-fGarch" class="csl-entry" role="listitem">
+Wuertz D, Chalabi Y, Setz T, et al (2025) fGarch: Rmetrics -
+autoregressive conditional heteroskedastic modelling. R package version
+4052.93, <a href="https://geobosh.github.io/fGarchDoc/">https://geobosh.github.io/fGarchDoc/</a>
+</div>
+<div id="ref-R-knitr" class="csl-entry" role="listitem">
+Xie Y (2025) Knitr: A general-purpose package for dynamic report
+generation in r. R package version 1.51, <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>
+</div>
+<div id="ref-R-dynlm" class="csl-entry" role="listitem">
+Zeileis A (2019) Dynlm: Dynamic linear regression. R package version
+0.3-6, <a href="https://CRAN.R-project.org/package=dynlm">https://CRAN.R-project.org/package=dynlm</a>
 </div>
 <div id="ref-Zhang:2013" class="csl-entry" role="listitem">
 Zhang T (2013) Clustering high-dimensional time series based on
@@ -1065,12 +1310,12 @@ parallelism. Journal of the American Statistical Association
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./l18_stattesting.html" class="pagination-link" aria-label="Statistical Analysis &amp; Testing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Analysis &amp; Testing</span></span>
+      <a href="./ch15_causality.html" class="pagination-link" aria-label="Causality">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Causality</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./s1_wls.html" class="pagination-link" aria-label="Weighted least squares">
+      <a href="./app01_weighted_least_squares.html" class="pagination-link" aria-label="Weighted least squares">
         <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Weighted least squares</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1080,4 +1325,4 @@ parallelism. Journal of the American Statistical Association
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/StatSphere/edit/master/references.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/StatSphere/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/edit/main/references.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kundan-kumarr/ResearchScientist-Handbook/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

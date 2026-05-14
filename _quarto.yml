@@ -3,8 +3,8 @@ project:
     output-dir: docs
 
 book:
-    title: "From First Principles"
-    subtitle: "A Research Scientist Interview Guide - 2026 Edition"
+    title: "Interview Guide"
+    subtitle: "Research Scientist Interview Guide - 2026 Edition"
     author:
         - name: Kundan Kumar
           url: https://kundan-kumarr.github.io/
@@ -25,7 +25,7 @@ book:
     reader-mode: true
     sidebar:
         search: true
-        title: "First Principles"
+        title: "Interview Guide"
     chapters:
         - index.qmd
         - part: "Module 1 - Mathematical Foundations"
@@ -89,7 +89,7 @@ format:
         highlight-style: github
         code-fold: true
         code-link: true
-        code-tools: true
+        code-tools: false
         toc: true
         toc-depth: 3
         fig-width: 8
@@ -100,9 +100,30 @@ format:
             chapters: true
     pdf:
         documentclass: scrbook
+        classoption: [oneside, open=any]
+        papersize: letter
+        fontsize: 11pt
+        geometry:
+            - top=25mm
+            - bottom=25mm
+            - left=25mm
+            - right=25mm
+        toc: true
+        toc-depth: 2
         number-sections: true
+        colorlinks: true
+        linkcolor: "NavyBlue"
+        urlcolor: "NavyBlue"
+        include-in-header:
+            text: |
+                \usepackage{microtype}
+                \usepackage{booktabs}
+                \usepackage{float}
     epub:
         cover-image: cover.png
+        toc: true
+        toc-depth: 2
+        epub-chapter-level: 2
 
 engine: knitr
 knitr:

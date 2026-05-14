@@ -317,8 +317,8 @@ $$
 $$
 where MST is the treatment sum of squares, MSE is the error sum of squares, $\{V_{i1}, \dots, V_{ik_n}\}$ is $k_n$ pre-filtered observations in the $i$th group, $\overline{V}_{i.}$ is the mean of the $i$th group, $\overline{V}_{..}$ is the grand mean.
 
-Both $n\to \infty$ and $k_n\to \infty$; $\rm{MSE}\to$ constant. 
-Hence, we can consider $\sqrt{n}(\rm{MST}-\rm{MSE})$ instead of $\sqrt{n}(F_n-1)$.
+Both $n\to \infty$ and $k_n\to \infty$; $\mathrm{MSE}\to$ constant. 
+Hence, we can consider $\sqrt{n}(\mathrm{MST}-\mathrm{MSE})$ instead of $\sqrt{n}(F_n-1)$.
 
 @Lyubchich:etal:2013:wavk extended the WAVK approach:
 
@@ -384,7 +384,7 @@ Instead, consider a model that assumes a unit root ($H_0$: unit root is present)
 $$
 \begin{split}
 \Delta X_t = X_t - X_{t-1} &= \phi^*_0 + \phi^*_1X_{t-1}+Z_t,\\
-Z_t & \sim {\rm WN}(0,\sigma^2),
+Z_t & \sim \mathrm{WN}(0,\sigma^2),
 \end{split}
 $${#eq-DFtest}
 where $\phi^*_0=\mu(1-\phi_1)$ and $\phi_1^*=\phi_1 -1$. 
